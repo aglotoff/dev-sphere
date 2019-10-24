@@ -1,4 +1,4 @@
-# DevCircle
+# DevSphere
 
 > Social network app for software developers built with the MERN stack.
 
