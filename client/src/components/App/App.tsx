@@ -1,12 +1,29 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
 
-import styles from './App.module.scss';
+import Home from '../Home/Home';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
 
 const App: React.FC = () => {
     return (
-        <div className={styles.App}>
-          <h1>Hello World</h1>
-        </div>
+        <Router>
+            <Switch>
+                <Route path="/login">
+                    <Login />
+                </Route>
+                <Route path="/register">
+                    <Register />
+                </Route>
+                <Route path="/">
+                    <Home />
+                </Route>
+            </Switch>
+        </Router>
     );
 }
 
