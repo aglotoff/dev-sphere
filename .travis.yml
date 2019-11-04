@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+- node
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: gJMjpZFBLpZ8fBTu7bvUezG3lxiZCwWe483KfMrYJDZoJSfG99+eeoW9WUxYC+U+alhWIQq3WuG42yjRxEmdVKp6elasHHHix+GJ3OX0WGqArA/JeGpe/H5eGcpxQHghkgYUpxvVpcuzAbc+a6wEsd7NMK941HpN9Z9VkLdF4c9IWYK41DmiO0zgI+Sd9NN7nHBjKVCWwnde151/hOIdE0j1BxW0jT3O93cSt6vR6MfMFMKlrzxaM3UHizh1apxP3n9v03hYeYyF4c6qe8mq+we49bxFdgThdXJjDtUb+qfjQwy5GNcAk22lHkt/lwdBfgQG8lDdSpPnczHx4szNSG5OoiAHtJCvRuMCds4iIX3pFGhv/fZ6afFr7xDu0sH4KMK9z+CAayo7XNoKb7jUiAOnqGT+4jqvL7F1M/H/35NPdeyQtaPbq0b+bz2X6EXSU9kFA/FD2b8YnkJWU3sWPE5sxejKt9b2Y7q54ohML8sWmtVGa6VMaCC9JYqrPD41buTycMK9Ro4teOUMd4wUwfoen4oRmDefJ6XMhQo8wo2z34+M/f8JEOH96weICuRXHfH3pn+kzyjnrni99vD0JTfllZWz1n+gIjHD/HtAib9L1DE+sSlGkJmvLBmfx/DqbHaDU/fHtlDo+5U6rsUSbc+/7+BqzIYQugv2f9V7kLc=
+  on:
+    branch: develop

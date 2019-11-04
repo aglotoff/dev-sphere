@@ -1,6 +1,8 @@
 # DevSphere
 
-> Social network app for software developers built with the MERN stack.
+[![Build Status](https://travis-ci.org/aglotoff/dev-sphere.svg?branch=develop)](https://travis-ci.org/aglotoff/dev-sphere)
+
+Social network app for software developers built with the MERN stack.
 
 ## Quick Start
 
