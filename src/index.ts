@@ -32,16 +32,19 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-// Default error handler
-app.use((
-    err: any,
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction,
-) => {
+/**
+ * Default error handler.
+ *
+ * @param err The error object
+ * @param req The HTTP request object
+ * @param res The HTTP response object
+ * @param next Passes control to the next middleware function
+ */
+const handleError: express.ErrorRequestHandler = (err, req, res, next) => {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
-});
+};
+app.use(handleError);
 
 // Connect to MongoDB and start the server
 (async () => {

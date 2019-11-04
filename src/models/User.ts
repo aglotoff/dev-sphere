@@ -1,29 +1,27 @@
+/**
+ * @file User model definition
+ * @author Andrey Glotov
+ */
+
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Document, Model, model, Schema } from 'mongoose';
 
-const SALT_ROUNDS = 10;
-const JWT_SECRET = process.env.JWT_SECRET || 'secret';
-const JWT_EXPIRE = 3600;
-
+/** App User Model  */
 export interface IUserModel extends Document {
-    /**
-     * Full user name
-     */
+    /** Full user name */
     fullName: string;
 
-    /**
-     * User email
-     */
+    /** User email ID */
     email: string;
 
-    /**
-     * Hashed password
-     */
+    /** Password (hashed on save) */
     password: string;
 
     /**
      * Check password of this user.
+     *
+     * @async
      *
      * @param password The password to check
      *
@@ -40,6 +38,10 @@ export interface IUserModel extends Document {
      */
     generateJwt(): Promise<string>;
 }
+
+const SALT_ROUNDS = 10;
+const JWT_SECRET = process.env.JWT_SECRET || 'secret';
+const JWT_EXPIRE = 60 * 60;
 
 const userSchema = new Schema({
     fullName: {
@@ -65,38 +67,34 @@ const userSchema = new Schema({
     },
 });
 
-userSchema.pre<IUserModel>('save', function(next) {
-    if (!this.isModified('password')) {
-        return next();
+userSchema.pre<IUserModel>('save', async function() {
+    // Hash the password every time the user is being created or changed
+    if (this.isModified('password')) {
+        const hashedPassword = await bcrypt.hash(this.password, SALT_ROUNDS);
+        this.password = hashedPassword;
     }
-
-    bcrypt.hash(this.password, SALT_ROUNDS)
-        .then((hashedPassword) => {
-            this.password = hashedPassword;
-            next();
-        }, (err) => {
-            next(err);
-        });
 });
 
-userSchema.methods.checkPassword = function(
+userSchema.methods.checkPassword = async function(
     this: IUserModel,
     password: string,
 ) {
-    return bcrypt.compare(password, this.password);
+    const passwordsMatch = await bcrypt.compare(password, this.password);
+    return passwordsMatch;
 };
 
 userSchema.methods.generateJwt = function(this: IUserModel) {
+    const payload = {
+        id: this.id,
+        fullName: this.fullName,
+    };
+
+    const options = {
+        expiresIn: JWT_EXPIRE,
+    };
+
+    // Unfortunately, jwt.sign doesn't return promises (yet)
     return new Promise<string>((resolve, reject) => {
-        const payload = {
-            id: this.id,
-            fullName: this.fullName,
-        };
-
-        const options = {
-            expiresIn: JWT_EXPIRE,
-        };
-
         jwt.sign(payload, JWT_SECRET, options, (err, encoded) => {
             if (err) {
                 reject(err);
