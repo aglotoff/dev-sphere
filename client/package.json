@@ -7,11 +7,15 @@
     "@types/node": "12.11.6",
     "@types/react": "16.9.9",
     "@types/react-dom": "16.9.2",
+    "formik": "^2.0.3",
     "node-sass": "^4.13.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
+    "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
+    "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
     "typescript": "3.6.4"
   },
   "scripts": {
@@ -39,6 +43,7 @@
   },
   "proxy": "http://localhost:4000",
   "devDependencies": {
+    "@types/react-redux": "^7.1.5",
     "@types/react-router-dom": "^5.1.0"
   }
 }
