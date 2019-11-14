@@ -1,0 +1,31 @@
+@import "../../../styles/variables";
+
+.header {
+    padding: 1.875em 1.875em 2.75em;
+
+    color: $color-white;
+
+    background: {
+        color: $color-tundora;
+    }
+}
+
+.title {
+    margin-top: 3.125em;
+
+    font-size: 1.5rem;
+    font-weight: $font-weight-bold;
+}
+
+.text {
+    margin-top: 1em;
+
+    font-size: 0.875rem;
+    line-height: 1.7;
+}
+
+.image {
+    display: block;
+    margin: 3.5em auto 0;
+    max-width: 100%;
+}

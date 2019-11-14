@@ -26,6 +26,8 @@ export interface IRegisterData {
 
     /** User password */
     password: string;
+
+    agree: boolean;
 }
 
 /**

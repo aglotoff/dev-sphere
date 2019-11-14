@@ -1,0 +1,23 @@
+@import "../../../styles/variables";
+
+.page {
+    padding: 6.75em 0;
+
+    background-image: linear-gradient(
+        to right,
+        $color-mercury 50%,
+        $color-seashell 50%,
+    );
+}
+
+.inner {
+    display: flex;
+    margin: auto;
+    max-width: 60.625em;
+}
+
+.header,
+.form {
+    flex: 0 0 auto;
+    width: 50%;
+}

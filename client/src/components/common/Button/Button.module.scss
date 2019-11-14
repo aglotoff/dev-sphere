@@ -1,0 +1,49 @@
+@import "../../../styles/variables";
+
+@mixin button-theme($name, $bg-color) {
+    &_theme_#{$name} {
+        background: $bg-color;
+
+        &:hover {
+            background: darken($bg-color, 15%);
+        }
+
+        &:focus {
+            box-shadow: 0 0 0 0.25em rgba($bg-color, 0.4);
+        }
+    }
+}
+
+.button {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 1.25em;
+    width: 100%;
+
+    color: $color-white;
+    font-family: $font-family-default;
+    font-size: 0.875rem;
+    font-weight: $font-weight-medium;
+
+    border: 0;
+    border-radius: 0.2em;
+    cursor: pointer;
+    outline: 0;
+
+    transition: background-color 0.2s linear;
+
+    @include button-theme(default, $color-persimmon);
+    @include button-theme(facebook, $color-chambray);
+    @include button-theme(google, $color-cinnabar);
+
+    &:disabled {
+        background: $color-empress;
+
+        pointer-events: none;
+    }
+}
+
+.text {
+    margin-left: 1.25em;
+}
