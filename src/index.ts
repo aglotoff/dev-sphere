@@ -5,9 +5,12 @@
 
 import path from 'path';
 
+import cookieParser from 'cookie-parser';
 import express from 'express';
 import mongoose from 'mongoose';
+import passport from 'passport';
 
+import { useJwtStrategy } from './config/passport';
 import authRoute from './routes/auth';
 
 // Environment variables
@@ -16,8 +19,13 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/devcircle';
 
 const app = express();
 
+app.use(cookieParser());
+app.use(express.json());
+
+app.use(passport.initialize());
+useJwtStrategy(passport);
+
 // REST API endpoints
-app.use('/api', express.json());
 app.use('/api/auth', authRoute);
 
 // Send the static build files

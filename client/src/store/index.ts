@@ -5,9 +5,11 @@ import {
 
 import { apiMiddleware } from './api/middleware';
 import { apiReducer } from './api/reducers';
+import { authReducer } from './auth/reducers';
 
 const rootReducer = combineReducers({
     api: apiReducer,
+    auth: authReducer,
 });
 
 const composeEnhancers = composeWithDevTools({});

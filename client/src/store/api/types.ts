@@ -3,50 +3,24 @@
  * @author Andrey Glotov
  */
 
-/**
- * Login credentials
- */
-export interface ILoginData {
-    /** User email */
-    email: string;
-
-    /** User password */
-    password: string;
-}
-
-/**
- * Register credentials
- */
-export interface IRegisterData {
-    /** Full user name */
-    fullName: string;
-
-    /** User email */
-    email: string;
-
-    /** User password */
-    password: string;
-
-    agree: boolean;
-}
+import { Action } from 'redux';
 
 /**
  * API reducer's slice of state
  */
 export interface IApiState {
-    /** API access token */
-    accessToken: string | null;
-
     /** Last error message */
     error: string | null;
 }
 
+// Action types
 export const API_REQUEST = 'API_REQUEST';
 export const SET_API_ERROR = 'SET_API_ERROR';
 export const CLEAR_API_ERROR = 'CLEAR_API_ERROR';
-export const SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN';
-export const CLEAR_ACCESS_TOKEN = 'CLEAR_ACCESS_TOKEN';
 
+/**
+ * Parameters for a generic API request action
+ */
 export interface IApiRequestParams {
     /** The endpoint of the request (does not include the base url) */
     endpoint: string;
@@ -91,29 +65,18 @@ export interface IClearApiErrorAction {
 }
 
 /**
- * API set access token action shape
- */
-export interface ISetAccessTokenAction {
-    type: typeof SET_ACCESS_TOKEN;
-    payload: {
-        /** Access token */
-        token: string,
-    };
-}
-
-/**
- * API clear access token action shape
- */
-export interface IClearAccessTokenAction {
-    type: typeof CLEAR_ACCESS_TOKEN;
-}
-
-/**
  * All possible API actions
  */
 export type ApiActionTypes =
     | IApiRequestAction
     | ISetApiErrorAction
-    | IClearApiErrorAction
-    | ISetAccessTokenAction
-    | IClearAccessTokenAction;
+    | IClearApiErrorAction;
+
+/**
+ * Check whether this is an API request action.
+ *
+ * @param action The action object
+ */
+export const isApiAction = (action: Action): action is IApiRequestAction => {
+    return action.type === API_REQUEST;
+};

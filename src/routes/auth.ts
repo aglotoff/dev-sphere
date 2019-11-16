@@ -4,8 +4,9 @@
  */
 
 import { Router } from 'express';
+import passport from 'passport';
 
-import { login, register } from '../controllers/auth';
+import { getUser, login, logout, register } from '../controllers/auth';
 
 const router = Router();
 
@@ -35,5 +36,20 @@ router.post('/login', login);
  * @apiSuccess {String} token Generated access token for the user
  */
 router.post('/register', register);
+
+/**
+ * @api {get} /api/auth/user Get the current user profile
+ * @apiName GetUser
+ * @apiGroup auth
+ * @apiPermission authenticated
+ *
+ * @apiSuccess {String} id The user's ID
+ * @apiSuccess {String} fullName The user's full name
+ */
+router.get('/user', passport.authenticate('jwt', {
+    session: false,
+}), getUser);
+
+router.post('/logout', logout);
 
 export = router;

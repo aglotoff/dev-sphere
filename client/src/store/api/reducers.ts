@@ -5,18 +5,21 @@
 
 import {
     ApiActionTypes,
-    CLEAR_ACCESS_TOKEN,
     CLEAR_API_ERROR,
     IApiState,
-    SET_ACCESS_TOKEN,
     SET_API_ERROR,
 } from './types';
 
 const initialState: IApiState = {
-    accessToken: null,
     error: null,
 };
 
+/**
+ * The API reducer
+ *
+ * @param state The current state
+ * @param action The dispatched action
+ */
 export const apiReducer = (
     state: IApiState = initialState,
     action: ApiActionTypes,
@@ -31,16 +34,6 @@ export const apiReducer = (
             return {
                 ...state,
                 error: null,
-            };
-        case SET_ACCESS_TOKEN:
-            return {
-                ...state,
-                accessToken: action.payload.token,
-            };
-        case CLEAR_ACCESS_TOKEN:
-            return {
-                ...state,
-                accessToken: null,
             };
         default:
             return state;

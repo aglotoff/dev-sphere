@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import DocumentTitle from 'react-document-title';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter, Switch } from 'react-router-dom';
 
 import Login from '../../pages/Login/Login';
@@ -9,7 +10,15 @@ import Home from '../Home/Home';
 import LoggedInRoute from '../LoggedInRoute/LoggedInRoute';
 import LoggedOutRoute from '../LoggedOutRoute/LoggedOutRoute';
 
+import { getUser } from '../../../store/auth/actions';
+
 const App: React.FC = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getUser());
+    }, [ dispatch ]);
+
     return (
         <DocumentTitle title="DevCircle">
             <BrowserRouter>

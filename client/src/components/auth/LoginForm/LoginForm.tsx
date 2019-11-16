@@ -11,8 +11,8 @@ import Link from '../../common/Link/Link';
 import AuthForm from '../AuthForm/AuthForm';
 
 import { AppState } from '../../../store';
-import { clearApiError, login } from '../../../store/api/actions';
-import { ILoginData } from '../../../store/api/types';
+import { clearAuthError, login } from '../../../store/auth/actions';
+import { ILoginData } from '../../../store/auth/types';
 
 const initialValues = {
     email: '',
@@ -31,20 +31,20 @@ const LoginForm = (props: ILoginFormProps) => {
     const { className } = props;
 
     const dispatch = useDispatch();
-    const errorMessage = useSelector((state: AppState) => state.api.error);
+    const errorMessage = useSelector((state: AppState) => state.auth.error);
 
     const onSubmit = (creds: ILoginData) => {
-        dispatch(clearApiError());
+        dispatch(clearAuthError());
         dispatch(login(creds));
     };
 
     const handleAlertDismiss = () => {
-        dispatch(clearApiError());
+        dispatch(clearAuthError());
     };
 
     useEffect(() => {
         return () => {
-            dispatch(clearApiError());
+            dispatch(clearAuthError());
         };
     }, [ dispatch ]);
 

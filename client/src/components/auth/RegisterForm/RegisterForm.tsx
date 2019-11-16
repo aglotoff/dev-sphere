@@ -7,11 +7,15 @@ import Link from '../../common/Link/Link';
 import AuthForm from '../AuthForm/AuthForm';
 
 import { AppState } from '../../../store';
-import { clearApiError, register } from '../../../store/api/actions';
-import { IRegisterData } from '../../../store/api/types';
+import { clearAuthError, register } from '../../../store/auth/actions';
+import { IRegisterData } from '../../../store/auth/types';
 
-const validate = (values: IRegisterData) => {
-    const errors: FormikErrors<IRegisterData> = {};
+interface IRegisterValues extends IRegisterData {
+    agree: boolean;
+}
+
+const validate = (values: IRegisterValues) => {
+    const errors: FormikErrors<IRegisterValues> = {};
 
     const EMAIL_REGEXP = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
@@ -55,20 +59,24 @@ const RegisterForm = (props: IRegisterFormProps) => {
     const { className } = props;
 
     const dispatch = useDispatch();
-    const errorMessage = useSelector((state: AppState) => state.api.error);
+    const errorMessage = useSelector((state: AppState) => state.auth.error);
 
     const onSubmit = (creds: IRegisterData) => {
-        dispatch(clearApiError());
-        dispatch(register(creds));
+        dispatch(clearAuthError());
+        dispatch(register({
+            fullName: creds.fullName,
+            email: creds.email,
+            password: creds.password,
+        }));
     };
 
     const handleAlertDismiss = () => {
-        dispatch(clearApiError());
+        dispatch(clearAuthError());
     };
 
     useEffect(() => {
         return () => {
-            dispatch(clearApiError());
+            dispatch(clearAuthError());
         };
     }, [ dispatch ]);
 
@@ -80,7 +88,7 @@ const RegisterForm = (props: IRegisterFormProps) => {
         touched,
         values,
         setFieldValue,
-    } = useFormik<IRegisterData>({
+    } = useFormik<IRegisterValues>({
         initialValues,
         onSubmit,
         validate,
