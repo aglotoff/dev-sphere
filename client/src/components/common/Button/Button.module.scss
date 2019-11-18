@@ -25,6 +25,7 @@
     font-family: $font-family-default;
     font-size: 0.875rem;
     font-weight: $font-weight-medium;
+    text-decoration: none;
 
     border: 0;
     border-radius: 0.2em;
@@ -35,6 +36,7 @@
 
     @include button-theme(default, $color-persimmon);
     @include button-theme(facebook, $color-chambray);
+    @include button-theme(github, $color-shark);
     @include button-theme(google, $color-cinnabar);
 
     &:disabled {

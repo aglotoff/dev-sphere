@@ -1,5 +1,5 @@
 /**
- * @file Validation functions for authentication routes
+ * @file Validation functions for API authentication routes
  * @author Andrey Glotov
  */
 

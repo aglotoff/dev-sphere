@@ -15,6 +15,7 @@
     "classnames": "^2.2.6",
     "formik": "^2.0.3",
     "node-sass": "^4.13.0",
+    "query-string": "^6.9.0",
     "react": "^16.11.0",
     "react-document-title": "^2.0.3",
     "react-dom": "^16.11.0",
@@ -48,11 +49,11 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:4000",
   "devDependencies": {
     "@types/classnames": "^2.2.9",
     "@types/react-document-title": "^2.0.3",
     "@types/react-redux": "^7.1.5",
-    "@types/react-router-dom": "^5.1.0"
+    "@types/react-router-dom": "^5.1.0",
+    "http-proxy-middleware": "^0.20.0"
   }
 }

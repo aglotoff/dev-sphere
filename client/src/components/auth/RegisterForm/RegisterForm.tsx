@@ -1,5 +1,5 @@
 import { FormikErrors, useFormik } from 'formik';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Alert from '../../common/Alert/Alert';
@@ -73,12 +73,6 @@ const RegisterForm = (props: IRegisterFormProps) => {
     const handleAlertDismiss = () => {
         dispatch(clearAuthError());
     };
-
-    useEffect(() => {
-        return () => {
-            dispatch(clearAuthError());
-        };
-    }, [ dispatch ]);
 
     const {
         errors,

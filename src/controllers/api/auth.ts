@@ -5,8 +5,8 @@
 
 import { RequestHandler } from 'express';
 
-import { IUserModel, User } from '../models/User';
-import { validateLogin, validateRegister } from '../validation/auth';
+import { IUser, User } from '../../models/User';
+import { validateLogin, validateRegister } from '../../validation/auth';
 
 /**
  * Handle a user login request.
@@ -21,17 +21,26 @@ export const login: RequestHandler = async (req, res, next) => {
     try {
         const { error, value } = validateLogin(req.body);
         if (error !== null) {
-            return res.status(422).send({ error: error.details[0].message });
+            return res.status(422).send({
+                success: false,
+                message: 'Invalid email or password',
+            });
         }
 
         const user = await User.findOne({ email: value.email });
         if (user == null) {
-            return res.status(400).json({ error: 'Invalid email or password' });
+            return res.status(422).send({
+                success: false,
+                message: 'Invalid email or password',
+            });
         }
 
         const passwordsMatch = await user.checkPassword(value.password);
         if (!passwordsMatch) {
-            return res.status(400).json({ error: 'Invalid email or password' });
+            return res.status(422).send({
+                success: false,
+                message: 'Invalid email or password',
+            });
         }
 
         const accessToken = await user.generateJwt();
@@ -39,10 +48,8 @@ export const login: RequestHandler = async (req, res, next) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
         });
-        res.status(200).json({
-            id: user.id,
-            fullName: user.fullName,
-        });
+
+        res.status(200).json({ success: true });
     } catch (err) {
         next(err);
     }
@@ -61,12 +68,18 @@ export const register: RequestHandler = async (req, res, next) => {
     try {
         const { error, value } = validateRegister(req.body);
         if (error !== null) {
-            return res.status(422).send({ error: error.details[0].message });
+            return res.status(422).send({
+                success: false,
+                message: error.details[0].message,
+            });
         }
 
         const existingUser = await User.findOne({ email: value.email });
         if (existingUser != null) {
-            return res.status(422).send({ error: 'Email already exists' });
+            return res.status(422).send({
+                success: false,
+                message: 'Email already exists',
+            });
         }
 
         const user = new User({
@@ -82,10 +95,8 @@ export const register: RequestHandler = async (req, res, next) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
         });
-        res.status(200).json({
-            id: savedUser.id,
-            fullName: savedUser.fullName,
-        });
+
+        res.status(200).json({ success: true });
     } catch (err) {
         next(err);
     }
@@ -101,11 +112,14 @@ export const register: RequestHandler = async (req, res, next) => {
  * @param next Passes control to the next middleware function
  */
 export const getUser: RequestHandler = async (req, res, next) => {
-    const user = req.user as IUserModel;
+    const user = req.user as IUser;
 
-    res.json({
-        id: user.id,
-        fullName: user.fullName,
+    res.status(200).json({
+        success: true,
+        data: {
+            id: user.id,
+            fullName: user.fullName,
+        },
     });
 };
 
@@ -117,5 +131,6 @@ export const getUser: RequestHandler = async (req, res, next) => {
  * @param next Passes control to the next middleware function
  */
 export const logout: RequestHandler = (req, res, next) => {
-    res.clearCookie('jwt').status(200).json({ success: true });
+    res.clearCookie('jwt');
+    res.status(200).json({ success: true });
 };

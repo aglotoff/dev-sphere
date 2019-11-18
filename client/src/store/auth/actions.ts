@@ -11,11 +11,13 @@ import {
     IClearAuthErrorAction,
     ILoginData,
     IRegisterData,
+    ISetAuthErrorAction,
     LOGIN_ERROR,
     LOGIN_SUCCESS,
     LOGOUT_SUCCESS,
     REGISTER_ERROR,
     REGISTER_SUCCESS,
+    SET_AUTH_ERROR,
 } from './types';
 
 /**
@@ -92,4 +94,14 @@ export const getUser = () => apiRequest({
  */
 export const clearAuthError = (): IClearAuthErrorAction => ({
     type: CLEAR_AUTH_ERROR,
+});
+
+/**
+ * Create a set authentication error action.
+ *
+ * @returns A set authentication error action
+ */
+export const setAuthError = (error: string): ISetAuthErrorAction => ({
+    type: SET_AUTH_ERROR,
+    payload: { error },
 });

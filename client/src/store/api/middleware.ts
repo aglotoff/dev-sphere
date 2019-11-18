@@ -4,17 +4,11 @@ import { isApiAction, SET_API_ERROR } from './types';
 
 const BASE_URL = '/api/';
 
-const isJSON = (response: Response) => {
-    const contentType = response.headers.get('Content-Type');
-    return !!contentType && contentType.includes('application/json');
-};
-
 export const apiMiddleware: Middleware = (store) => (next) => (action) => {
     if (!isApiAction(action)) {
         return next(action);
     }
 
-    const state = store.getState();
     const actionPayload = action.payload;
 
     const requestInit: RequestInit = {};
@@ -23,10 +17,6 @@ export const apiMiddleware: Middleware = (store) => (next) => (action) => {
     if (typeof actionPayload.body !== 'undefined') {
         headers.set('Content-Type', 'application/json');
         requestInit.body = JSON.stringify(actionPayload.body);
-    }
-
-    if (state.api.token !== null) {
-        headers.set('Authorization', 'Bearer ' + state.api.token);
     }
 
     requestInit.credentials = 'include';
@@ -40,39 +30,23 @@ export const apiMiddleware: Middleware = (store) => (next) => (action) => {
                 requestInit,
             );
 
-            if (response.ok) {
-                if (actionPayload.success) {
-                    if (isJSON(response)) {
-                        const data = await response.json();
+            const responseJson = await response.json();
 
-                        store.dispatch({
-                            type: actionPayload.success,
-                            payload: data,
-                        });
-                    } else {
-                        store.dispatch({
-                            type: actionPayload.success,
-                        });
-                    }
+            if (responseJson.success) {
+                if (actionPayload.success) {
+                    store.dispatch({
+                        type: actionPayload.success,
+                        payload: responseJson.data,
+                    });
                 }
             } else {
-                let error: string;
-
-                if (isJSON(response)) {
-                    const data = await response.json();
-
-                    error = data.error;
-                } else {
-                    error = response.statusText;
-                }
-
                 if (actionPayload.error) {
                     store.dispatch({
                         type: actionPayload.error,
-                        payload: { error },
+                        payload: { error: responseJson.message },
                     });
                 } else {
-                    throw new Error(error);
+                    throw new Error(responseJson.message);
                 }
             }
         } catch (error) {

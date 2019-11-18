@@ -10,8 +10,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import passport from 'passport';
 
-import { useJwtStrategy } from './config/passport';
-import authRoute from './routes/auth';
+import apiAuthRoute from './routes/api/auth';
+import socialAuthRoute from './routes/socialauth';
 
 // Environment variables
 const PORT = process.env.PORT || 4000;
@@ -23,10 +23,10 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use(passport.initialize());
-useJwtStrategy(passport);
 
 // REST API endpoints
-app.use('/api/auth', authRoute);
+app.use('/api/auth', apiAuthRoute);
+app.use('/socialauth', socialAuthRoute);
 
 // Send the static build files
 if (process.env.NODE_ENV === 'production') {

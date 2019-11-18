@@ -14,6 +14,7 @@ import {
     LOGOUT_SUCCESS,
     REGISTER_ERROR,
     REGISTER_SUCCESS,
+    SET_AUTH_ERROR,
 } from './types';
 
 const initialState: IAuthState = {
@@ -47,6 +48,7 @@ export const authReducer = (
             };
         case LOGIN_ERROR:
         case REGISTER_ERROR:
+        case SET_AUTH_ERROR:
             return {
                 ...state,
                 error: action.payload.error,

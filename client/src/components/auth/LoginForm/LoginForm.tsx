@@ -3,7 +3,7 @@ import {
     faGoogle,
 } from '@fortawesome/free-brands-svg-icons';
 import { useFormik } from 'formik';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Alert from '../../common/Alert/Alert';
@@ -42,12 +42,6 @@ const LoginForm = (props: ILoginFormProps) => {
         dispatch(clearAuthError());
     };
 
-    useEffect(() => {
-        return () => {
-            dispatch(clearAuthError());
-        };
-    }, [ dispatch ]);
-
     const {
         handleChange,
         handleSubmit,
@@ -61,7 +55,7 @@ const LoginForm = (props: ILoginFormProps) => {
     return (
         <AuthForm className={className} onSubmit={handleSubmit}>
             <AuthForm.SocialButton
-                type="button"
+                href="/socialauth/facebook"
                 icon={faFacebookF}
                 theme="facebook"
             >
@@ -69,7 +63,7 @@ const LoginForm = (props: ILoginFormProps) => {
             </AuthForm.SocialButton>
 
             <AuthForm.SocialButton
-                type="button"
+                href="/socialauth/google"
                 icon={faGoogle}
                 theme="google"
             >

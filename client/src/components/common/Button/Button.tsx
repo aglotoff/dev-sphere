@@ -18,7 +18,9 @@ export interface IButtonProps {
     /** The type of the button */
     type?: 'button' | 'submit' | 'reset';
 
-    theme?: 'default' | 'facebook' | 'google';
+    theme?: 'default' | 'facebook' | 'google' | 'github';
+
+    href?: string;
 
     /** Handle a click event on the button */
     onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -27,6 +29,7 @@ export interface IButtonProps {
 const Button = (props: PropsWithChildren<IButtonProps>) => {
     const {
         children,
+        href,
         icon,
         className,
         onClick,
@@ -40,12 +43,21 @@ const Button = (props: PropsWithChildren<IButtonProps>) => {
         styles['button_theme_' + theme],
     );
 
-    return (
-        <button type={type} onClick={onClick} className={buttonClass}>
-            {icon && <i><FontAwesomeIcon icon={icon} /></i>}
-            <span className={styles.text}>{children}</span>
-        </button>
-    );
+    if (href) {
+        return (
+            <a className={buttonClass} href={href}>
+                {icon && <i><FontAwesomeIcon icon={icon} /></i>}
+                <span className={styles.text}>{children}</span>
+            </a>
+        );
+    } else {
+        return (
+            <button type={type} onClick={onClick} className={buttonClass}>
+                {icon && <i><FontAwesomeIcon icon={icon} /></i>}
+                <span className={styles.text}>{children}</span>
+            </button>
+        );
+    }
 };
 
 export default Button;

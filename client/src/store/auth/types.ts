@@ -59,6 +59,7 @@ export const REGISTER_ERROR = 'REGISTER_ERROR';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const GET_USER_ERROR = 'GET_USER_ERROR';
 export const CLEAR_AUTH_ERROR = 'CLEAR_AUTH_ERROR';
+export const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
 
 /**
  * Shape of the Login request success action
@@ -125,6 +126,17 @@ export interface IGetUserErrorAction {
 }
 
 /**
+ * Shape of the Set authentication error action
+ */
+export interface ISetAuthErrorAction {
+    type: typeof SET_AUTH_ERROR;
+    payload: {
+        /** Error message */
+        error: string,
+    };
+}
+
+/**
  * Shape of the Clear authentication error action
  */
 export interface IClearAuthErrorAction {
@@ -142,4 +154,5 @@ export type AuthActionTypes =
     | IRegisterErrorAction
     | IGetUserSuccessAction
     | IGetUserErrorAction
-    | IClearAuthErrorAction;
+    | IClearAuthErrorAction
+    | ISetAuthErrorAction;
