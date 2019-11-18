@@ -23,12 +23,6 @@ export interface IUser extends Document {
     /** User creation date */
     createdAt?: Date;
 
-    /** ID of the associated Facebook account */
-    facebookId?: string;
-
-    /** ID of the associated Google account */
-    googleId?: string;
-
     /** Associated OAuth accounts */
     oAuthProfiles: [{
         /** The provider with which the user authenticated */
