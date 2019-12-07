@@ -49,7 +49,10 @@ export const login: RequestHandler = async (req, res, next) => {
             secure: process.env.NODE_ENV === 'production',
         });
 
-        res.status(200).json({ success: true });
+        res.status(200).json({
+            success: true,
+            message: 'Login successful',
+        });
     } catch (err) {
         next(err);
     }
@@ -96,7 +99,10 @@ export const register: RequestHandler = async (req, res, next) => {
             secure: process.env.NODE_ENV === 'production',
         });
 
-        res.status(200).json({ success: true });
+        res.status(200).json({
+            success: true,
+            message: 'User successfully registered',
+        });
     } catch (err) {
         next(err);
     }
@@ -132,5 +138,8 @@ export const getUser: RequestHandler = async (req, res, next) => {
  */
 export const logout: RequestHandler = (req, res, next) => {
     res.clearCookie('jwt');
-    res.status(200).json({ success: true });
+    res.status(200).json({
+        success: true,
+        message: 'User successfully logged out',
+    });
 };

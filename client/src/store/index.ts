@@ -19,4 +19,8 @@ export const store = createStore(
     composeEnhancers(applyMiddleware(apiMiddleware)),
 );
 
+store.subscribe(() => {
+    localStorage.setItem('loggedIn', String(store.getState().auth.loggedIn));
+});
+
 export type AppState = ReturnType<typeof rootReducer>;

@@ -34,7 +34,7 @@ const LoggedOutRoute = (props: ILoggedOutRouteProps) => {
     const { component: Component, ...rest } = props;
 
     const isLoggedIn = useSelector((state: AppState) => {
-        return state.auth.user !== null;
+        return state.auth.loggedIn;
     });
 
     if (isLoggedIn) {

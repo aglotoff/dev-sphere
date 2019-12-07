@@ -10,6 +10,7 @@ import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { Strategy as JwtStrategy } from 'passport-jwt';
 
 import { IUser, User } from '../models/User';
+import { RequestHandler } from 'express-serve-static-core';
 
 /**
  * Extract a JWT from the session cookie.
@@ -129,6 +130,21 @@ passport.use(new GoogleStrategy({
 /**
  * Authentication required middleware.
  */
-export const isAuthenticated = passport.authenticate('jwt', {
-    session: false,
-});
+export const isAuthenticated: RequestHandler = (req, res, next) => {
+    passport.authenticate('jwt', {
+        session: false,
+    }, (
+        err: string | null,
+        user: IUser | null,
+    ) => {
+        if (err || !user) {
+            res.status(401).send({
+                success: false,
+                message: err || 'Unauthorized',
+            });
+        } else {
+            req.user = user;
+            next();
+        }
+    })(req, res, next);
+};

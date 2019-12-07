@@ -18,6 +18,7 @@ import {
 } from './types';
 
 const initialState: IAuthState = {
+    loggedIn: localStorage.getItem('loggedIn') === 'true',
     user: null,
     error: null,
 };
@@ -33,9 +34,13 @@ export const authReducer = (
     action: AuthActionTypes,
 ) => {
     switch (action.type) {
-        case GET_USER_SUCCESS:
         case LOGIN_SUCCESS:
         case REGISTER_SUCCESS:
+            return {
+                ...state,
+                loggedIn: true,
+            };
+        case GET_USER_SUCCESS:
             return {
                 ...state,
                 user: action.payload,
@@ -44,6 +49,7 @@ export const authReducer = (
         case LOGOUT_SUCCESS:
             return {
                 ...state,
+                loggedIn: false,
                 user: null,
             };
         case LOGIN_ERROR:
@@ -51,6 +57,7 @@ export const authReducer = (
         case SET_AUTH_ERROR:
             return {
                 ...state,
+                loggedIn: false,
                 error: action.payload.error,
             };
         case CLEAR_AUTH_ERROR:

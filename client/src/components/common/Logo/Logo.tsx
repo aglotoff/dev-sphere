@@ -9,7 +9,7 @@ const Logo = () => {
     return (
         <Link to="/" className={styles.logo}>
             <img src={logo} alt="" className={styles.img} />
-            <span className={styles.text}>DevCircle</span>
+            <span className={styles.text}>DevSphere</span>
         </Link>
     );
 };

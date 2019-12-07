@@ -72,11 +72,8 @@ export const register = (data: IRegisterData) => apiRequest({
 /**
  * Create a get user action.
  *
- * This is the first action dispatched by the application to determine if the
- * user is logged in. It fetches the current user info from the server or fails
- * if the user is not authenticated.
- *
- * @param data Login credentials
+ * This is the first action dispatched by the application to fetch the current
+ * user data from the server.
  *
  * @returns A get user request action
  */

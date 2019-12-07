@@ -50,7 +50,11 @@ if (process.env.NODE_ENV === 'production') {
  */
 const handleError: express.ErrorRequestHandler = (err, req, res, next) => {
     console.error(err);
-    res.status(500).json({ error: 'Internal server error' });
+
+    res.status(500).json({
+        success: false,
+        message: 'Internal server error',
+    });
 };
 app.use(handleError);
 

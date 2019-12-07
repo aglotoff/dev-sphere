@@ -1,0 +1,13 @@
+@import '../../../styles/variables';
+
+.header {
+    background: $color-mine-shaft;
+}
+
+.inner {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 75em;
+    padding: 0 1em;
+}

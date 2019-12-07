@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import DocumentTitle from 'react-document-title';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Switch } from 'react-router-dom';
 
 import Login from '../../pages/Login/Login';
@@ -10,14 +10,21 @@ import Home from '../Home/Home';
 import LoggedInRoute from '../LoggedInRoute/LoggedInRoute';
 import LoggedOutRoute from '../LoggedOutRoute/LoggedOutRoute';
 
+import { AppState } from '../../../store';
 import { getUser } from '../../../store/auth/actions';
 
 const App: React.FC = () => {
+    const { loggedIn } = useSelector((state: AppState) => ({
+        loggedIn: state.auth.loggedIn,
+        user: state.auth.loggedIn,
+    }));
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getUser());
-    }, [ dispatch ]);
+        if (loggedIn) {
+            dispatch(getUser());
+        }
+    }, [ loggedIn, dispatch ]);
 
     return (
         <DocumentTitle title="DevCircle">

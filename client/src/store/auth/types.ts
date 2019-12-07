@@ -43,6 +43,9 @@ export interface IRegisterData {
  * Authentication reducer's slice of state
  */
 export interface IAuthState {
+    /** Is the user logged in? */
+    loggedIn: boolean;
+
     /** Current application user */
     user: IUser | null;
 
@@ -50,16 +53,18 @@ export interface IAuthState {
     error: string | null;
 }
 
-// Action types
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_ERROR = 'LOGIN_ERROR';
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_ERROR = 'REGISTER_ERROR';
-export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
-export const GET_USER_ERROR = 'GET_USER_ERROR';
-export const CLEAR_AUTH_ERROR = 'CLEAR_AUTH_ERROR';
-export const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
+/**
+ * Action types
+ */
+export const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
+export const LOGIN_ERROR = 'auth/LOGIN_ERROR';
+export const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
+export const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
+export const REGISTER_ERROR = 'auth/REGISTER_ERROR';
+export const GET_USER_SUCCESS = 'auth/GET_USER_SUCCESS';
+export const GET_USER_ERROR = 'auth/GET_USER_ERROR';
+export const CLEAR_AUTH_ERROR = 'auth/CLEAR_AUTH_ERROR';
+export const SET_AUTH_ERROR = 'auth/SET_AUTH_ERROR';
 
 /**
  * Shape of the Login request success action
