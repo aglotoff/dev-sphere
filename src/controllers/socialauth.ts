@@ -20,26 +20,31 @@ export const socialLogin = (strategy: string): RequestHandler =>
     (req, res, next) =>
         passport.authenticate(strategy, async (
             err: string | Error | null,
-            user: IUser | null,
+            user: IUser | false,
             info?: { message: string },
         ) => {
-            if (!user) {
-                let errorMessage = 'Authentication Error';
-                if (info) {
-                    errorMessage = info.message;
+            try {
+                if (!user) {
+                    let errorMsg = 'Authentication Error';
+                    if (info) {
+                        errorMsg = info.message;
+                    }
+
+                    errorMsg = encodeURIComponent(errorMsg);
+                    return res.redirect(BASE_URL + '/login?error=' + errorMsg);
                 }
 
-                errorMessage = encodeURIComponent(errorMessage);
-                return res.redirect(BASE_URL + '/login?error=' + errorMessage);
+                const newRefreshToken = await user.generateRefreshToken();
+                res.cookie('refreshtoken', newRefreshToken, {
+                    httpOnly: true,
+                    path: '/api/auth/refresh_token',
+                    secure: process.env.NODE_ENV === 'production',
+                });
+
+                return res.redirect(BASE_URL);
+            } catch (err) {
+                return next(err);
             }
-
-            const accessToken = await user.generateJwt();
-            res.cookie('jwt', accessToken, {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
-            });
-
-            res.redirect(BASE_URL);
         },
     )(req, res, next);
 

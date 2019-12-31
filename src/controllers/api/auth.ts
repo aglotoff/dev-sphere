@@ -3,10 +3,44 @@
  * @author Andrey Glotov
  */
 
-import { RequestHandler } from 'express';
+import { RequestHandler, Response } from 'express';
+import passport from 'passport';
 
 import { IUser, User } from '../../models/User';
 import { validateLogin, validateRegister } from '../../validation/auth';
+
+/**
+ * Generate a new refresh/access token pair for the given user.
+ *
+ * The refresh token is kept inside an HTTP-only cookie, while the access
+ * token is sent in the response body.
+ *
+ * @param res The HTTP response object.
+ * @param user The user.
+ * @param message The message inside the response.
+ */
+export const generateAndSendTokens = async (
+    res: Response,
+    user: IUser,
+    message: string,
+) => {
+    const newRefreshToken = await user.generateRefreshToken();
+    const accessToken = await user.generateAccessToken();
+
+    res.cookie('refreshtoken', newRefreshToken, {
+        httpOnly: true,
+        path: '/api/auth/refresh_token',
+        secure: process.env.NODE_ENV === 'production',
+    });
+
+    res.status(200).json({
+        success: true,
+        message,
+        data: {
+            accessToken,
+        },
+    });
+};
 
 /**
  * Handle a user login request.
@@ -43,16 +77,7 @@ export const login: RequestHandler = async (req, res, next) => {
             });
         }
 
-        const accessToken = await user.generateJwt();
-        res.cookie('jwt', accessToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-        });
-
-        res.status(200).json({
-            success: true,
-            message: 'Login successful',
-        });
+        generateAndSendTokens(res, user, 'Login successful');
     } catch (err) {
         next(err);
     }
@@ -85,24 +110,15 @@ export const register: RequestHandler = async (req, res, next) => {
             });
         }
 
-        const user = new User({
+        let user = new User({
             fullName: value.fullName,
             email: value.email,
             password: value.password,
         });
 
-        const savedUser = await user.save();
+        user = await user.save();
 
-        const accessToken = await savedUser.generateJwt();
-        res.cookie('jwt', accessToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-        });
-
-        res.status(200).json({
-            success: true,
-            message: 'User successfully registered',
-        });
+        generateAndSendTokens(res, user, 'User successfully registered');
     } catch (err) {
         next(err);
     }
@@ -132,14 +148,48 @@ export const getUser: RequestHandler = async (req, res, next) => {
 /**
  * Handle a logout request.
  *
- * @param req The HTTP request object
- * @param res The HTTP response object
- * @param next Passes control to the next middleware function
+ * @param req The HTTP request object.
+ * @param res The HTTP response object.
+ * @param next Passes control to the next middleware function.
  */
 export const logout: RequestHandler = (req, res, next) => {
-    res.clearCookie('jwt');
+    res.clearCookie('refreshtoken');
     res.status(200).json({
         success: true,
         message: 'User successfully logged out',
     });
 };
+
+/**
+ * Handle a refresh token request.
+ *
+ * @param req The HTTP request object.
+ * @param res The HTTP response object.
+ * @param next Passes control to the next middleware function.
+ */
+export const refreshToken: RequestHandler = (req, res, next) =>
+    passport.authenticate('refresh-token', async (
+        err: string | Error | null,
+        user: IUser | false,
+    ) => {
+        try {
+            if (err || !user) {
+                return res.status(401).send({
+                    success: false,
+                    message: err || 'Unauthorized',
+                });
+            }
+
+            if (user.refreshToken !== req.cookies.refreshtoken) {
+                return res.status(401).send({
+                    success: false,
+                    message: err || 'Unauthorized',
+                });
+            }
+
+            generateAndSendTokens(res, user, 'New token generated');
+        } catch (err) {
+            return next(err);
+        }
+    },
+    )(req, res, next);

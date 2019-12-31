@@ -23,6 +23,9 @@ export interface IUser extends Document {
     /** User creation date */
     createdAt?: Date;
 
+    /** Refresh token for the user */
+    refreshToken?: string;
+
     /** Associated OAuth accounts */
     oAuthProfiles: [{
         /** The provider with which the user authenticated */
@@ -46,15 +49,24 @@ export interface IUser extends Document {
     checkPassword(password: string): Promise<boolean>;
 
     /**
-     * Generate access token for the user.
+     * Generate a new access token for the user.
      *
      * @returns A promise which resolves to the generated access token.
      */
-    generateJwt(): Promise<string>;
+    generateAccessToken(): Promise<string>;
+
+    /**
+     * Generate and save a new refresh token for the user.
+     *
+     * @returns A promise which resolves to the generated refresh token.
+     */
+    generateRefreshToken(): Promise<string>;
 }
 
-const JWT_EXPIRE = 60 * 60; // Expires in 1 hour
-const JWT_SECRET = process.env.JWT_SECRET || 'secret';
+const ACCESS_TOKEN_EXPIRE = 60;
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || 'secret';
+const REFRESH_TOKEN_EXPIRE = 60 * 60 * 24 * 7;
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || 'secret';
 const SALT_ROUNDS = 10;
 
 const userSchema = new Schema({
@@ -77,6 +89,9 @@ const userSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+    },
+    refreshToken: {
+        type: String,
     },
     oAuthProfiles: [{
         provider: {
@@ -112,18 +127,40 @@ userSchema.methods.checkPassword = async function(
     return passwordsMatch;
 };
 
-userSchema.methods.generateJwt = function(this: IUser) {
+userSchema.methods.generateRefreshToken = function(this: IUser) {
     const payload = {
         id: this.id,
     };
 
     const options = {
-        expiresIn: JWT_EXPIRE,
+        expiresIn: REFRESH_TOKEN_EXPIRE,
     };
 
     // Unfortunately, jwt.sign doesn't return promises (yet)
     return new Promise<string>((resolve, reject) => {
-        jwt.sign(payload, JWT_SECRET, options, (err, encoded) => {
+        jwt.sign(payload, REFRESH_TOKEN_SECRET, options, (err, encoded) => {
+            if (err) {
+                reject(err);
+            } else {
+                this.refreshToken = encoded;
+                this.save().then(() => resolve(encoded), reject);
+            }
+        });
+    });
+};
+
+userSchema.methods.generateAccessToken = function(this: IUser) {
+    const payload = {
+        id: this.id,
+    };
+
+    const options = {
+        expiresIn: ACCESS_TOKEN_EXPIRE,
+    };
+
+    // Unfortunately, jwt.sign doesn't return promises (yet)
+    return new Promise<string>((resolve, reject) => {
+        jwt.sign(payload, ACCESS_TOKEN_SECRET, options, (err, encoded) => {
             if (err) {
                 reject(err);
             } else {

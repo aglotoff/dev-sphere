@@ -10,6 +10,7 @@ import {
     getUser,
     login,
     logout,
+    refreshToken,
     register,
 } from '../../controllers/api/auth';
 
@@ -24,7 +25,10 @@ const router = Router();
  * @apiParam {String} email    Email of the user.
  * @apiParam {String} password Password for the user.
  *
- * @apiSuccess {Boolean} success True.
+ * @apiSuccess {Boolean} success     True.
+ * @apiSuccess {String}  message     The response message.
+ * @apiSuccess {Object}  data        Response data.
+ * @apiSuccess {String}  accessToken Access token for the logged in user.
  */
 router.post('/login', login);
 
@@ -38,7 +42,10 @@ router.post('/login', login);
  * @apiParam {String} email    Email of the new user.
  * @apiParam {String} password Password for the new user.
  *
- * @apiSuccess {Boolean} success True.
+ * @apiSuccess {Boolean} success     True.
+ * @apiSuccess {String}  message     The response message.
+ * @apiSuccess {Object}  data        Response data.
+ * @apiSuccess {String}  accessToken Access token for the registered user.
  */
 router.post('/register', register);
 
@@ -62,7 +69,21 @@ router.get('/user', isAuthenticated, getUser);
  * @apiPermission none
  *
  * @apiSuccess {Boolean} success True.
+ * @apiSuccess {String}  message The response message.
  */
 router.post('/logout', logout);
+
+/**
+ * @api {post} /api/auth/logout End the current session
+ * @apiName RefreshToken
+ * @apiGroup Authentication
+ * @apiPermission authenticated
+ *
+ * @apiSuccess {Boolean} success     True.
+ * @apiSuccess {String}  message     The response message.
+ * @apiSuccess {Object}  data        Response data.
+ * @apiSuccess {String}  accessToken New access token for the current user.
+ */
+router.post('/refresh_token', refreshToken);
 
 export default router;

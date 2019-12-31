@@ -7,37 +7,56 @@ import { Request } from 'express';
 import passport from 'passport';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
-import { Strategy as JwtStrategy } from 'passport-jwt';
+import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
 
-import { IUser, User } from '../models/User';
 import { RequestHandler } from 'express-serve-static-core';
+import { IUser, User } from '../models/User';
+
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || 'secret';
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || 'secret';
 
 /**
  * Extract a JWT from the session cookie.
  *
  * @param req The HTTP request object.
  */
-export const jwtFromCookies = (req: Request) => req.cookies.jwt;
-
-const JWT_SECRET = process.env.JWT_SECRET || 'secret';
+export const jwtFromCookies = (req: Request) => req.cookies.refreshtoken;
 
 /**
  * Authenticate using a JSON Web token stored inside a session cookie.
  */
-passport.use(new JwtStrategy({
+passport.use('refresh-token', new JwtStrategy({
     jwtFromRequest: jwtFromCookies,
-    secretOrKey: JWT_SECRET,
+    secretOrKey: REFRESH_TOKEN_SECRET,
 }, async (payload, done) => {
     try {
         const user = await User.findById(payload.id);
-
         if (user) {
             return done(null, user);
         } else {
-            return done('Unauthorized');
+            return done('Unauthorized', false);
         }
     } catch (err) {
-        return done('Unauthorized');
+        return done('Unauthorized', false);
+    }
+}));
+
+/**
+ * Authenticate using a JSON Web token stored inside a session cookie.
+ */
+passport.use('access-token', new JwtStrategy({
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: ACCESS_TOKEN_SECRET,
+}, async (payload, done) => {
+    try {
+        const user = await User.findById(payload.id);
+        if (user) {
+            return done(null, user);
+        } else {
+            return done('Unauthorized', false);
+        }
+    } catch (err) {
+        return done('Unauthorized', false);
     }
 }));
 
@@ -54,7 +73,7 @@ passport.use(new JwtStrategy({
  * @param profile User profile information
  * @param done Callback to complete authentication
  */
-export const verify = async (
+export const oAuthVerify = async (
     accessToken: string,
     refreshToken: string,
     profile: passport.Profile,
@@ -116,7 +135,7 @@ passport.use(new FacebookStrategy({
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET || 'abc',
     callbackURL: '/socialauth/facebook/callback',
     profileFields: [ 'emails', 'displayName' ],
-}, verify));
+}, oAuthVerify));
 
 /**
  * Sign in with Google account.
@@ -125,23 +144,31 @@ passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID || 'abc',
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'abc',
     callbackURL: '/socialauth/google/callback',
-}, verify));
+}, oAuthVerify));
 
 /**
  * Authentication required middleware.
  */
 export const isAuthenticated: RequestHandler = (req, res, next) => {
-    passport.authenticate('jwt', {
+    passport.authenticate('access-token', {
         session: false,
     }, (
         err: string | null,
-        user: IUser | null,
+        user: IUser | false,
+        info?: { name: string },
     ) => {
-        if (err || !user) {
-            res.status(401).send({
-                success: false,
-                message: err || 'Unauthorized',
-            });
+        if (!user) {
+            if (info && (info.name === 'TokenExpiredError')) {
+                res.status(401).send({
+                    success: false,
+                    message: 'Access token expired',
+                });
+            } else {
+                res.status(401).send({
+                    success: false,
+                    message: err || 'Unauthorized',
+                });
+            }
         } else {
             req.user = user;
             next();
