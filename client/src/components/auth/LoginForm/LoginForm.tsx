@@ -11,8 +11,8 @@ import Link from '../../common/Link/Link';
 import AuthForm from '../AuthForm/AuthForm';
 
 import { AppState } from '../../../store';
-import { clearAuthError, login } from '../../../store/auth/actions';
-import { ILoginData } from '../../../store/auth/types';
+import { clearAuthError, login } from '../../../store/actions/api';
+import { ILoginParams } from '../../../store/types/api';
 
 const initialValues = {
     email: '',
@@ -27,14 +27,15 @@ interface ILoginFormProps {
     className: string;
 }
 
+const getErrorMessage = (state: AppState) => state.api.auth.errorMessage;
+
 const LoginForm = (props: ILoginFormProps) => {
     const { className } = props;
 
     const dispatch = useDispatch();
-    const errorMessage = useSelector((state: AppState) => state.auth.error);
+    const errorMessage = useSelector(getErrorMessage);
 
-    const onSubmit = (creds: ILoginData) => {
-        dispatch(clearAuthError());
+    const onSubmit = (creds: ILoginParams) => {
         dispatch(login(creds));
     };
 
@@ -47,7 +48,7 @@ const LoginForm = (props: ILoginFormProps) => {
         handleSubmit,
         isSubmitting,
         values,
-    } = useFormik<ILoginData>({
+    } = useFormik<ILoginParams>({
         initialValues,
         onSubmit,
     });

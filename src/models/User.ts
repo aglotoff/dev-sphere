@@ -63,7 +63,7 @@ export interface IUser extends Document {
     generateRefreshToken(): Promise<string>;
 }
 
-const ACCESS_TOKEN_EXPIRE = 60;
+const ACCESS_TOKEN_EXPIRE = 60 * 5;
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || 'secret';
 const REFRESH_TOKEN_EXPIRE = 60 * 60 * 24 * 7;
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || 'secret';

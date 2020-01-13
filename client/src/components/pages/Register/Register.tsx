@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import AuthPage from '../../auth/AuthPage/AuthPage';
 import RegisterForm from '../../auth/RegisterForm/RegisterForm';
 
-import { clearAuthError } from '../../../store/auth/actions';
+import { clearAuthError } from '../../../store/actions/api';
 
 const RegisterPage = () => {
     const dispatch = useDispatch();

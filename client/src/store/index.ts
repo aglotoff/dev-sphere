@@ -3,13 +3,11 @@ import {
     composeWithDevTools,
 } from 'redux-devtools-extension/logOnlyInProduction';
 
-import { apiMiddleware } from './api/middleware';
-import { apiReducer } from './api/reducers';
-import { authReducer } from './auth/reducers';
+import { apiMiddleware } from './middleware/api';
+import { apiReducer } from './reducers/api';
 
 const rootReducer = combineReducers({
     api: apiReducer,
-    auth: authReducer,
 });
 
 const composeEnhancers = composeWithDevTools({});
@@ -18,9 +16,5 @@ export const store = createStore(
     rootReducer,
     composeEnhancers(applyMiddleware(apiMiddleware)),
 );
-
-store.subscribe(() => {
-    localStorage.setItem('loggedIn', String(store.getState().auth.loggedIn));
-});
 
 export type AppState = ReturnType<typeof rootReducer>;

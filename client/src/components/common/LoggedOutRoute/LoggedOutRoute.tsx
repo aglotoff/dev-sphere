@@ -34,7 +34,7 @@ const LoggedOutRoute = (props: ILoggedOutRouteProps) => {
     const { component: Component, ...rest } = props;
 
     const isLoggedIn = useSelector((state: AppState) => {
-        return state.auth.loggedIn;
+        return state.api.auth.accessToken != null;
     });
 
     if (isLoggedIn) {

@@ -7,10 +7,10 @@ import Link from '../../common/Link/Link';
 import AuthForm from '../AuthForm/AuthForm';
 
 import { AppState } from '../../../store';
-import { clearAuthError, register } from '../../../store/auth/actions';
-import { IRegisterData } from '../../../store/auth/types';
+import { clearAuthError, register } from '../../../store/actions/api';
+import { IRegisterParams } from '../../../store/types/api';
 
-interface IRegisterValues extends IRegisterData {
+interface IRegisterValues extends IRegisterParams {
     agree: boolean;
 }
 
@@ -55,14 +55,15 @@ interface IRegisterFormProps {
     className: string;
 }
 
+const getErrorMessage = (state: AppState) => state.api.auth.errorMessage;
+
 const RegisterForm = (props: IRegisterFormProps) => {
     const { className } = props;
 
     const dispatch = useDispatch();
-    const errorMessage = useSelector((state: AppState) => state.auth.error);
+    const errorMessage = useSelector(getErrorMessage);
 
-    const onSubmit = (creds: IRegisterData) => {
-        dispatch(clearAuthError());
+    const onSubmit = (creds: IRegisterParams) => {
         dispatch(register({
             fullName: creds.fullName,
             email: creds.email,

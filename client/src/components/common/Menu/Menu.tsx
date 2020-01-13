@@ -5,24 +5,24 @@
 
 import React, { PropsWithChildren } from 'react';
 
-import MenuListItem from './MenuListItem';
+import MenuItem from './MenuItem';
 
-import styles from './MenuList.module.scss';
+import styles from './Menu.module.scss';
 
 /**
  *
  *
  * @param props The component props
  */
-const MenuList = (props: PropsWithChildren<{}>) => (
-    <ul className={styles.menuList}>
+const Menu = (props: PropsWithChildren<{}>) => (
+    <ul className={styles.menu}>
         {props.children}
     </ul>
 );
 
-MenuList.Item = MenuListItem;
+Menu.Item = MenuItem;
 
 export {
-    MenuList as default,
-    MenuListItem,
+    Menu as default,
+    MenuItem,
 };

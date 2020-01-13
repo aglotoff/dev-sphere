@@ -153,7 +153,12 @@ export const getUser: RequestHandler = async (req, res, next) => {
  * @param next Passes control to the next middleware function.
  */
 export const logout: RequestHandler = (req, res, next) => {
-    res.clearCookie('refreshtoken');
+    res.clearCookie('refreshtoken', {
+        // httpOnly: true,
+        path: '/api/auth/refresh_token',
+        // secure: process.env.NODE_ENV === 'production',
+    });
+
     res.status(200).json({
         success: true,
         message: 'User successfully logged out',

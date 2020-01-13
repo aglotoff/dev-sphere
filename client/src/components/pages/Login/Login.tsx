@@ -7,7 +7,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import AuthPage from '../../auth/AuthPage/AuthPage';
 import LoginForm from '../../auth/LoginForm/LoginForm';
 
-import { clearAuthError, setAuthError } from '../../../store/auth/actions';
+import { clearAuthError, setAuthError } from '../../../store/actions/api';
 
 const LoginPage = (props: RouteComponentProps) => {
     const { location } = props;

@@ -4,17 +4,17 @@ import React, { FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AppState } from '../../../store';
-import { logout } from '../../../store/auth/actions';
+import { logout } from '../../../store/actions/api';
 
 import Dropdown from '../Dropdown/Dropdown';
-import MenuList from '../MenuList/MenuList';
+import Menu from '../Menu/Menu';
 
 import styles from './AccountMenu.module.scss';
 
 const AccountMenu: FunctionComponent = () => {
     const dispatch = useDispatch();
 
-    const user = useSelector((state: AppState) => state.auth.user);
+    const user = useSelector((state: AppState) => state.api.auth.user);
     if (user == null) {
         return null;
     }
@@ -35,26 +35,26 @@ const AccountMenu: FunctionComponent = () => {
                 </span>
             )}
         >
-            <MenuList>
-                <MenuList.Item href="/">
+            <Menu>
+                <Menu.Item href="/">
                     Profile
-                </MenuList.Item>
-                <MenuList.Item href="/messages">
+                </Menu.Item>
+                <Menu.Item href="/messages">
                     Messages
-                </MenuList.Item>
-                <MenuList.Item href="/booked-events">
+                </Menu.Item>
+                <Menu.Item href="/booked-events">
                     Booked Events
-                </MenuList.Item>
-                <MenuList.Item href="/credits">
+                </Menu.Item>
+                <Menu.Item href="/credits">
                     Credits
-                </MenuList.Item>
-                <MenuList.Item href="/settings">
+                </Menu.Item>
+                <Menu.Item href="/settings">
                     Settings
-                </MenuList.Item>
-                <MenuList.Item onClick={handleLogoutClick}>
+                </Menu.Item>
+                <Menu.Item onClick={handleLogoutClick}>
                     Logout
-                </MenuList.Item >
-            </MenuList>
+                </Menu.Item >
+            </Menu>
         </Dropdown>
     );
 };

@@ -1,14 +1,14 @@
 import React, { MouseEvent, PropsWithChildren } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import styles from './MenuList.module.scss';
+import styles from './Menu.module.scss';
 
-export interface IMenuListItemProps {
+export interface IMenuItemProps {
     href?: string;
     onClick?: (e: MouseEvent) => void;
 }
 
-const MenuListItem = (props: PropsWithChildren<IMenuListItemProps>) => {
+const MenuItem = (props: PropsWithChildren<IMenuItemProps>) => {
     const { children, href, onClick } = props;
 
     if (href) {
@@ -34,4 +34,4 @@ const MenuListItem = (props: PropsWithChildren<IMenuListItemProps>) => {
     }
 };
 
-export default MenuListItem;
+export default MenuItem;

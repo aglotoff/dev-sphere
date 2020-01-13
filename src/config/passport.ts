@@ -20,13 +20,13 @@ const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || 'secret';
  *
  * @param req The HTTP request object.
  */
-export const jwtFromCookies = (req: Request) => req.cookies.refreshtoken;
+export const jwtFromCookie = (req: Request) => req.cookies.refreshtoken;
 
 /**
  * Authenticate using a JSON Web token stored inside a session cookie.
  */
 passport.use('refresh-token', new JwtStrategy({
-    jwtFromRequest: jwtFromCookies,
+    jwtFromRequest: jwtFromCookie,
     secretOrKey: REFRESH_TOKEN_SECRET,
 }, async (payload, done) => {
     try {

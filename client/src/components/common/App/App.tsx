@@ -3,22 +3,27 @@ import DocumentTitle from 'react-document-title';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Switch } from 'react-router-dom';
 
+import Home from '../../pages/Home/Home';
 import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 
-import Home from '../Home/Home';
 import LoggedInRoute from '../LoggedInRoute/LoggedInRoute';
 import LoggedOutRoute from '../LoggedOutRoute/LoggedOutRoute';
 
 import { AppState } from '../../../store';
-import { getUser } from '../../../store/auth/actions';
+import { getUser, refreshToken } from '../../../store/actions/api';
 
 const App: React.FC = () => {
-    const { loggedIn } = useSelector((state: AppState) => ({
-        loggedIn: state.auth.loggedIn,
-        user: state.auth.loggedIn,
-    }));
     const dispatch = useDispatch();
+
+    // Try to log in
+    useEffect(() => {
+        dispatch(refreshToken());
+    }, [ dispatch ]);
+
+    const { loggedIn } = useSelector((state: AppState) => ({
+        loggedIn: state.api.auth.accessToken != null,
+    }));
 
     useEffect(() => {
         if (loggedIn) {
