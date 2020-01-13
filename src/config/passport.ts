@@ -127,13 +127,15 @@ export const oAuthVerify = async (
     }
 };
 
+const SERVER_NAME = process.env.SERVER_NAME || '';
+
 /**
  * Sign in with Facebook account.
  */
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_CLIENT_ID || 'abc',
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET || 'abc',
-    callbackURL: '/socialauth/facebook/callback',
+    callbackURL: SERVER_NAME + '/socialauth/facebook/callback',
     profileFields: [ 'emails', 'displayName' ],
 }, oAuthVerify));
 
@@ -143,7 +145,7 @@ passport.use(new FacebookStrategy({
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID || 'abc',
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'abc',
-    callbackURL: '/socialauth/google/callback',
+    callbackURL: SERVER_NAME + '/socialauth/google/callback',
 }, oAuthVerify));
 
 /**
