@@ -8,8 +8,7 @@ import passport from 'passport';
 
 import { IUser } from '../models/User';
 
-const BASE_URL = process.env.NODE_ENV === 'production' ?
-    '' : 'http://localhost:3000';
+const SERVER_NAME = process.env.SERVER_NAME || 'http://localhost:3000';
 
 /**
  * Authenticate users using an external social login provider.
@@ -23,15 +22,22 @@ export const socialLogin = (strategy: string): RequestHandler =>
             user: IUser | false,
             info?: { message: string },
         ) => {
+            console.log('Inside social login');
+            console.log(err);
+            console.log(user);
+            console.log(info);
+
             try {
                 if (!user) {
-                    let errorMsg = 'Authentication Error';
+                    console.log('User is none!');
+
+                    let errorMsg = 'Authentication Error Nanana';
                     if (info) {
                         errorMsg = info.message;
                     }
 
                     errorMsg = encodeURIComponent(errorMsg);
-                    return res.redirect(BASE_URL + '/login?error=' + errorMsg);
+                    return res.redirect(SERVER_NAME + '/login?error=' + errorMsg);
                 }
 
                 const newRefreshToken = await user.generateRefreshToken();
@@ -41,7 +47,9 @@ export const socialLogin = (strategy: string): RequestHandler =>
                     secure: process.env.NODE_ENV === 'production',
                 });
 
-                return res.redirect(BASE_URL);
+                console.log('Redirecting to ' + SERVER_NAME + '/');
+
+                return res.redirect(SERVER_NAME + '/');
             } catch (err) {
                 return next(err);
             }

@@ -93,6 +93,7 @@ export const oAuthVerify = async (
             },
         });
         if (existingUser) {
+            console.log('User exists: ' + existingUser.email);
             return done(null, existingUser);
         }
 
@@ -120,10 +121,13 @@ export const oAuthVerify = async (
             }],
         });
 
+        console.log('Saving user');
+
         const savedUser = await user.save();
         return done(null, savedUser);
     } catch (err) {
-        return done(err, null, { message: 'Authentication error' });
+        console.log('Error: ' + err);
+        return done(err, null, { message: 'Authentication error ):' });
     }
 };
 
