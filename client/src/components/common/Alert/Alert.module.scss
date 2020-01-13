@@ -1,0 +1,36 @@
+@import "../../../styles/variables";
+
+.alert {
+    position: relative;
+
+    padding: 1em 3em 1em 1.25em;
+
+    color: darken($color-cardinal, 15%);
+    font-size: 0.75rem;
+
+    background: lighten($color-cardinal, 45%);
+    border: 1px solid lighten($color-cardinal, 30%);
+    border-radius: 0.25em;
+}
+
+.close {
+    position: absolute;
+    right: 0em;
+    top: 0;
+
+    padding: 0.75em 1.25em;
+
+    color: darken($color-cardinal, 30%);
+
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    opacity: 0.5;
+    outline: 0;
+
+    transition: opacity 0.2s linear;
+
+    &:hover {
+        opacity: 1;
+    }
+}

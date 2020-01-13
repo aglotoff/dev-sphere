@@ -1,0 +1,102 @@
+@import "../../../styles/variables";
+
+.form {
+    align-items: center;
+    display: flex;
+    padding: 3.125em;
+
+    background: $color-white;
+}
+
+.inner {
+    width: 100%;
+}
+
+.title {
+    margin-bottom: 2.5em;
+
+    font-size: 1.125rem;
+    font-weight: $font-weight-bold;
+    text-align: center;
+}
+
+.socialButton {
+    & + & {
+        margin-top: 1.4em;
+    }
+}
+
+.or {
+    align-items: center;
+    display: flex;
+    margin: 1.85em 0;
+
+    color: $color-empress;
+    font-size: 0.875rem;
+
+    &:before,
+    &:after {
+        content: "";
+
+        display: block;
+        flex: 1 1;
+        height: 1px;
+
+        background: $color-mercury;
+    }
+
+    &:before {
+        margin-right: 1.35em;
+    }
+
+    &:after {
+        margin-left: 1.35em;
+    }
+}
+
+.field {
+    position: relative;
+
+    margin-top: 1.875em;
+}
+
+.fieldError {
+    left: 0;
+    position: absolute;
+    top: 100%;
+
+    display: block;
+    margin-top: 0.4em;
+    max-width: 100%;
+
+    color: $color-cardinal;
+    font-size: 0.75rem;
+}
+
+.checkbox {
+    position: relative;
+    
+    margin-top: 2.15em;
+
+    font-size: 0.875rem;
+    line-height: 1.7;
+}
+
+.checkboxLabel {
+    margin-left: 0.65em;
+
+    color: $color-empress;
+}
+
+.submit {
+    margin-top: 2.85em;
+}
+
+.callout {
+    margin-top: 2.85em;
+
+    color: $color-empress;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    text-align: center;
+}

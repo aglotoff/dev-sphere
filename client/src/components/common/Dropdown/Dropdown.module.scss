@@ -1,0 +1,56 @@
+@import '../../../styles/variables';
+
+.dropdown {
+    position: relative;
+}
+
+.toggle {
+    padding: 0;
+
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    outline: 0;
+}
+
+.drawer {
+    position: absolute;
+    right: -0.625em;
+    top: 100%;
+
+    min-width: 10.625em;
+
+    box-shadow: 0 -3px 1.125em rgba($color-black, 0.18);
+    opacity: 0;
+
+    transform: translateY(0.5em);
+    transition: transform 0.2s linear,
+                opacity 0.2s linear,
+                visibility 0.2s step-start 0.2s;
+    visibility: hidden;
+
+    &:before {
+        content: "";
+
+        top: -0.625em;
+        position: absolute;
+        right: 1.625em;
+
+        display: block;
+
+        border: {
+            top: 0;
+            right: 0.3125em solid transparent;
+            bottom: 0.625em solid $color-alabaster;
+            left: 0.3125em solid transparent;
+        }
+    }
+
+    &_expanded {
+        opacity: 1;
+
+        transform: translateY(-0.5em);
+        transition-delay: 0s;
+        visibility: visible;
+    }
+}

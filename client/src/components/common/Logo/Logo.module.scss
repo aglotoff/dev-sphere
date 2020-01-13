@@ -1,0 +1,21 @@
+@import "../../../styles/variables";
+
+.logo {
+    align-items: center;
+    display: inline-flex;
+
+    color: $color-white;
+    text-decoration: none;
+}
+
+.img {
+    max-width: 100%;
+}
+
+.text {
+    margin-left: 0.6em;
+
+    font-size: 1.5em;
+    font-weight: $font-weight-semibold;
+    letter-spacing: -0.02em;
+}

@@ -1,0 +1,19 @@
+@import '../../../styles/variables';
+
+.link {
+    text-decoration: none;
+
+    transition: color 0.2s linear;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    &_theme_default {
+        color: $color-persimmon;
+    }
+
+    &_theme_alt {
+        color: $color-mine-shaft;
+    }
+}

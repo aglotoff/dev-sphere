@@ -1,0 +1,35 @@
+@import "../../../styles/mixins";
+@import "../../../styles/variables";
+
+.input {
+    @include visually-hidden();
+}
+
+.square {
+    position: relative;
+    top: 0.05em;
+
+    display: inline-block;
+
+    color: $color-persimmon;
+
+    cursor: pointer;
+
+    transition: color 0.2s linear;
+
+    &:hover {
+        color: $color-mine-shaft;
+    }
+}
+
+.check {
+    left: 0;
+    position: absolute;
+    top: 0;
+
+    display: none;
+
+    .input:checked + .square > & {
+        display: block;
+    }
+}
