@@ -22,15 +22,8 @@ export const socialLogin = (strategy: string): RequestHandler =>
             user: IUser | false,
             info?: { message: string },
         ) => {
-            console.log('Inside social login');
-            console.log(err);
-            console.log(user);
-            console.log(info);
-
             try {
                 if (!user) {
-                    console.log('User is none!');
-
                     let errorMsg = 'Authentication Error Nanana';
                     if (info) {
                         errorMsg = info.message;
@@ -46,8 +39,6 @@ export const socialLogin = (strategy: string): RequestHandler =>
                     path: '/api/auth/refresh_token',
                     secure: process.env.NODE_ENV === 'production',
                 });
-
-                console.log('Redirecting to ' + SERVER_NAME + '/');
 
                 return res.redirect(SERVER_NAME + '/');
             } catch (err) {

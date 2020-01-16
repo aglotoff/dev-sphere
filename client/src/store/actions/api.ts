@@ -117,7 +117,6 @@ export const logout = () => apiAction({
     statusHandlers: {
         request: LOGOUT_REQUEST,
         success: LOGOUT_SUCCESS,
-        failure: LOGOUT_FAILURE,
     },
 });
 
@@ -149,7 +148,6 @@ export const getUser = () => apiAction({
     statusHandlers: {
         request: GET_USER_REQUEST,
         success: GET_USER_SUCCESS,
-        failure: GET_USER_FAILURE,
     },
 });
 

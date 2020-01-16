@@ -3,6 +3,7 @@
  * @author Andrey Glotov
  */
 
+import { CancelTokenSource } from 'axios';
 import { Action } from 'redux';
 
 /**
@@ -23,6 +24,12 @@ export interface IApiError {
     status: number;
     /** Error message. */
     message: string;
+}
+
+export interface IApiResponse {
+    success: boolean;
+    message?: string;
+    data: any;
 }
 
 /**
@@ -59,6 +66,10 @@ export interface IApiState {
         accessToken: string | null;
         /** Last auhthentication error message. */
         errorMessage: string | null;
+        /** Login or register request in progress. */
+        isAuthenticating: boolean;
+        /** Refresh-token request in progress. */
+        isRefreshingToken: boolean;
     };
 
     /** Last API request error. */
@@ -107,8 +118,8 @@ export interface IApiRequestParams {
     /** The body contents. */
     body?: object;
 
-    /** A unique ID to allow request cancellation. */
-    cancelToken?: string;
+    /** An optional cancel token source object. */
+    cancelTokenSource?: CancelTokenSource;
 
     /** Skip authentication? */
     skipAuth?: boolean;
