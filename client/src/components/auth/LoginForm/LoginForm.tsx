@@ -10,8 +10,8 @@ import Alert from '../../common/Alert/Alert';
 import Link from '../../common/Link/Link';
 import AuthForm from '../AuthForm/AuthForm';
 
-import { AppState } from '../../../store';
 import { clearAuthError, login } from '../../../store/actions/api';
+import { getAuthError } from '../../../store/reducers/api';
 import { ILoginParams } from '../../../store/types/api';
 
 const initialValues = {
@@ -27,13 +27,11 @@ interface ILoginFormProps {
     className: string;
 }
 
-const getErrorMessage = (state: AppState) => state.api.auth.errorMessage;
-
 const LoginForm = (props: ILoginFormProps) => {
     const { className } = props;
 
     const dispatch = useDispatch();
-    const errorMessage = useSelector(getErrorMessage);
+    const errorMessage = useSelector(getAuthError);
 
     const onSubmit = (creds: ILoginParams) => {
         dispatch(login(creds));

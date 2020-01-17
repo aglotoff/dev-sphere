@@ -6,8 +6,8 @@ import Alert from '../../common/Alert/Alert';
 import Link from '../../common/Link/Link';
 import AuthForm from '../AuthForm/AuthForm';
 
-import { AppState } from '../../../store';
 import { clearAuthError, register } from '../../../store/actions/api';
+import { getAuthError } from '../../../store/reducers/api';
 import { IRegisterParams } from '../../../store/types/api';
 
 interface IRegisterValues extends IRegisterParams {
@@ -55,13 +55,11 @@ interface IRegisterFormProps {
     className: string;
 }
 
-const getErrorMessage = (state: AppState) => state.api.auth.errorMessage;
-
 const RegisterForm = (props: IRegisterFormProps) => {
     const { className } = props;
 
     const dispatch = useDispatch();
-    const errorMessage = useSelector(getErrorMessage);
+    const errorMessage = useSelector(getAuthError);
 
     const onSubmit = (creds: IRegisterParams) => {
         dispatch(register({

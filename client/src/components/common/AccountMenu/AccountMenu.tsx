@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AppState } from '../../../store';
 import { logout } from '../../../store/actions/api';
+import { getUser } from '../../../store/reducers/api';
 
 import Dropdown from '../Dropdown/Dropdown';
 import Menu from '../Menu/Menu';
@@ -14,7 +14,7 @@ import styles from './AccountMenu.module.scss';
 const AccountMenu: FunctionComponent = () => {
     const dispatch = useDispatch();
 
-    const user = useSelector((state: AppState) => state.api.auth.user);
+    const user = useSelector(getUser);
     if (user == null) {
         return null;
     }

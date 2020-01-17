@@ -10,8 +10,8 @@ import Register from '../../pages/Register/Register';
 import LoggedInRoute from '../LoggedInRoute/LoggedInRoute';
 import LoggedOutRoute from '../LoggedOutRoute/LoggedOutRoute';
 
-import { AppState } from '../../../store';
 import { getUser, refreshToken } from '../../../store/actions/api';
+import { getIsLoggedIn } from '../../../store/reducers/api';
 
 const App: React.FC = () => {
     const dispatch = useDispatch();
@@ -21,9 +21,7 @@ const App: React.FC = () => {
         dispatch(refreshToken());
     }, [ dispatch ]);
 
-    const { loggedIn } = useSelector((state: AppState) => ({
-        loggedIn: state.api.auth.accessToken != null,
-    }));
+    const loggedIn = useSelector(getIsLoggedIn);
 
     useEffect(() => {
         if (loggedIn) {

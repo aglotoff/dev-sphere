@@ -15,7 +15,9 @@ import './styles/main.scss';
 
 import App from './components/common/App/App';
 import * as serviceWorker from './serviceWorker';
-import { store } from './store/index';
+import configureStore from './store/configureStore';
+
+const store = configureStore();
 
 ReactDOM.render(
     <Provider store={store}>

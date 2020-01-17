@@ -12,7 +12,7 @@ import {
     RouteProps,
 } from 'react-router-dom';
 
-import { AppState } from '../../../store';
+import { getIsLoggedIn } from '../../../store/reducers/api';
 
 /**
  * Props for the logged out route component.
@@ -33,10 +33,7 @@ export interface ILoggedOutRouteProps extends RouteProps {
 const LoggedOutRoute = (props: ILoggedOutRouteProps) => {
     const { component: Component, ...rest } = props;
 
-    const isLoggedIn = useSelector((state: AppState) => {
-        return state.api.auth.accessToken != null;
-    });
-
+    const isLoggedIn = useSelector(getIsLoggedIn);
     if (isLoggedIn) {
         return <Redirect to="/" />;
     }
