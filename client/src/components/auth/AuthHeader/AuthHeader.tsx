@@ -8,7 +8,7 @@ import React from 'react';
 
 import Logo from '../../common/Logo/Logo';
 
-import loginImage from '../../../images/login.svg';
+import loginImage from '../../../assets/images/login.svg';
 
 import styles from './AuthHeader.module.scss';
 
