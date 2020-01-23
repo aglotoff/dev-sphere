@@ -30,7 +30,7 @@ const App: React.FC = () => {
     }, [ loggedIn, dispatch ]);
 
     return (
-        <DocumentTitle title="DevCircle">
+        <DocumentTitle title="DevSphere">
             <BrowserRouter>
                 <Switch>
                     <LoggedOutRoute path="/login" component={Login} />

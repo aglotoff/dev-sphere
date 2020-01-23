@@ -5,7 +5,7 @@
 
 import React, { PropsWithChildren } from 'react';
 
-import Checkbox from '../../common/Checkbox/Checkbox';
+import Checkbox from '../../common/Checkbox';
 
 import styles from './AuthForm.module.scss';
 

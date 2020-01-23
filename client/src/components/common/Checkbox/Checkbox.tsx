@@ -4,7 +4,7 @@ import React, { ChangeEvent } from 'react';
 
 import styles from './Checkbox.module.scss';
 
-interface ICheckboxProps {
+export interface ICheckboxProps {
     checked: boolean;
 
     id: string;

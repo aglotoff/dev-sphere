@@ -5,7 +5,7 @@ import Button, { IButtonProps } from '../../common/Button/Button';
 import styles from './AuthForm.module.scss';
 
 const AuthFormSubmit = (props: PropsWithChildren<IButtonProps>) => (
-    <Button {...props} type="submit" className={styles.submit} />
+    <Button {...props} type="submit" className={styles.submit} size={'lg'} />
 );
 
 export default AuthFormSubmit;

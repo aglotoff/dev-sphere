@@ -1,0 +1,28 @@
+@import '../../../assets/styles/variables';
+
+.container {
+    align-items: center;
+    display: flex;
+    padding: 1.25em;
+
+    background: $color-white;
+    border-top: 1px solid $color-mercury;
+}
+
+.name {
+    padding: 0.825em;
+
+    color: $color-cod-gray;
+    font-size: 0.75em;
+    font-weight: $font-weight-medium;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        color: $color-persimmon;
+    }
+}
+
+.btn {
+    margin-left: auto;
+}

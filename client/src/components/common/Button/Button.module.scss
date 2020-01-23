@@ -18,13 +18,13 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    padding: 1.25em;
-    width: 100%;
+    padding: 0 1.25em;
 
     color: $color-white;
     font-family: $font-family-default;
     font-size: 0.875rem;
     font-weight: $font-weight-medium;
+    line-height: 1.2;
     text-decoration: none;
 
     border: 0;
@@ -44,8 +44,29 @@
 
         pointer-events: none;
     }
+
+    &_size_sm {
+        padding-bottom: 0.9em;
+        padding-top: 0.9em;
+
+        font-size: 0.625em;
+    }
+
+    &_size_md {
+        padding-bottom: 0.825em;
+        padding-top: 0.825em;
+    }
+
+    &_size_lg {
+        padding-bottom: 1.25em;
+        padding-top: 1.25em;
+    }
+
+    &_sharp {
+        border-radius: 0;
+    }
 }
 
-.text {
-    margin-left: 1.25em;
+.icon {
+    margin-right: 1.25em;
 }

@@ -1,0 +1,41 @@
+@import '../../../assets/styles/variables';
+
+.popup {
+    min-width: 17.25em;
+    overflow: hidden;
+
+    background: $color-white;
+    border-radius: 0 0 0.2em 0.2em;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0.75em;
+}
+
+.action {
+    display: block;
+    padding: 0.6em;
+
+    color: $color-empress;
+    font-family: $font-family-default;
+    font-size: 0.75rem;
+    text-decoration: none;
+
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    outline: 0;
+
+    transition: color 0.2s linear;
+
+    &:hover,
+    &:focus {
+        color: $color-shark;
+    }
+}
+
+.viewAll {
+    width: 100%;
+}

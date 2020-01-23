@@ -1,13 +1,35 @@
-import React from 'react';
+/**
+ * @file Application logo component.
+ * @author Andrey Glotov
+ */
+
+import classnames from 'classnames';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from './Logo.module.scss';
 
 import logo from '../../../assets/images/logo.svg';
 
-const Logo = () => {
+/**
+ * Props for the Logo component.
+ */
+interface IMainMenuProps {
+    /** Additional class name. */
+    className?: string;
+}
+
+/**
+ * Application logo. Acts as a link to the home page.
+ */
+const Logo: FC<IMainMenuProps> = ({ className }) => {
+    const logoClass = classnames(
+        styles.logo,
+        className,
+    );
+
     return (
-        <Link to="/" className={styles.logo}>
+        <Link to="/" className={logoClass}>
             <img src={logo} alt="" className={styles.img} />
             <span className={styles.text}>DevSphere</span>
         </Link>

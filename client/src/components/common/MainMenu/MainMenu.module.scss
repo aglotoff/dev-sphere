@@ -1,0 +1,23 @@
+@import '../../../assets/styles/variables';
+
+.list {
+    display: flex;
+}
+
+.link {
+    display: block;
+    padding: 1.25em 1.4em;
+
+    color: $color-white;
+    font-size: 0.875rem;
+    text-decoration: none;
+
+    opacity: 0.5;
+
+    transition: opacity 0.2s linear;
+
+    &:hover,
+    &:focus {
+        opacity: 1;
+    }
+}

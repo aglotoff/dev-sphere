@@ -3,22 +3,27 @@
 .toggle {
     align-items: center;
     display: flex;
-    padding: 2em 1.2em;
+    padding: 1.75em 1em;
 
     color: rgba($color-white, 0.5);
-    font-family: $font-family-default;
-    font-size: 0.875rem;
 
-    transition: all 0.2s linear;
-
-    .accountMenu_expanded > &,
+    &_expanded,
+    &:focus,
     &:hover {
         color: $color-white;
     }
 }
 
+.greeting {
+    margin-left: 1em;
+
+    
+    font-family: $font-family-default;
+    font-size: 0.875rem;
+
+    transition: all 0.2s linear;
+}
+
 .arrow {
     margin-left: 0.85em;
-
-    transition: color 0.2s linear;
 }

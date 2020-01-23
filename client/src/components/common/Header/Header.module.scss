@@ -5,9 +5,34 @@
 }
 
 .inner {
+    align-items: center;
     display: flex;
-    justify-content: space-between;
     margin: 0 auto;
     max-width: 75em;
     padding: 0 1em;
+}
+
+.logo {
+    margin: 0 1.325em;
+}
+
+.menu {
+    margin-left: 2em;
+}
+
+.newEventBtn {
+    margin-left: 2em;
+}
+
+.actions {
+    display: flex;
+    margin-left: auto;
+}
+
+.action {
+    margin-left: 0.2em;
+}
+
+.user {
+    margin-left: 1.125em;
 }
