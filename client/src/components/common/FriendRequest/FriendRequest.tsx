@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
-import Button from '../Button/Button';
-import ProfileImage from '../ProfileImage/ProfileImage';
+import { Button } from '../Button';
+import { ProfileImage } from '../ProfileImage';
 
 import styles from './FriendRequest.module.scss';
 
@@ -11,7 +11,7 @@ export interface IFriendRequest {
     profileUrl: string;
 }
 
-const FriendRequest: FC<IFriendRequest> = ({
+export const FriendRequest: FC<IFriendRequest> = ({
     picture,
     name,
     profileUrl,
@@ -28,5 +28,3 @@ const FriendRequest: FC<IFriendRequest> = ({
         <Button size="sm" className={styles.btn}>Accept</Button>
     </div>
 );
-
-export default FriendRequest;

@@ -9,12 +9,12 @@ import { Link } from 'react-router-dom';
 
 import styles from './Logo.module.scss';
 
-import logo from '../../../assets/images/logo.svg';
+import logoImage from '../../../assets/images/logo.svg';
 
 /**
  * Props for the Logo component.
  */
-interface IMainMenuProps {
+export interface IMainMenuProps {
     /** Additional class name. */
     className?: string;
 }
@@ -22,7 +22,7 @@ interface IMainMenuProps {
 /**
  * Application logo. Acts as a link to the home page.
  */
-const Logo: FC<IMainMenuProps> = ({ className }) => {
+export const Logo: FC<IMainMenuProps> = ({ className }) => {
     const logoClass = classnames(
         styles.logo,
         className,
@@ -30,10 +30,8 @@ const Logo: FC<IMainMenuProps> = ({ className }) => {
 
     return (
         <Link to="/" className={logoClass}>
-            <img src={logo} alt="" className={styles.img} />
+            <img src={logoImage} alt="" className={styles.img} />
             <span className={styles.text}>DevSphere</span>
         </Link>
     );
 };
-
-export default Logo;

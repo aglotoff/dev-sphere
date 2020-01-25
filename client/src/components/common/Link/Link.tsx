@@ -1,17 +1,20 @@
-import classnames from 'classnames';
-import React from 'react';
+import classNames from 'classnames';
+import React, { FC } from 'react';
 import { Link as RouterLink, LinkProps } from 'react-router-dom';
 
 import styles from './Link.module.scss';
 
-interface ILinkProps extends LinkProps {
+export interface ILinkProps extends LinkProps {
     theme?: 'default' | 'alt';
 }
 
-const Link = (props: ILinkProps) => {
-    const { children, className, theme = 'default', ...restProps } = props;
-
-    const linkClass = classnames(
+export const Link: FC<ILinkProps> = ({
+    children,
+    className,
+    theme = 'default',
+    ...restProps
+}) => {
+    const linkClass = classNames(
         styles.link,
         styles['link_theme_' + theme],
         className,
@@ -23,5 +26,3 @@ const Link = (props: ILinkProps) => {
         </RouterLink>
     );
 };
-
-export default Link;

@@ -3,9 +3,9 @@
  * @author Andrey Glotov
  */
 
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 
-import AuthHeader from '../../auth/AuthHeader/AuthHeader';
+import { AuthHeader } from '../../auth/AuthHeader';
 
 import styles from './AuthPage.module.scss';
 
@@ -14,7 +14,7 @@ import styles from './AuthPage.module.scss';
  */
 export interface IInjectedAuthPageProps {
     /** Additional class name for the form */
-    className: string;
+    className?: string;
 }
 
 /**
@@ -32,7 +32,7 @@ export interface IAuthPageProps {
      *
      * @param injectedProps Props injected by the page component.
      */
-    renderForm: (injectedProps: IInjectedAuthPageProps) => JSX.Element;
+    renderForm: (injectedProps: IInjectedAuthPageProps) => ReactElement;
 }
 
 /**
@@ -42,21 +42,20 @@ export interface IAuthPageProps {
  *
  * @param props The component props
  */
-const AuthPage = (props: IAuthPageProps) => {
-    const { renderForm, title, text } = props;
+export const AuthPage: FC<IAuthPageProps> = ({
+    renderForm,
+    title,
+    text,
+}) => (
+    <div className={styles.page}>
+        <div className={styles.inner}>
+            <AuthHeader
+                title={title}
+                text={text}
+                className={styles.header}
+            />
 
-    return (
-        <div className={styles.page}>
-            <div className={styles.inner}>
-                <AuthHeader
-                    title={title}
-                    text={text}
-                    className={styles.header}
-                />
-                {renderForm({ className: styles.form })}
-            </div>
+            {renderForm({ className: styles.form })}
         </div>
-    );
-};
-
-export default AuthPage;
+    </div>
+);

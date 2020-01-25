@@ -1,14 +1,14 @@
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import React, { FC, PropsWithChildren } from 'react';
 
-import NotificationDropdown from '../NotificationDropdown/NotificationDropdown';
-import NotificationPopup from '../NotificationPopup/NotificationPopup';
+import { NotificationDropdown } from '../NotificationDropdown';
+import { NotificationPopup } from '../NotificationPopup';
 
 export interface IHeaderMessagesProps {
     onClearAll?: () => void;
 }
 
-const HeaderMessages: FC<PropsWithChildren<IHeaderMessagesProps>> = ({
+export const HeaderMessages: FC<PropsWithChildren<IHeaderMessagesProps>> = ({
     onClearAll,
 }) => (
     <NotificationDropdown
@@ -32,5 +32,3 @@ const HeaderMessages: FC<PropsWithChildren<IHeaderMessagesProps>> = ({
         </NotificationPopup>
     </NotificationDropdown>
 );
-
-export default HeaderMessages;

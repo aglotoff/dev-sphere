@@ -8,9 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
 import React, { FC } from 'react';
 
-import Dropdown, { IInjectedDropdownToggleProps } from '../Dropdown/Dropdown';
-import DropdownMenu from '../DropdownMenu/DropdownMenu';
-import ProfileImage from '../ProfileImage/ProfileImage';
+import { Dropdown, IInjectedDropdownToggleProps } from '../Dropdown';
+import { DropdownMenu } from '../DropdownMenu';
+import { ProfileImage } from '../ProfileImage';
 
 import styles from './UserMenu.module.scss';
 
@@ -33,7 +33,7 @@ export interface IUserMenuProps {
 /**
  * Presentational component for the user dropdown menu.
  */
-const UserMenu: FC<IUserMenuProps> = ({
+export const UserMenu: FC<IUserMenuProps> = ({
     className,
     credits,
     onLogout,
@@ -88,5 +88,3 @@ const UserMenu: FC<IUserMenuProps> = ({
         </Dropdown>
     );
 };
-
-export default UserMenu;

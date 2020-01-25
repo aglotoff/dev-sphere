@@ -50,7 +50,7 @@ export interface IDropdownProps {
 /**
  * Basic component to create dropdowns.
  */
-const Dropdown: FC<PropsWithChildren<IDropdownProps>> = ({
+export const Dropdown: FC<PropsWithChildren<IDropdownProps>> = ({
     children,
     className,
     id,
@@ -146,5 +146,3 @@ const Dropdown: FC<PropsWithChildren<IDropdownProps>> = ({
         </div>
     );
 };
-
-export default Dropdown;

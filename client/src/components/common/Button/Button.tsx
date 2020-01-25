@@ -42,7 +42,7 @@ export interface IButtonProps {
 /**
  * Button with predefined styles and sizes.
  */
-const Button: FC<PropsWithChildren<IButtonProps>> = ({
+export const Button: FC<PropsWithChildren<IButtonProps>> = ({
     children,
     href,
     icon,
@@ -87,5 +87,3 @@ const Button: FC<PropsWithChildren<IButtonProps>> = ({
         );
     }
 };
-
-export default Button;

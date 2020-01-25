@@ -1,16 +1,16 @@
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import React, { FC, PropsWithChildren } from 'react';
 
-import NotificationDropdown from '../NotificationDropdown/NotificationDropdown';
-import NotificationPopup from '../NotificationPopup/NotificationPopup';
+import { NotificationDropdown } from '../NotificationDropdown';
+import { NotificationPopup } from '../NotificationPopup';
 
 export interface IHeaderNotificationsProps {
     onClearAll?: () => void;
 }
 
-const HeaderNotifications: FC<PropsWithChildren<IHeaderNotificationsProps>> = ({
-    onClearAll,
-}) => (
+export const HeaderNotifications: FC<
+    PropsWithChildren<IHeaderNotificationsProps>
+> = ({ onClearAll }) => (
     <NotificationDropdown
         icon={faBell}
         title="Notifications"
@@ -32,5 +32,3 @@ const HeaderNotifications: FC<PropsWithChildren<IHeaderNotificationsProps>> = ({
         </NotificationPopup>
     </NotificationDropdown>
 );
-
-export default HeaderNotifications;

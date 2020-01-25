@@ -3,15 +3,12 @@ import {
     faGoogle,
 } from '@fortawesome/free-brands-svg-icons';
 import { useFormik } from 'formik';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FC } from 'react';
 
-import Alert from '../../common/Alert/Alert';
-import Link from '../../common/Link/Link';
-import AuthForm from '../AuthForm/AuthForm';
+import { Alert } from '../../common/Alert';
+import { Link } from '../../common/Link';
+import { AuthForm } from '../AuthForm/';
 
-import { clearAuthError, login } from '../../../store/actions/api';
-import { getAuthError } from '../../../store/reducers/api';
 import { ILoginParams } from '../../../store/types/api';
 
 const initialValues = {
@@ -22,25 +19,23 @@ const initialValues = {
 /**
  * Props for the login form component.
  */
-interface ILoginFormProps {
+export interface ILoginFormProps {
     /** Additional class name for the form */
-    className: string;
+    className?: string;
+
+    onSubmit: (creds: ILoginParams) => void;
+
+    onAlertDismiss: () => void;
+
+    errorMessage?: string | null;
 }
 
-const LoginForm = (props: ILoginFormProps) => {
-    const { className } = props;
-
-    const dispatch = useDispatch();
-    const errorMessage = useSelector(getAuthError);
-
-    const onSubmit = (creds: ILoginParams) => {
-        dispatch(login(creds));
-    };
-
-    const handleAlertDismiss = () => {
-        dispatch(clearAuthError());
-    };
-
+export const LoginForm: FC<ILoginFormProps> = ({
+    className,
+    errorMessage,
+    onAlertDismiss,
+    onSubmit,
+}) => {
     const {
         handleChange,
         handleSubmit,
@@ -72,7 +67,7 @@ const LoginForm = (props: ILoginFormProps) => {
             <AuthForm.Or />
 
             {errorMessage &&
-                <Alert onDismiss={handleAlertDismiss}>{errorMessage}</Alert>
+                <Alert onDismiss={onAlertDismiss}>{errorMessage}</Alert>
             }
 
             <AuthForm.Field
@@ -103,5 +98,3 @@ const LoginForm = (props: ILoginFormProps) => {
         </AuthForm>
     );
 };
-
-export default LoginForm;

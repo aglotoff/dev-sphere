@@ -5,11 +5,13 @@ import React, {
     SyntheticEvent,
 } from 'react';
 
-import Button from '../Button/Button';
+import { Button } from '../Button/Button';
 
 import styles from './NotificationPopup.module.scss';
 
-const NotificationPopupHeader: FC<PropsWithChildren<{}>> = ({ children }) => (
+export const NotificationPopupHeader: FC<PropsWithChildren<{}>> = ({
+    children,
+}) => (
     <div className={styles.header}>
         {children}
     </div>
@@ -20,7 +22,7 @@ export interface INotificationPopupActionProps {
     onClick?: EventHandler<SyntheticEvent>;
 }
 
-const NotificationPopupAction: FC<
+export const NotificationPopupAction: FC<
     PropsWithChildren<INotificationPopupActionProps>
 > = ({
     children,
@@ -46,7 +48,7 @@ export interface INotificationPopupViewAllProps {
     href: string;
 }
 
-const NotificationPopupViewAll: FC<
+export const NotificationPopupViewAll: FC<
     PropsWithChildren<INotificationPopupViewAllProps>
 > = ({
     children,
@@ -63,7 +65,7 @@ export type INotificationPopup = FC<PropsWithChildren<{}>> & {
     ViewAll: typeof NotificationPopupViewAll;
 };
 
-const NotificationPopup: INotificationPopup = ({ children }) => (
+export const NotificationPopup: INotificationPopup = ({ children }) => (
     <div className={styles.popup}>
         {children}
     </div>
@@ -71,10 +73,3 @@ const NotificationPopup: INotificationPopup = ({ children }) => (
 NotificationPopup.Header = NotificationPopupHeader;
 NotificationPopup.Action = NotificationPopupAction;
 NotificationPopup.ViewAll = NotificationPopupViewAll;
-
-export {
-    NotificationPopup as default,
-    NotificationPopupHeader,
-    NotificationPopupAction,
-    NotificationPopupViewAll,
-};

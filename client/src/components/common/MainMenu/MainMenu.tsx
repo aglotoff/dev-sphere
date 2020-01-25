@@ -19,7 +19,7 @@ export interface IMainMenuItemProps {
 /**
  * Main menu item.
  */
-const MainMenuItem: FC<PropsWithChildren<IMainMenuItemProps>> = ({
+export const MainMenuItem: FC<PropsWithChildren<IMainMenuItemProps>> = ({
     children,
     href,
 }) => (
@@ -33,7 +33,7 @@ const MainMenuItem: FC<PropsWithChildren<IMainMenuItemProps>> = ({
 /**
  * Props for the Main menu component.
  */
-interface IMainMenuProps {
+export interface IMainMenuProps {
     /** Additional class name. */
     className?: string;
 }
@@ -45,7 +45,7 @@ type IMainMenu = FC<PropsWithChildren<IMainMenuProps>> & {
 /**
  * Main application menu.
  */
-const MainMenu: IMainMenu = ({ children, className }) => (
+export const MainMenu: IMainMenu = ({ children, className }) => (
     <nav className={className}>
         <ul className={styles.list}>
             { children}
@@ -53,8 +53,3 @@ const MainMenu: IMainMenu = ({ children, className }) => (
     </nav>
 );
 MainMenu.Item = MainMenuItem;
-
-export {
-    MainMenu as default,
-    MainMenuItem,
-};

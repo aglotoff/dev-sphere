@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import DocumentTitle from 'react-document-title';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Switch } from 'react-router-dom';
 
-import Home from '../../pages/Home/Home';
-import Login from '../../pages/Login/Login';
-import Register from '../../pages/Register/Register';
+import { Home } from '../../pages/Home';
+import { Login } from '../../pages/Login';
+import { Register } from '../../pages/Register';
 
-import LoggedInRoute from '../LoggedInRoute/LoggedInRoute';
-import LoggedOutRoute from '../LoggedOutRoute/LoggedOutRoute';
+import { LoggedInRoute } from '../LoggedInRoute';
+import { LoggedOutRoute } from '../LoggedOutRoute';
 
 import { getUser, refreshToken } from '../../../store/actions/api';
 import { getIsLoggedIn } from '../../../store/reducers/api';
 
-const App: React.FC = () => {
+export const App: FC = () => {
     const dispatch = useDispatch();
 
     // Try to log in
@@ -41,5 +41,3 @@ const App: React.FC = () => {
         </DocumentTitle>
     );
 };
-
-export default App;

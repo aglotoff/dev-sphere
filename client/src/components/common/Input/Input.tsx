@@ -1,15 +1,16 @@
 import classnames from 'classnames';
-import React, { HTMLProps } from 'react';
+import React, { forwardRef, HTMLProps } from 'react';
 
 import styles from './Input.module.scss';
 
-interface IInputProps extends HTMLProps<HTMLInputElement> {
+export interface IInputProps extends HTMLProps<HTMLInputElement> {
     invalid?: boolean;
 }
 
-const Input = (props: IInputProps) => {
-    const { className, invalid, ...restProps } = props;
-
+export const Input = forwardRef<HTMLInputElement, IInputProps>((
+    { className, invalid, ...restProps },
+    forwardedRef,
+) => {
     const inputClass = classnames(
         styles.input,
         invalid && styles.input_invalid,
@@ -17,8 +18,10 @@ const Input = (props: IInputProps) => {
     );
 
     return (
-        <input {...restProps} className={inputClass} />
+        <input
+            {...restProps}
+            ref={forwardedRef}
+            className={inputClass}
+        />
     );
-};
-
-export default Input;
+});

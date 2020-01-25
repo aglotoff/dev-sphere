@@ -28,7 +28,9 @@ export interface IDropdownMenuItemProps {
 /**
  * Dropdown menu item.
  */
-const DropdownMenuItem: FC<PropsWithChildren<IDropdownMenuItemProps>> = ({
+export const DropdownMenuItem: FC<
+    PropsWithChildren<IDropdownMenuItemProps>
+> = ({
     children,
     href,
     label,
@@ -72,14 +74,9 @@ type IDropdownMenu = FC<PropsWithChildren<{}>> & {
 /**
  * Dropdown menu.
  */
-const DropdownMenu: IDropdownMenu = ({ children }) => (
+export const DropdownMenu: IDropdownMenu = ({ children }) => (
     <ul className={styles.menu}>
         {children}
     </ul>
 );
 DropdownMenu.Item = DropdownMenuItem;
-
-export {
-    DropdownMenu as default,
-    DropdownMenuItem,
-};

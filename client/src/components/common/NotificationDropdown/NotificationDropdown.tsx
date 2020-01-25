@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
 import React, { FC, PropsWithChildren } from 'react';
 
-import Dropdown from '../Dropdown/Dropdown';
+import { Dropdown } from '../Dropdown/Dropdown';
 
 import styles from './NotificationDropdown.module.scss';
 
@@ -14,7 +14,9 @@ export interface INotificationDropdownToggleProps {
     showIndicator: boolean;
 }
 
-const NotificationDropdownToggle: FC<INotificationDropdownToggleProps> = ({
+export const NotificationDropdownToggle: FC<
+    INotificationDropdownToggleProps
+> = ({
     active = false,
     icon,
     showIndicator = false,
@@ -41,7 +43,7 @@ export interface INotificationDropdownProps {
     showIndicator: boolean;
 }
 
-const NotificationDropdown: FC<
+export const NotificationDropdown: FC<
     PropsWithChildren<INotificationDropdownProps>
 > = ({ children, ...restProps }) => (
     <Dropdown renderToggle={({ expanded }) => (
@@ -53,5 +55,3 @@ const NotificationDropdown: FC<
         {children}
     </Dropdown>
 );
-
-export default NotificationDropdown;

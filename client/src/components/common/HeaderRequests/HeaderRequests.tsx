@@ -1,15 +1,15 @@
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import React, { FC, PropsWithChildren } from 'react';
 
-import FriendRequest from '../FriendRequest/FriendRequest';
-import NotificationDropdown from '../NotificationDropdown/NotificationDropdown';
-import NotificationPopup from '../NotificationPopup/NotificationPopup';
+import { FriendRequest } from '../FriendRequest';
+import { NotificationDropdown } from '../NotificationDropdown';
+import { NotificationPopup } from '../NotificationPopup';
 
 export interface IHeaderRequestsProps {
     onClearAll?: () => void;
 }
 
-const HeaderRequests: FC<PropsWithChildren<IHeaderRequestsProps>> = ({
+export const HeaderRequests: FC<PropsWithChildren<IHeaderRequestsProps>> = ({
     onClearAll,
 }) => (
     <NotificationDropdown
@@ -37,5 +37,3 @@ const HeaderRequests: FC<PropsWithChildren<IHeaderRequestsProps>> = ({
         </NotificationPopup>
     </NotificationDropdown>
 );
-
-export default HeaderRequests;

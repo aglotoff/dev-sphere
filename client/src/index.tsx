@@ -13,7 +13,7 @@ import './assets/fonts/Metropolis-SemiBold.woff2';
 
 import './assets/styles/main.scss';
 
-import App from './components/common/App/App';
+import { App } from './components/common/App';
 import * as serviceWorker from './serviceWorker';
 import configureStore from './store/configureStore';
 

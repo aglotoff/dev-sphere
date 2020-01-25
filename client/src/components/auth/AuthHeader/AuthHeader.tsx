@@ -3,10 +3,10 @@
  * @author Andrey Glotov
  */
 
-import classnames from 'classnames';
-import React from 'react';
+import classNames from 'classnames';
+import React, { FC } from 'react';
 
-import Logo from '../../common/Logo/Logo';
+import { Logo } from '../../common/Logo';
 
 import loginImage from '../../../assets/images/login.svg';
 
@@ -18,10 +18,8 @@ import styles from './AuthHeader.module.scss';
 export interface IAuthHeaderProps {
     /** Page title */
     title: string;
-
     /** Lead paragraph */
     text: string;
-
     /** Additional class name */
     className: string;
 }
@@ -31,10 +29,12 @@ export interface IAuthHeaderProps {
  *
  * @param props The component props
  */
-const AuthHeader = (props: IAuthHeaderProps) => {
-    const { title, text, className } = props;
-
-    const headerClass = classnames(
+export const AuthHeader: FC<IAuthHeaderProps> = ({
+    title,
+    text,
+    className,
+}) => {
+    const headerClass = classNames(
         styles.header,
         className,
     );
@@ -48,5 +48,3 @@ const AuthHeader = (props: IAuthHeaderProps) => {
         </header>
     );
 };
-
-export default AuthHeader;

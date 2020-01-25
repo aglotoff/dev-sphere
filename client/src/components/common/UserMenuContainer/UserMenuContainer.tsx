@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../store/actions/api';
 import { getUser } from '../../../store/reducers/api';
 
-import UserMenu, { IUserMenuProps } from '../UserMenu/UserMenu';
+import { IUserMenuProps, UserMenu } from '../UserMenu';
 
 /**
  * Props for the user menu container component.
@@ -22,7 +22,7 @@ type IUserMenuContainerProps = Omit<
 /**
  * Container component for the user dropdown menu.
  */
-const UserMenuContainer: FC<IUserMenuContainerProps> = (props) => {
+export const UserMenuContainer: FC<IUserMenuContainerProps> = (props) => {
     const dispatch = useDispatch();
 
     const user = useSelector(getUser);
@@ -43,5 +43,3 @@ const UserMenuContainer: FC<IUserMenuContainerProps> = (props) => {
         />
     );
 };
-
-export default UserMenuContainer;

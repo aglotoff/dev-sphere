@@ -22,14 +22,18 @@
     }
 }
 
-.check {
-    left: 0;
-    position: absolute;
-    top: 0;
-
-    display: none;
+.icon {
+    display: inline-block;
 
     .input:checked + .square > & {
-        display: block;
+        display: none;
+    }
+
+    &_checked {
+        display: none;
+
+        .input:checked + .square > & {
+            display: inline-block;
+        }
     }
 }

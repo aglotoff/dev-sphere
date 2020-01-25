@@ -14,7 +14,7 @@ export interface IProfileImageProps {
     size?: 'sm' | 'md';
 }
 
-const ProfileImage: FC<IProfileImageProps> = ({
+export const ProfileImage: FC<IProfileImageProps> = ({
     className,
     picture = placeholder,
     size = 'md',
@@ -33,5 +33,3 @@ const ProfileImage: FC<IProfileImageProps> = ({
         />
     );
 };
-
-export default ProfileImage;

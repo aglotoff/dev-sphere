@@ -30,7 +30,7 @@ export interface ILoggedOutRouteProps extends RouteProps {
  *
  * @param props The component props
  */
-const LoggedOutRoute = (props: ILoggedOutRouteProps) => {
+export const LoggedOutRoute = (props: ILoggedOutRouteProps) => {
     const { component: Component, ...rest } = props;
 
     const isLoggedIn = useSelector(getIsLoggedIn);
@@ -47,5 +47,3 @@ const LoggedOutRoute = (props: ILoggedOutRouteProps) => {
         />
     );
 };
-
-export default LoggedOutRoute;
