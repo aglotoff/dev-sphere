@@ -3,14 +3,17 @@
  * @author Andrey Glotov
  */
 
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { FC } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { Button } from '../Button';
-import { HeaderMessages } from '../HeaderMessages';
-import { HeaderNotifications } from '../HeaderNotifications';
-import { HeaderRequests } from '../HeaderRequests';
+import { InboxContainer } from '../InboxContainer';
 import { Logo } from '../Logo';
 import { MainMenu } from '../MainMenu';
+import { NotifierContainer } from '../NotifierContainer';
+import { RequestsContainer } from '../RequestsContainer';
 import { UserMenuContainer } from '../UserMenuContainer';
 
 import styles from './Header.module.scss';
@@ -40,10 +43,18 @@ export const Header: FC = () => (
 
             <Button className={styles.newEventBtn}>Add New Event</Button>
 
+            <NavLink to="/" className={styles.search}>
+                <FontAwesomeIcon
+                    className={styles.searchIcon}
+                    icon={faSearch}
+                    title="Search"
+                />
+            </NavLink>
+
             <div className={styles.actions}>
-                <HeaderRequests />
-                <HeaderMessages />
-                <HeaderNotifications />
+                <RequestsContainer />
+                <InboxContainer />
+                <NotifierContainer />
             </div>
 
             <UserMenuContainer className={styles.user} />

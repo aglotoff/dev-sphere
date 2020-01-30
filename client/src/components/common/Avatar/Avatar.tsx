@@ -3,9 +3,9 @@ import React, { FC } from 'react';
 
 import placeholder from '../../../assets/images/user-placeholder-small.png';
 
-import styles from './ProfileImage.module.scss';
+import styles from './Avatar.module.scss';
 
-export interface IProfileImageProps {
+export interface IAvatarProps {
     /** Additional class name. */
     className?: string;
     /** Profile picture. */
@@ -14,7 +14,7 @@ export interface IProfileImageProps {
     size?: 'sm' | 'md';
 }
 
-export const ProfileImage: FC<IProfileImageProps> = ({
+export const Avatar: FC<IAvatarProps> = ({
     className,
     picture = placeholder,
     size = 'md',

@@ -1,30 +1,44 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEventHandler } from 'react';
+import { NavLink } from 'react-router-dom';
 
+import { Avatar } from '../Avatar';
 import { Button } from '../Button';
-import { ProfileImage } from '../ProfileImage';
 
 import styles from './FriendRequest.module.scss';
 
 export interface IFriendRequest {
     picture?: string;
-    name: string;
+    userName: string;
     profileUrl: string;
+    onAcceptClick?: MouseEventHandler;
 }
 
 export const FriendRequest: FC<IFriendRequest> = ({
     picture,
-    name,
+    userName,
     profileUrl,
+    onAcceptClick,
 }) => (
     <div className={styles.container}>
-        <a href={profileUrl} tabIndex={-1}>
-            <ProfileImage picture={picture} size="sm" />
-        </a>
+        <Avatar picture={picture} size="sm" />
 
-        <a href={profileUrl} className={styles.name}>
-            {name}
-        </a>
+        <div className={styles.name}>
+            {userName}
+        </div>
 
-        <Button size="sm" className={styles.btn}>Accept</Button>
+        <NavLink
+            to={profileUrl}
+            className={styles.profileLink}
+        >
+            View profile
+        </NavLink>
+
+        <Button
+            size="sm"
+            className={styles.btn}
+            onClick={onAcceptClick}
+        >
+            Accept
+        </Button>
     </div>
 );

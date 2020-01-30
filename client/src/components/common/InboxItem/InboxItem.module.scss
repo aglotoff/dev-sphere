@@ -20,19 +20,42 @@
     }
 }
 
-.name {
+.body {
+    flex: 1 1;
     margin-left: 0.875em;
-    max-width: 12em;
+
+    font-size: 0.75rem;
+}
+
+.name {
+    max-width: 15em;
     overflow: hidden;
 
     color: $color-cod-gray;
-    font-size: 0.75em;
     font-weight: $font-weight-medium;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.profileLink {
+.bodyContent {
+    display: flex;
+    margin-top: 0.5em;
+}
+
+.message {
+    max-width: 9em;
+    overflow: hidden;
+    
+    color: $color-empress;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.time {
+    margin-left: auto;
+}
+
+.conversationLink {
     bottom: 0;
     left: 0;
     position: absolute;
@@ -43,10 +66,4 @@
     overflow: hidden;
 
     text-indent: -100em;
-}
-
-.btn {
-    position: relative;
-
-    margin-left: auto;
 }

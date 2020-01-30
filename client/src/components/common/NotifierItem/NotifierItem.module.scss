@@ -20,19 +20,33 @@
     }
 }
 
-.name {
+.body {
+    flex: 1 1;
     margin-left: 0.875em;
-    max-width: 12em;
-    overflow: hidden;
 
-    color: $color-cod-gray;
-    font-size: 0.75em;
-    font-weight: $font-weight-medium;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-size: 0.75rem;
+    line-height: 1.6667;
 }
 
-.profileLink {
+.title {
+    display: inline;
+
+    color: $color-cod-gray;
+    font-weight: $font-weight-medium;
+}
+
+.description {
+    display: inline;
+    
+    color: $color-empress;
+}
+
+.time {
+    float: right;
+    margin-left: 1.5em;
+}
+
+.link {
     bottom: 0;
     left: 0;
     position: absolute;
@@ -43,10 +57,4 @@
     overflow: hidden;
 
     text-indent: -100em;
-}
-
-.btn {
-    position: relative;
-
-    margin-left: auto;
 }

@@ -5,18 +5,16 @@ import React, { FC, PropsWithChildren } from 'react';
 
 import { Dropdown } from '../Dropdown/Dropdown';
 
-import styles from './NotificationDropdown.module.scss';
+import styles from './HeaderDropdown.module.scss';
 
-export interface INotificationDropdownToggleProps {
+export interface IHeaderDropdownToggleProps {
     icon: IconDefinition;
     title: string;
     active?: boolean;
     showIndicator: boolean;
 }
 
-export const NotificationDropdownToggle: FC<
-    INotificationDropdownToggleProps
-> = ({
+export const HeaderDropdownToggle: FC<IHeaderDropdownToggleProps> = ({
     active = false,
     icon,
     showIndicator = false,
@@ -37,17 +35,18 @@ export const NotificationDropdownToggle: FC<
     );
 };
 
-export interface INotificationDropdownProps {
+export interface IHeaderDropdownProps {
     icon: IconDefinition;
     title: string;
     showIndicator: boolean;
 }
 
-export const NotificationDropdown: FC<
-    PropsWithChildren<INotificationDropdownProps>
-> = ({ children, ...restProps }) => (
+export const HeaderDropdown: FC<PropsWithChildren<IHeaderDropdownProps>> = ({
+    children,
+    ...restProps
+}) => (
     <Dropdown renderToggle={({ expanded }) => (
-        <NotificationDropdownToggle
+        <HeaderDropdownToggle
             {...restProps}
             active={expanded}
         />

@@ -8,9 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
 import React, { FC } from 'react';
 
+import { Avatar } from '../Avatar';
 import { Dropdown, IInjectedDropdownToggleProps } from '../Dropdown';
 import { DropdownMenu } from '../DropdownMenu';
-import { ProfileImage } from '../ProfileImage';
 
 import styles from './UserMenu.module.scss';
 
@@ -48,7 +48,7 @@ export const UserMenu: FC<IUserMenuProps> = ({
 
         return (
             <span className={toggleClass}>
-                <ProfileImage picture={picture} />
+                <Avatar picture={picture} />
                 <span className={styles.greeting}>
                     Hi! {userName}
                 </span>

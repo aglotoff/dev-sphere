@@ -26,7 +26,7 @@
 
 .actions {
     display: flex;
-    margin-left: auto;
+    margin-left: 0.5em;
 }
 
 .action {
@@ -34,5 +34,29 @@
 }
 
 .user {
-    margin-left: 1.125em;
+    margin-left: 0.875em;
+}
+
+.search {
+    display: block;
+    margin-left: auto;
+    padding: 1.825em 0.575em 1.7em;
+
+    color: $color-white;
+    font-size: 1.125rem;
+}
+
+.searchIcon {
+    display: block;
+
+    line-height: 1;
+
+    opacity: 0.5;
+
+    transition: color 0.2s linear;
+
+    .search:hover > &,
+    .search:focus > & {
+        opacity: 1;
+    }
 }
