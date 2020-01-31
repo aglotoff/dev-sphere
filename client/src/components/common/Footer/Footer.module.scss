@@ -1,7 +1,7 @@
 @import "../../../assets/styles/variables";
 
 .footer {
-    padding: 0.8em 0;
+    padding: 1.25em 0;
 
     background: $color-white;
 
@@ -33,11 +33,10 @@
 
 .logo {
     display: block;
-    width: 1.5em;
+    flex: 0 0 1.5em;
 }
 
 .copyText {
-    flex: 1 1;
     margin-left: 1.5em;
     margin-top: 0.25em;
 
@@ -72,7 +71,7 @@
 
 .menuLink {
     display: block;
-    padding: 1em;
+    padding: 0.5em 1em;
 
     color: $color-mine-shaft;
     font-size: 0.875rem;

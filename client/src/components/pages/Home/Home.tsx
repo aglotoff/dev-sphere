@@ -1,14 +1,9 @@
 import React, { FC } from 'react';
-import DocumentTitle from 'react-document-title';
 
-import { Footer } from '../../common/Footer';
-import { Header } from '../../common/Header';
+import { Page } from '../../common/Page';
 
 export const Home: FC = () => (
-    <DocumentTitle title="DevSphere - Social Network for Developers">
-        <>
-            <Header />
-            <Footer />
-        </>
-    </DocumentTitle>
+    <Page title="DevSphere - Social Network for Developers">
+        Hello
+    </Page>
 );
