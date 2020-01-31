@@ -1,14 +1,10 @@
 @import "../../../assets/styles/variables";
 
 .page {
-    @media screen and (min-width: 30em) {
-        padding: 2em 0;
-    }
-
     @media screen and (min-width: 52em) {
-        min-height: 100vh;
         display: flex;
-        padding: 3.25em 0;
+        flex-direction: column;
+        min-height: 100vh;
 
         background-image: linear-gradient(
             to right,
@@ -16,9 +12,23 @@
             $color-seashell 50%,
         );
     }
+}
+
+.container {
+    @media screen and (min-width: 30em) {
+        padding: 2em 0;
+    }
+
+    @media screen and (min-width: 52em) {
+        display: flex;
+        flex: 1 1;
+        padding: 3.25em 0 2.5em;
+    }
 
     @media screen and (min-width: 70em) {
-        padding: 4em 0;
+        position: relative;
+
+        padding-top: 4em 0;
     }
 }
 

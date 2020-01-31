@@ -6,6 +6,7 @@
 import React, { FC, ReactElement } from 'react';
 
 import { AuthHeader } from '../../auth/AuthHeader';
+import { Footer } from '../../common/Footer';
 
 import styles from './AuthPage.module.scss';
 
@@ -48,14 +49,18 @@ export const AuthPage: FC<IAuthPageProps> = ({
     text,
 }) => (
     <div className={styles.page}>
-        <div className={styles.inner}>
-            <AuthHeader
-                title={title}
-                text={text}
-                className={styles.header}
-            />
+        <div className={styles.container}>
+            <div className={styles.inner}>
+                <AuthHeader
+                    title={title}
+                    text={text}
+                    className={styles.header}
+                />
 
-            {renderForm({ className: styles.form })}
+                {renderForm({ className: styles.form })}
+            </div>
         </div>
+
+        <Footer className={styles.footer} transparent />
     </div>
 );
