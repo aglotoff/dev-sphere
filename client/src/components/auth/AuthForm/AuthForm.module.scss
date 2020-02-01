@@ -83,6 +83,10 @@
 
     color: $color-cardinal;
     font-size: 0.75rem;
+
+    .checkboxLabel + & {
+        margin-top: 0;
+    }
 }
 
 .checkbox {
@@ -95,7 +99,7 @@
 }
 
 .checkboxLabel {
-    margin-left: 0.65em;
+    padding-left: 0.65em;
 
     color: $color-empress;
 }

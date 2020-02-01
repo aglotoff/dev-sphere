@@ -14,12 +14,17 @@
     border: 1px solid $color-mercury;
     border-radius: 0.25em;
 
-    &_invalid {
-        border-color: $color-cardinal;
-    }
-
     &:focus {
         border-color: $color-dodger-blue;
         box-shadow: 0 0 0 0.2em rgba($color-dodger-blue, 0.3);
+    }
+
+    &_invalid {
+        border-color: $color-cardinal;
+
+        &:focus {
+            border-color: $color-cardinal;
+            box-shadow: 0 0 0 0.2em rgba($color-cardinal, 0.3);
+        }
     }
 }

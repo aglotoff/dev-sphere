@@ -34,7 +34,7 @@ export const AuthFormCheckbox: FC<
     ...restProps
 }) => (
     <div className={styles.checkbox}>
-        <Checkbox id={id} {...restProps} />
+        <Checkbox id={id} invalid={!!error} {...restProps} />
         <label htmlFor={id} className={styles.checkboxLabel}>
             {children}
         </label>

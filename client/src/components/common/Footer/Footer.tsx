@@ -57,11 +57,6 @@ export const Footer: FC<IFooterProps> = ({
                 <nav className={styles.menu}>
                     <ul className={styles.menuList}>
                         <li className={styles.menuItem}>
-                            <NavLink to="/privacy" className={styles.menuLink}>
-                                Privacy
-                            </NavLink>
-                        </li>
-                        <li className={styles.menuItem}>
                             <NavLink
                                 to="/privacy"
                                 className={styles.menuLink}

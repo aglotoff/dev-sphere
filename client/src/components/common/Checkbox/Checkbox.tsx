@@ -3,10 +3,7 @@
  * @author Andrey Glotov
  */
 
-import {
-    faCheckSquare,
-    faSquare,
-} from '@fortawesome/free-regular-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import React, { forwardRef, HTMLProps } from 'react';
@@ -16,7 +13,9 @@ import styles from './Checkbox.module.scss';
 /**
  * Props for the Checkbox component.
  */
-export type ICheckboxProps = HTMLProps<HTMLInputElement>;
+export type ICheckboxProps = HTMLProps<HTMLInputElement> & {
+    invalid?: boolean;
+};
 
 /**
  * Checkbox component.
@@ -24,26 +23,30 @@ export type ICheckboxProps = HTMLProps<HTMLInputElement>;
  * Use this styled version instead of a native checkbox.
  */
 export const Checkbox = forwardRef<HTMLInputElement, ICheckboxProps>((
-    { className, ...restProps },
+    { className, invalid, ...restProps },
     forwardedRef,
-) => (
-    <label className={className}>
-        <input
-            {...restProps}
-            type="checkbox"
-            ref={forwardedRef}
-            className={styles.input}
-        />
+) => {
+    const checkClass = classNames(
+        styles.checkbox,
+        invalid && styles.checkbox_invalid,
+        classNames,
+    )
 
-        <span className={styles.square}>
-            <FontAwesomeIcon
-                className={styles.icon}
-                icon={faSquare}
+    return (
+        <label className={checkClass}>
+            <input
+                {...restProps}
+                type="checkbox"
+                ref={forwardedRef}
+                className={styles.input}
             />
-            <FontAwesomeIcon
-                className={classNames(styles.icon, styles.icon_checked)}
-                icon={faCheckSquare}
-            />
-        </span>
-    </label>
-));
+
+            <span className={styles.square}>
+                <FontAwesomeIcon
+                    className={styles.icon}
+                    icon={faCheck}
+                />
+            </span>
+        </label>
+    );
+});

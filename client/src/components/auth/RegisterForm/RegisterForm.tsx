@@ -11,27 +11,28 @@ interface IRegisterValues extends IRegisterParams {
     agree: boolean;
 }
 
+const EMAIL_REGEXP = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+const PASSWORD_REGEXP = /^[a-zA-Z0-9]{6,16}$/;
+
 const validate = (values: IRegisterValues) => {
     const errors: FormikErrors<IRegisterValues> = {};
 
-    const EMAIL_REGEXP = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-
     if (!values.fullName) {
-        errors.fullName = 'Required';
+        errors.fullName = 'This field is required';
     }
 
-    if (!values.email) {
-        errors.email = 'Required';
-    } else if (!EMAIL_REGEXP.test(values.email)) {
-        errors.email = 'Invalid email address';
+    if (!values.email || !EMAIL_REGEXP.test(values.email)) {
+        errors.email = 'Please provide a valid email address';
     }
 
-    if (!values.password) {
-        errors.password = 'Required';
+    if (values.password.length < 6) {
+        errors.password = 'Minimum length is 6 characters';
+    } else if (!PASSWORD_REGEXP.test(values.password)) {
+        errors.password = 'Your password must contain only numbers and letters';
     }
 
     if (!values.agree) {
-        errors.agree = 'Required';
+        errors.agree = 'Please check this box if you want to proceed';
     }
 
     return errors;
