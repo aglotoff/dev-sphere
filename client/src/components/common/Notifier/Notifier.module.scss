@@ -1,0 +1,89 @@
+@import '../../../assets/styles/variables';
+
+.iconBox {
+    position: relative;
+
+    display: block;
+    padding: 1.825em 0 1.7em;
+    width: 2.25em;
+
+    color: $color-white;
+    font-size: 1.125rem;
+    text-align: center;
+
+    &_showIndicator:after {
+        content: "";
+
+        position: absolute;
+        right: 0.25em;
+        top: 1.5em;
+
+        display: block;
+        height: 0.5em;
+        width: 0.5em;
+
+        background: $color-persimmon;
+        border-radius: 50%;
+    }
+}
+
+.icon {
+    line-height: 1;
+    text-align: center;
+
+    opacity: 0.5;
+
+    transition: color 0.2s linear;
+
+    .iconBox_highlighted > &,
+    .iconBox:hover > & {
+        opacity: 1;
+    }
+}
+
+.panel {
+    min-width: 17.25em;
+    overflow: hidden;
+
+    background: $color-white;
+    border-radius: 0 0 0.2em 0.2em;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0.75em;
+
+    border-bottom: 1px solid $color-mercury;
+}
+
+.action {
+    display: block;
+    padding: 0.6em;
+
+    color: $color-empress;
+    font-family: $font-family-default;
+    font-size: 0.75rem;
+    text-decoration: none;
+
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    outline: 0;
+
+    transition: color 0.2s linear;
+
+    &:hover {
+        color: $color-shark;
+    }
+}
+
+.emptyText {
+    padding: 1em 1.6em;
+
+    font-size: 0.75em;
+}
+
+.viewAll {
+    width: 100%;
+}

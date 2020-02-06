@@ -12,16 +12,17 @@
     padding: 0 1em;
 }
 
-.logo {
-    margin: 1.325em 0;
-}
-
 .menu {
     margin-left: 2em;
 }
 
 .newEventBtn {
-    margin-left: 2em;
+    display: none;
+
+    @media screen and (min-width: 75em) {
+        display: block;
+        margin-left: 2em;
+    }
 }
 
 .actions {

@@ -1,5 +1,5 @@
 /**
- * @file Social logins routes
+ * @file Social logins routes.
  * @author Andrey Glotov
  */
 

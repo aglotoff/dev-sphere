@@ -6,14 +6,15 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { FC } from 'react';
+import Media from 'react-media';
 import { NavLink } from 'react-router-dom';
 
 import { Button } from '../Button';
-import { InboxContainer } from '../InboxContainer';
+import { FriendsNotifierContainer } from '../FriendsNotifierContainer';
+import { InboxNotifierContainer } from '../InboxNotifierContainer';
 import { Logo } from '../Logo';
 import { MainMenu } from '../MainMenu';
-import { NotifierContainer } from '../NotifierContainer';
-import { RequestsContainer } from '../RequestsContainer';
+import { MiscNotifierContainer } from '../MiscNotifierContainer';
 import { UserMenuContainer } from '../UserMenuContainer';
 
 import styles from './Header.module.scss';
@@ -41,7 +42,9 @@ export const Header: FC = () => (
                 </MainMenu.Item>
             </MainMenu>
 
-            <Button className={styles.newEventBtn}>Add New Event</Button>
+            <Button className={styles.newEventBtn}>
+                Add New Event
+            </Button>
 
             <NavLink to="/" className={styles.search}>
                 <FontAwesomeIcon
@@ -52,12 +55,16 @@ export const Header: FC = () => (
             </NavLink>
 
             <div className={styles.actions}>
-                <RequestsContainer />
-                <InboxContainer />
-                <NotifierContainer />
+                <FriendsNotifierContainer />
+                <InboxNotifierContainer />
+                <MiscNotifierContainer />
             </div>
 
-            <UserMenuContainer className={styles.user} />
+            <Media query="(min-width: 60em)">
+                {(matches) => matches && (
+                    <UserMenuContainer className={styles.user} />
+                )}
+            </Media>
         </div>
     </header>
 );

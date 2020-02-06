@@ -1,5 +1,5 @@
 /**
- * @file User authentication API routes
+ * @file User authentication API routes.
  * @author Andrey Glotov
  */
 
@@ -74,7 +74,7 @@ router.get('/user', isAuthenticated, getUser);
 router.post('/logout', logout);
 
 /**
- * @api {post} /api/auth/logout End the current session
+ * @api {post} /api/auth/refresh_token Get a new access token
  * @apiName RefreshToken
  * @apiGroup Authentication
  * @apiPermission authenticated

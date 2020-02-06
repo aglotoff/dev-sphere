@@ -1,5 +1,5 @@
 /**
- * @file Configuration settings for Passport.js
+ * @file Configuration settings for Passport.js.
  * @author Andrey Glotov
  */
 
@@ -68,10 +68,10 @@ passport.use('access-token', new JwtStrategy({
  *    return an error message. Account merging not supported (yet).
  * 3. Else create a new account.
  *
- * @param accessToken OAuth access token
- * @param refreshToken OAuth refresh token
- * @param profile User profile information
- * @param done Callback to complete authentication
+ * @param accessToken OAuth access token.
+ * @param refreshToken OAuth refresh token.
+ * @param profile User profile information.
+ * @param done Callback to complete authentication.
  */
 export const oAuthVerify = async (
     accessToken: string,
