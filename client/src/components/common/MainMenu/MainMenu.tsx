@@ -1,55 +1,77 @@
 /**
- * @file Main menu component.
+ * @file Main Menu component.
  * @author Andrey Glotov
  */
 
+// Imports
+import classNames from 'classnames';
 import React, { FC, PropsWithChildren } from 'react';
 import { NavLink } from 'react-router-dom';
 
+// CSS Imports
 import styles from './MainMenu.module.scss';
 
 /**
- * Props for the main menu item component.
+ * Props for the Main Menu Item component.
  */
 export interface IMainMenuItemProps {
-    /** The URL menu item points to. */
-    href: string;
+    /** The URL where the menu item points to. */
+    url: string;
 }
 
 /**
- * Main menu item.
+ * Main Menu Item.
+ *
+ * @param props The component props.
+ * @returns The element to render.
  */
 export const MainMenuItem: FC<PropsWithChildren<IMainMenuItemProps>> = ({
     children,
-    href,
+    url,
 }) => (
     <li>
-        <NavLink to={href} className={styles.link}>
+        <NavLink to={url} className={styles.link}>
             {children}
         </NavLink>
     </li>
 );
 
 /**
- * Props for the Main menu component.
+ * Props for the Main Menu component.
  */
 export interface IMainMenuProps {
     /** Additional class name. */
     className?: string;
 }
 
-type IMainMenu = FC<PropsWithChildren<IMainMenuProps>> & {
-    Item: typeof MainMenuItem;
-};
-
 /**
- * Main application menu.
+ * Application main menu (displayed only on desktop screens).
+ *
+ * @param props The component props.
+ * @returns The element to render.
  */
-export const MainMenu: IMainMenu = ({ children, className }) => (
-    <nav className={className}>
-        <ul className={styles.list}>
-            { children}
-        </ul>
-    </nav>
-);
-MainMenu.Item = MainMenuItem;
+export const MainMenu: FC<IMainMenuProps> = ({ className }) => {
+    const menuClass = classNames(
+        styles.menu,
+        className,
+    );
+
+    return (
+        <nav className={menuClass}>
+            <ul className={styles.list}>
+                <MainMenuItem url="/">
+                    Home
+                </MainMenuItem>
+                <MainMenuItem url="/discussion">
+                    Discussion
+                </MainMenuItem>
+                <MainMenuItem url="/weather">
+                    Weather
+                </MainMenuItem>
+                <MainMenuItem url="/blog">
+                    Blog
+                </MainMenuItem>
+            </ul>
+        </nav>
+    );
+};

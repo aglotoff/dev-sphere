@@ -3,7 +3,8 @@
  * @author Andrey Glotov
  */
 
-import classnames from 'classnames';
+// Imports
+import classNames from 'classnames';
 import React, {
     FC,
     KeyboardEventHandler,
@@ -15,6 +16,7 @@ import React, {
     useState,
 } from 'react';
 
+// CSS imports
 import styles from './Dropdown.module.scss';
 
 /**
@@ -29,26 +31,24 @@ export interface IInjectedDropdownToggleProps {
  * Props for the Dropdown component.
  */
 export interface IDropdownProps {
-    /**
-     * Additional class name.
-     */
+    /** Additional class name. */
     className?: string;
-    /**
-     * ID attribute.
-     */
+    /** ID attribute. */
     id?: string;
     /**
      * Render the contents of the dropdown toggle button.
      *
      * @param props The props injected by the Dropdown component.
-     *
-     * @returns The contents to be rendered inside the toggle button.
+     * @returns The element to render.
      */
     renderToggle: (props: IInjectedDropdownToggleProps) => ReactElement;
 }
 
 /**
  * Basic component to create dropdowns.
+ *
+ * @param props The component props.
+ * @returns The element to render.
  */
 export const Dropdown: FC<PropsWithChildren<IDropdownProps>> = ({
     children,
@@ -89,21 +89,13 @@ export const Dropdown: FC<PropsWithChildren<IDropdownProps>> = ({
         }
     }, [ expanded ]);
 
-    /**
-     * Expand/collapse the dropdown on mouse click.
-     *
-     * @param event The React synthetic event.
-     */
+    // Expand/collapse the dropdown on mouse click.
     const handleClick: MouseEventHandler = (event) => {
         event.preventDefault();
         setExpanded(!expanded);
     };
 
-    /**
-     * Collapse the dropdown when the escape key is pressed.
-     *
-     * @param event The React synthetic event.
-     */
+    // Collapse the dropdown when the escape key is pressed.
     const handleKeyDown: KeyboardEventHandler = (event) => {
         if (event.key === 'Escape') {
             setExpanded(false);
@@ -111,11 +103,11 @@ export const Dropdown: FC<PropsWithChildren<IDropdownProps>> = ({
         }
     };
 
-    const dropdownClass = classnames(
+    const dropdownClass = classNames(
         styles.dropdown,
         className,
     );
-    const popupClass = classnames(
+    const popupClass = classNames(
         styles.popup,
         expanded && styles.popup_expanded,
     );

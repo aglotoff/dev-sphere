@@ -1,11 +1,24 @@
+/**
+ * @file Time Ago component.
+ * @author Andrey Glotov
+ */
+
+// Imports
 import classNames from 'classnames';
 import moment from 'moment';
 import React, { FC, useEffect, useState } from 'react';
 
+// CSS Imports
 import styles from './TimeAgo.module.scss';
 
-export function timeToString(time: Date) {
-    const m = moment(time);
+/**
+ * Convert datetime value to a "time ago" string.
+ *
+ * @param datetime The datetime to convert.
+ * @return The corresponding string in "time ago" format.
+ */
+export function timeToString(datetime: Date) {
+    const m = moment(datetime);
     const now = moment(Date.now());
 
     const diffSeconds = now.diff(m, 'seconds');
@@ -42,33 +55,47 @@ export function timeToString(time: Date) {
     return `${diffYears}y ago`;
 }
 
+/**
+ * Props for the Time Ago component.
+ */
 export interface ITimeAgoProps {
-    datetime: Date;
+    /** Additional class name. */
     className?: string;
+    /** The datetime to display. */
+    datetime: Date;
+    /** Delay between updating the displayed value, in ms. */
+    updateInterval?: number;
 }
 
+/**
+ * Live updating timestamp in "time ago" format.
+ *
+ * @param props The component props.
+ * @return The element to render.
+ */
 export const TimeAgo: FC<ITimeAgoProps> = ({
     datetime,
     className,
+    updateInterval = 10000,
 }) => {
-    const [ timeString, setTimeString ] = useState(timeToString(datetime));
+    const [ displayValue, setDisplayValue ] = useState(timeToString(datetime));
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setTimeString(timeToString(datetime));
-        }, 10000);
+        const intervalID = setInterval(() => {
+            setDisplayValue(timeToString(datetime));
+        }, updateInterval);
 
         return () => {
-            clearInterval(interval);
-        }
-    }, [ datetime, setTimeString ]);
+            clearInterval(intervalID);
+        };
+    }, [ datetime, setDisplayValue, updateInterval ]);
 
     return (
         <time
             dateTime={datetime.toISOString()}
             className={classNames(styles.timeAgo, className)}
         >
-            {timeString}
+            {displayValue}
         </time>
     );
 };

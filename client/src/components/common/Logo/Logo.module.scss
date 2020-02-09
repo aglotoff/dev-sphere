@@ -18,4 +18,12 @@
     font-size: 1.5em;
     font-weight: $font-weight-semibold;
     letter-spacing: -0.02em;
+
+    .logo_hideTextMobile > & {
+        display: none;
+
+        @media screen and (min-width: 30em) {
+            display: block;
+        }
+    }
 }

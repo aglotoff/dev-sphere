@@ -35,6 +35,9 @@ export interface INotifierIconProps {
 /**
  * Icon component to display inside the notifier with an optional round
  * indicator in the top right corner.
+ *
+ * @param props The component props.
+ * @return The element to render.
  */
 export const NotifierIcon: FC<INotifierIconProps> = ({
     highlighted,
@@ -85,6 +88,9 @@ export interface INotifierProps {
 
 /**
  * Mobile view of the Notifer component.
+ *
+ * @param props The component props.
+ * @return The element to render.
  */
 export const NotifierMobile: FC<PropsWithChildren<INotifierProps>> = ({
     children,
@@ -103,6 +109,9 @@ export const NotifierMobile: FC<PropsWithChildren<INotifierProps>> = ({
 
 /**
  * Desktop view of the Notifier component.
+ *
+ * @param props The component props.
+ * @return The element to render.
  */
 export const NotifierDesktop: FC<PropsWithChildren<INotifierProps>> = ({
     children,
@@ -166,6 +175,9 @@ export const NotifierDesktop: FC<PropsWithChildren<INotifierProps>> = ({
  *
  * On desktop has a dropdown containing the notifications. On mobile this is
  * just a link.
+ *
+ * @param props The component props.
+ * @return The element to render.
  */
 export const Notifier: FC<PropsWithChildren<INotifierProps>> = (props) => (
     <Media query="(min-width: 60em)">

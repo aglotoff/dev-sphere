@@ -1,80 +1,25 @@
 /**
- * @file Dropdown menu component.
+ * @file Dropdown Menu component.
  * @author Andrey Glotov
  */
 
-import React, {
-    EventHandler,
-    FC,
-    PropsWithChildren,
-    SyntheticEvent,
-} from 'react';
-import { NavLink } from 'react-router-dom';
+// Imports
+import React, { FC, PropsWithChildren } from 'react';
 
+// UI Imports
+import { DropdownMenuItem } from './DropdownMenuItem';
+
+// CSS Imports
 import styles from './DropdownMenu.module.scss';
 
-/**
- * Props for the dropdown menu item component.
- */
-export interface IDropdownMenuItemProps {
-    /** Target URL, if the item contains a link. */
-    href?: string;
-    /** Optional label. */
-    label?: string;
-    /** Click event handler, if the item contains a button. */
-    onClick?: EventHandler<SyntheticEvent>;
-}
-
-/**
- * Dropdown menu item.
- */
-export const DropdownMenuItem: FC<
-    PropsWithChildren<IDropdownMenuItemProps>
-> = ({
-    children,
-    href,
-    label,
-    onClick,
-}) => {
-    let linkElement;
-    if (href) {
-        linkElement = (
-            <NavLink
-                to={href}
-                className={styles.link}
-                activeClassName={styles.link_active}
-            >
-                <span>{children}</span>
-                {label && <span className={styles.label}>{label}</span>}
-            </NavLink>
-        );
-    } else {
-        linkElement = (
-            <button
-                onClick={onClick}
-                className={styles.link}
-            >
-                <span>{children}</span>
-                {label && <span className={styles.label}>{label}</span>}
-            </button>
-        );
-    }
-
-    return (
-        <li>
-            {linkElement}
-        </li>
-    );
-};
-
-type IDropdownMenu = FC<PropsWithChildren<{}>> & {
+type DropdownMenuType = FC<PropsWithChildren<{}>> & {
     Item: typeof DropdownMenuItem;
 };
 
 /**
  * Dropdown menu.
  */
-export const DropdownMenu: IDropdownMenu = ({ children }) => (
+export const DropdownMenu: DropdownMenuType = ({ children }) => (
     <ul className={styles.menu}>
         {children}
     </ul>

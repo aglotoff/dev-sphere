@@ -1,12 +1,36 @@
+/**
+ * @file Mobile Menu container component.
+ * @author Andrey Glotov
+ */
+
+// Imports
 import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+// UI Imports
 import { MobileMenu } from '../MobileMenu';
 
+// App Imports
 import { logout } from '../../../store/actions/api';
 import { getUser } from '../../../store/reducers/api';
 
-export const MobileMenuContainer: FC = () => {
+/**
+ * Props for the Mobile Menu container component.
+ */
+export interface IMobileMenuContainerProps {
+    /** Additional class name. */
+    className?: string;
+}
+
+/**
+ * Container component for the Mobile Menu.
+ *
+ * @param props The component props.
+ * @returns The element to render.
+ */
+export const MobileMenuContainer: FC<IMobileMenuContainerProps> = ({
+    className,
+}) => {
     const dispatch = useDispatch();
 
     const user = useSelector(getUser);
@@ -20,8 +44,9 @@ export const MobileMenuContainer: FC = () => {
 
     return (
         <MobileMenu
-            userName={firstName}
+            className={className}
             onLogout={handleLogout}
+            userName={firstName}
         />
     );
 };

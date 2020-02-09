@@ -1,19 +1,41 @@
+/**
+ * @file Inbox Message Notification component.
+ * @author Andrey Glotov
+ */
+
+// Imports
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { Avatar } from '../Avatar';
+// UI Imports
+import { Thumbnail } from '../Thumbnail';
 import { TimeAgo } from '../TimeAgo';
 
+// CSS Imports
 import styles from './InboxNotification.module.scss';
 
+/**
+ * Props for the Inbox Message Notification component.
+ */
 export interface IInboxNotificationProps {
-    userName: string;
-    userAvatar?: string;
-    message: string;
-    time: Date;
+    /** URL of the corresponding chat. */
     chatUrl: string;
+    /** Message text. */
+    message: string;
+    /** Message date and time. */
+    time: Date;
+    /** Profile picture of the sender. */
+    userAvatar?: string;
+    /** User name of the sender. */
+    userName: string;
 }
 
+/**
+ * Notification to display inside the Inbox Messages Notifier.
+ *
+ * @param props The component props.
+ * @returns The element to render.
+ */
 export const InboxNotification: FC<IInboxNotificationProps> = ({
     userName,
     userAvatar,
@@ -22,7 +44,7 @@ export const InboxNotification: FC<IInboxNotificationProps> = ({
     chatUrl,
 }) => (
     <div className={styles.container}>
-        <Avatar size="sm" picture={userAvatar} />
+        <Thumbnail size="sm" src={userAvatar} />
 
         <div className={styles.body}>
             <div className={styles.name}>{userName}</div>

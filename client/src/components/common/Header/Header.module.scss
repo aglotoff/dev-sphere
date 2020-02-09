@@ -1,54 +1,79 @@
 @import '../../../assets/styles/variables';
 
 .header {
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+
     background: $color-mine-shaft;
 }
 
 .inner {
     align-items: center;
     display: flex;
+    // Keep height in sync with the top property for mobile menu container!
+    height: 3.5em;
     margin: 0 auto;
     max-width: 75em;
     padding: 0 1em;
+
+    @media screen and (min-width: 48em) {
+        height: 4em;
+    }
+
+    @media screen and (min-width: 60em) {
+        height: 4.75em;
+    }
 }
 
 .menu {
-    margin-left: 2em;
-}
-
-.newEventBtn {
     display: none;
 
-    @media screen and (min-width: 75em) {
+    @media screen and (min-width: 60em) {
         display: block;
         margin-left: 2em;
     }
 }
 
-.actions {
+.newEventBtn {
+    display: none;
+
+    @media screen and (min-width: 70em) {
+        display: block;
+        margin-left: 2em;
+    }
+}
+
+.notifiers {
     display: flex;
     margin-left: 0.5em;
 }
 
-.action {
-    margin-left: 0.2em;
-}
-
-.user {
+.userMenu {
     margin-left: 0.875em;
 }
 
 .search {
-    display: block;
     margin-left: auto;
-    padding: 1.825em 0.575em 1.7em;
+}
+
+.button {
+    display: block;
+    padding: 0.5em;
 
     color: $color-white;
     font-size: 1.125rem;
+    line-height: 1;
+
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    outline: 0;
 }
 
-.searchIcon {
-    display: block;
+.buttonIcon {
+    display: inline-block;
 
     line-height: 1;
 
@@ -56,8 +81,11 @@
 
     transition: color 0.2s linear;
 
-    .search:hover > &,
-    .search:focus > & {
+    .button:hover > & {
         opacity: 1;
     }
+}
+
+.mobileMenu {
+    margin-left: 0.5em;
 }

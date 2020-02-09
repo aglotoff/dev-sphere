@@ -1,9 +1,10 @@
 /**
- * @file Route only for logged out users
+ * @file Logged Out Route component.
  * @author Andrey Glotov
  */
 
-import React from 'react';
+// Imports
+import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import {
     Redirect,
@@ -12,13 +13,14 @@ import {
     RouteProps,
 } from 'react-router-dom';
 
+// App Imports
 import { getIsLoggedIn } from '../../../store/reducers/api';
 
 /**
- * Props for the logged out route component.
+ * Props for the Logged Out Route component.
  */
 export interface ILoggedOutRouteProps extends RouteProps {
-    /** The React component to render when the location matches */
+    /** The component to render when the location matches. */
     component: React.ComponentType<RouteComponentProps>;
 }
 
@@ -28,11 +30,13 @@ export interface ILoggedOutRouteProps extends RouteProps {
  * Returns a <Route /> if the user is logged out, otherwise redirects to the
  * home page.
  *
- * @param props The component props
+ * @param props The component props.
+ * @returns The element to render.
  */
-export const LoggedOutRoute = (props: ILoggedOutRouteProps) => {
-    const { component: Component, ...rest } = props;
-
+export const LoggedOutRoute: FC<ILoggedOutRouteProps> = ({
+    component: Component,
+    ...restProps
+}) => {
     const isLoggedIn = useSelector(getIsLoggedIn);
     if (isLoggedIn) {
         return <Redirect to="/" />;
@@ -40,10 +44,8 @@ export const LoggedOutRoute = (props: ILoggedOutRouteProps) => {
 
     return(
         <Route
-            {...rest}
-            render={(injectedProps) => (
-                <Component {...injectedProps} />
-            )}
+            {...restProps}
+            render={(injectedProps) => <Component {...injectedProps} />}
         />
     );
 };

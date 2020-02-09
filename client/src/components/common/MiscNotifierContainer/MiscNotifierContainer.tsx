@@ -1,8 +1,21 @@
+/**
+ * @file Miscellaneous Events Notifier container component.
+ * @author Andrey Glotov
+ */
+
+// Imports
 import React, { FC } from 'react';
 
+// UI Imports
 import { MiscNotifier } from '../MiscNotifier';
 
+/**
+ * Container component for the Miscellaneous Events Notifier.
+ *
+ * @returns The element to render.
+ */
 export const MiscNotifierContainer: FC = () => {
+    // TODO: replace with data from the store.
     const items = [{
         id: '1',
         title: 'Jassica William',
@@ -23,7 +36,12 @@ export const MiscNotifierContainer: FC = () => {
         time: new Date(Date.now() - 1500000),
     }];
 
+    const handleClearAll = () => null;
+
     return (
-        <MiscNotifier items={items} />
+        <MiscNotifier
+            items={items}
+            onClearAll={handleClearAll}
+        />
     );
 };

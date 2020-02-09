@@ -1,8 +1,21 @@
+/**
+ * @file Inbox Messages Notifier container component.
+ * @author Andrey Glotov
+ */
+
+// Imports
 import React, { FC } from 'react';
 
+// UI Imports
 import { InboxNotifier } from '../InboxNotifier';
 
+/**
+ * Container component for the Inbox Messages Notifier.
+ *
+ * @returns The element to render.
+ */
 export const InboxNotifierContainer: FC = () => {
+    // TODO: replace with data from the store.
     const items = [{
         userId: '1',
         userName: 'Jessica William',
@@ -23,7 +36,12 @@ export const InboxNotifierContainer: FC = () => {
         time: new Date(Date.now() - 600000),
     }];
 
+    const handleClearAll = () => null;
+
     return (
-        <InboxNotifier items={items} />
+        <InboxNotifier
+            items={items}
+            onClearAll={handleClearAll}
+        />
     );
 };

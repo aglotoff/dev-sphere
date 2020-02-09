@@ -1,28 +1,36 @@
 /**
- * @file User dropdown menu container component.
+ * @file User Menu container component.
  * @author Andrey Glotov
  */
 
+// Imports
 import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+// UI Imports
+import { UserMenu } from '../UserMenu';
+
+// App Imports
 import { logout } from '../../../store/actions/api';
 import { getUser } from '../../../store/reducers/api';
 
-import { IUserMenuProps, UserMenu } from '../UserMenu';
+/**
+ * Props for the User Menu container component.
+ */
+interface IUserMenuContainerProps {
+    /** Additional class name. */
+    className?: string;
+}
 
 /**
- * Props for the user menu container component.
+ * Container component for the User Menu.
+ *
+ * @param props The component props.
+ * @returns The element to render.
  */
-type IUserMenuContainerProps = Omit<
-    IUserMenuProps,
-    'userName' | 'onLogout' | 'credits' | 'picture'
->;
-
-/**
- * Container component for the user dropdown menu.
- */
-export const UserMenuContainer: FC<IUserMenuContainerProps> = (props) => {
+export const UserMenuContainer: FC<IUserMenuContainerProps> = ({
+    className,
+}) => {
     const dispatch = useDispatch();
 
     const user = useSelector(getUser);
@@ -36,9 +44,9 @@ export const UserMenuContainer: FC<IUserMenuContainerProps> = (props) => {
 
     return (
         <UserMenu
-            {...props}
+            className={className}
             credits={100}
-            userName={firstName}
+            firstName={firstName}
             onLogout={handleLogout}
         />
     );

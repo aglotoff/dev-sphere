@@ -1,18 +1,38 @@
+/**
+ * @file Footer component.
+ * @author Andrey Glotov
+ */
+
+// Imports
 import classNames from 'classnames';
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 
+// UI Imports
 import { Link } from '../Link';
 
-import logoImage from '../../../assets/images/logo.svg';
-
+// CSS Imports
 import styles from './Footer.module.scss';
 
+// Asset Imports
+import logoImage from '../../../assets/images/logo.svg';
+
+/**
+ * Props for the Footer component.
+ */
 export interface IFooterProps {
+    /** Additional class name. */
     className?: string;
+    /** Use transparent background. */
     transparent?: boolean;
 }
 
+/**
+ * Application footer.
+ *
+ * @param props The component props.
+ * @returns The element to render.
+ */
 export const Footer: FC<IFooterProps> = ({
     className,
     transparent,
@@ -47,10 +67,8 @@ export const Footer: FC<IFooterProps> = ({
                         {` ${copyYears} `}
                         DevSphere by
                         {' '}
-                        <Link to="/">
-                            Andreas
-                        </Link>
-                        . All Rights Reserved.
+                        <Link to="/">Andreas</Link>.
+                        All Rights Reserved.
                     </span>
                 </div>
 
