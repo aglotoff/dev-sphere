@@ -7,7 +7,7 @@
 import React, { FC } from 'react';
 
 // UI Imports
-import { MiscNotifier } from '../MiscNotifier';
+import { MiscNotifier } from './MiscNotifier';
 
 /**
  * Container component for the Miscellaneous Events Notifier.

@@ -8,7 +8,7 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 
 // UI Imports
-import { Header } from '../Header';
+import { Header } from './Header';
 
 // App Imports
 import { getIsLoggedIn } from '../../../store/reducers/api';

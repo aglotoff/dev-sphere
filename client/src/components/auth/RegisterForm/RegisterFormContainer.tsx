@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { IRegisterFormProps, RegisterForm } from '../RegisterForm';
+import { IRegisterFormProps, RegisterForm } from './RegisterForm';
 
 import { register } from '../../../store/actions/api';
 import { IRegisterParams } from '../../../store/types/api';

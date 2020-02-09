@@ -7,7 +7,7 @@
 import React, { FC } from 'react';
 
 // UI Imports
-import { FriendsNotifier } from '../FriendsNotifier';
+import { FriendsNotifier } from './FriendsNotifier';
 
 /**
  * Container component for the Friend Requests Notifier.

@@ -2,7 +2,7 @@ import React, { FC, PropsWithChildren } from 'react';
 import DocumentTitle from 'react-document-title';
 
 import { Footer } from '../../common/Footer';
-import { HeaderContainer } from '../../common/HeaderContainer';
+import { HeaderContainer } from '../../common/Header';
 
 import styles from './Page.module.scss';
 

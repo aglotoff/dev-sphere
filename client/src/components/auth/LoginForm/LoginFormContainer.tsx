@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { ILoginFormProps, LoginForm } from '../LoginForm';
+import { ILoginFormProps, LoginForm } from './LoginForm';
 
 import { login } from '../../../store/actions/api';
 import { ILoginParams } from '../../../store/types/api';

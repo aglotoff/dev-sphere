@@ -7,7 +7,7 @@
 import React, { FC } from 'react';
 
 // UI Imports
-import { InboxNotifier } from '../InboxNotifier';
+import { InboxNotifier } from './InboxNotifier';
 
 /**
  * Container component for the Inbox Messages Notifier.

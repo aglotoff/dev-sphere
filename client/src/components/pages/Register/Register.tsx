@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import DocumentTitle from 'react-document-title';
 
 import { AuthPage } from '../../auth/AuthPage';
-import { RegisterFormContainer } from '../../auth/RegisterFormContainer';
+import { RegisterFormContainer } from '../../auth/RegisterForm';
 
 export const Register: FC = () => (
     <DocumentTitle title="Register | DevSphere">

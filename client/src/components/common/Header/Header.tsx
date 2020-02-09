@@ -13,13 +13,13 @@ import { NavLink } from 'react-router-dom';
 
 // UI Imports
 import { Button } from '../Button';
-import { FriendsNotifierContainer } from '../FriendsNotifierContainer';
-import { InboxNotifierContainer } from '../InboxNotifierContainer';
+import { FriendsNotifierContainer } from '../FriendsNotifier';
+import { InboxNotifierContainer } from '../InboxNotifier';
 import { Logo } from '../Logo';
 import { MainMenu } from '../MainMenu';
-import { MiscNotifierContainer } from '../MiscNotifierContainer';
-import { MobileMenuContainer } from '../MobileMenuContainer';
-import { UserMenuContainer } from '../UserMenuContainer';
+import { MiscNotifierContainer } from '../MiscNotifier';
+import { MobileMenuContainer } from '../MobileMenu';
+import { UserMenuContainer } from '../UserMenu';
 
 // CSS Imports
 import styles from './Header.module.scss';
