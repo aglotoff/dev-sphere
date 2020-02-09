@@ -2,7 +2,7 @@ import React, { FC, PropsWithChildren } from 'react';
 import DocumentTitle from 'react-document-title';
 
 import { Footer } from '../../common/Footer';
-import { Header } from '../../common/Header';
+import { HeaderContainer } from '../../common/HeaderContainer';
 
 import styles from './Page.module.scss';
 
@@ -16,7 +16,7 @@ export const Page: FC<PropsWithChildren<IPageProps>> = ({
 }) => (
     <DocumentTitle title={title}>
         <div className={styles.page}>
-            <Header />
+            <HeaderContainer />
             <main>
                 {children}
             </main>
