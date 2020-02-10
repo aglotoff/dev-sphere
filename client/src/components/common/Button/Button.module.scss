@@ -40,8 +40,6 @@
     @include button-theme(google, $color-cinnabar);
 
     &:disabled {
-        background: $color-empress;
-
         pointer-events: none;
     }
 
@@ -69,4 +67,18 @@
 
 .icon {
     margin-right: 1.25em;
+
+    .button_animateSpinner & {
+        animation: spinner 1s infinite linear;
+    }
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(-360deg);
+    }
 }

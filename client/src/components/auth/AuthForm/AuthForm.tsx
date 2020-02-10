@@ -27,7 +27,7 @@ export interface IAuthFormProps {
     /** Additional class name. */
     className?: string;
     /** Handle a submit form event. */
-    onSubmit: (e?: FormEvent<HTMLFormElement>) => void;
+    onSubmit?: (e?: FormEvent<HTMLFormElement>) => void;
 }
 
 export type IAuthForm = FC<PropsWithChildren<IAuthFormProps>> & {

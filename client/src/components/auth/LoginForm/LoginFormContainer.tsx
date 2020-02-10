@@ -1,19 +1,22 @@
 import React, { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { ILoginFormProps, LoginForm } from './LoginForm';
+import { LoginForm } from './LoginForm';
 
 import { login } from '../../../store/actions/api';
+import { getIsAuthenticating } from '../../../store/reducers/api';
 import { ILoginParams } from '../../../store/types/api';
 
 import useAuthError from '../../../hooks/useAuthError';
 
-export type ILoginFormContainerProps = Omit<
-    ILoginFormProps,
-    'errorMessage' | 'onAlertDismiss' | 'onSubmit'
->;
+export interface ILoginFormContainerProps {
+    className?: string;
+}
 
-export const LoginFormContainer: FC<ILoginFormContainerProps> = (props) => {
+export const LoginFormContainer: FC<ILoginFormContainerProps> = ({
+    className,
+}) => {
+    const isAuthenticating = useSelector(getIsAuthenticating);
     const dispatch = useDispatch();
 
     const [ error, dismissError ] = useAuthError();
@@ -24,8 +27,9 @@ export const LoginFormContainer: FC<ILoginFormContainerProps> = (props) => {
 
     return (
         <LoginForm
-            {...props}
+            className={className}
             errorMessage={error}
+            isAuthenticating={isAuthenticating}
             onSubmit={handleSubmit}
             onAlertDismiss={dismissError}
         />

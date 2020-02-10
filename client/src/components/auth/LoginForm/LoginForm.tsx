@@ -2,8 +2,9 @@ import {
     faFacebookF,
     faGoogle,
 } from '@fortawesome/free-brands-svg-icons';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { useFormik } from 'formik';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import { Alert } from '../../common/Alert';
 import { Link } from '../../common/Link';
@@ -28,26 +29,38 @@ export interface ILoginFormProps {
     onAlertDismiss: () => void;
 
     errorMessage?: string | null;
+
+    isAuthenticating: boolean;
 }
 
 export const LoginForm: FC<ILoginFormProps> = ({
     className,
     errorMessage,
+    isAuthenticating,
     onAlertDismiss,
     onSubmit,
 }) => {
     const {
         handleChange,
         handleSubmit,
-        isSubmitting,
+        setSubmitting,
         values,
     } = useFormik<ILoginParams>({
         initialValues,
         onSubmit,
     });
 
+    useEffect(() => {
+        if (!isAuthenticating) {
+            setSubmitting(false);
+        }
+    }, [ isAuthenticating, setSubmitting ]);
+
     return (
-        <AuthForm className={className} onSubmit={handleSubmit}>
+        <AuthForm
+            className={className}
+            onSubmit={handleSubmit}
+        >
             <AuthForm.SocialButton
                 href="/socialauth/facebook"
                 icon={faFacebookF}
@@ -86,7 +99,11 @@ export const LoginForm: FC<ILoginFormProps> = ({
                 value={values.password}
             />
 
-            <AuthForm.Submit disabled={isSubmitting}>
+            <AuthForm.Submit
+                animateSpinner={isAuthenticating}
+                disabled={isAuthenticating}
+                icon={isAuthenticating ? faSpinner : undefined}
+            >
                 Login Now
             </AuthForm.Submit>
 

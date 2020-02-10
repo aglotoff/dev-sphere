@@ -20,6 +20,8 @@ import styles from './Button.module.scss';
  * Props for the Button component.
  */
 export interface IButtonProps {
+    /** Animate the spinner icon? */
+    animateSpinner?: boolean;
     /** Is the button disabled? */
     disabled?: boolean;
     /** Additional class name. */
@@ -47,7 +49,9 @@ export interface IButtonProps {
  * @returns The element to render.
  */
 export const Button: FC<PropsWithChildren<IButtonProps>> = ({
+    animateSpinner,
     children,
+    disabled,
     href,
     icon,
     className,
@@ -61,6 +65,7 @@ export const Button: FC<PropsWithChildren<IButtonProps>> = ({
         styles.button,
         className,
         sharp && styles.button_sharp,
+        animateSpinner && styles.button_animateSpinner,
         styles['button_theme_' + theme],
         styles['button_size_' + size],
     );
@@ -86,7 +91,12 @@ export const Button: FC<PropsWithChildren<IButtonProps>> = ({
         );
     } else {
         return (
-            <button type={type} onClick={onClick} className={buttonClass}>
+            <button
+                disabled={disabled}
+                type={type}
+                onClick={onClick}
+                className={buttonClass}
+            >
                 {buttonContent}
             </button>
         );
