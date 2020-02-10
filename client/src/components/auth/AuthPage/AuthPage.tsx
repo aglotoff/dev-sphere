@@ -3,9 +3,10 @@
  * @author Andrey Glotov
  */
 
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 
-import AuthHeader from '../../auth/AuthHeader/AuthHeader';
+import { AuthHeader } from '../../auth/AuthHeader';
+import { Footer } from '../../common/Footer';
 
 import styles from './AuthPage.module.scss';
 
@@ -14,7 +15,7 @@ import styles from './AuthPage.module.scss';
  */
 export interface IInjectedAuthPageProps {
     /** Additional class name for the form */
-    className: string;
+    className?: string;
 }
 
 /**
@@ -32,7 +33,7 @@ export interface IAuthPageProps {
      *
      * @param injectedProps Props injected by the page component.
      */
-    renderForm: (injectedProps: IInjectedAuthPageProps) => JSX.Element;
+    renderForm: (injectedProps: IInjectedAuthPageProps) => ReactElement;
 }
 
 /**
@@ -42,21 +43,24 @@ export interface IAuthPageProps {
  *
  * @param props The component props
  */
-const AuthPage = (props: IAuthPageProps) => {
-    const { renderForm, title, text } = props;
-
-    return (
-        <div className={styles.page}>
+export const AuthPage: FC<IAuthPageProps> = ({
+    renderForm,
+    title,
+    text,
+}) => (
+    <div className={styles.page}>
+        <div className={styles.container}>
             <div className={styles.inner}>
                 <AuthHeader
                     title={title}
                     text={text}
                     className={styles.header}
                 />
+
                 {renderForm({ className: styles.form })}
             </div>
         </div>
-    );
-};
 
-export default AuthPage;
+        <Footer className={styles.footer} transparent />
+    </div>
+);

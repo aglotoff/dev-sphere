@@ -3,7 +3,22 @@
  * @author Andrey Glotov
  */
 
+import { CancelTokenSource } from 'axios';
 import { Action } from 'redux';
+
+/**
+ * API authentication state.
+ */
+export interface IAuthState {
+    /** Access token. */
+    accessToken: string | null;
+    /** Last auhthentication error message. */
+    errorMessage: string | null;
+    /** Login or register request in progress. */
+    isAuthenticating: boolean;
+    /** Refresh-token request in progress. */
+    isRefreshingToken: boolean;
+}
 
 /**
  * Application user.
@@ -16,7 +31,7 @@ export interface IUser {
 }
 
 /**
- * Generic API Error.
+ * Generic API error.
  */
 export interface IApiError {
     /** HTTP response status code. */
@@ -25,48 +40,7 @@ export interface IApiError {
     message: string;
 }
 
-/**
- * User login credentials.
- */
-export interface ILoginParams {
-    /** User email. */
-    email: string;
-    /** User password. */
-    password: string;
-}
-
-/**
- * Registration request payload.
- */
-export interface IRegisterParams {
-    /** Full user name. */
-    fullName: string;
-    /** User email. */
-    email: string;
-    /** User password. */
-    password: string;
-}
-
-/**
- * API reducer's slice of state.
- */
-export interface IApiState {
-    /** Authentication state. */
-    auth: {
-        /** Current user. */
-        user: IUser | null;
-        /** Access token. */
-        accessToken: string | null;
-        /** Last auhthentication error message. */
-        errorMessage: string | null;
-    };
-
-    /** Last API request error. */
-    error: IApiError | null;
-}
-
 export const API = 'api/API';
-export const CANCEL_API = 'api/CANCEL_API';
 
 export const SET_API_ERROR = 'api/SET_API_ERROR';
 export const CLEAR_API_ERROR = 'api/CLEAR_API_ERROR';
@@ -82,17 +56,18 @@ export const REGISTER_REQUEST = 'api/REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'api/REGISTER_SUCCESS';
 export const REGISTER_FAILURE = 'api/REGISTER_FAILURE';
 
-export const LOGOUT_REQUEST = 'api/LOGOUT_REQUEST';
-export const LOGOUT_SUCCESS = 'api/LOGOUT_SUCCESS';
-export const LOGOUT_FAILURE = 'api/LOGOUT_FAILURE';
-
 export const REFRESH_TOKEN_REQUEST = 'api/REFRESH_TOKEN_REQUEST';
 export const REFRESH_TOKEN_SUCCESS = 'api/REFRESH_TOKEN_SUCCESS';
 export const REFRESH_TOKEN_FAILURE = 'api/REFRESH_TOKEN_FAILURE';
 
-export const GET_USER_REQUEST = 'api/GET_USER_REQUEST';
-export const GET_USER_SUCCESS = 'api/GET_USER_SUCCESS';
-export const GET_USER_FAILURE = 'api/GET_USER_FAILURE';
+export const LOGOUT = 'api/LOGOUT';
+
+export const SET_USER = 'api/SET_USER';
+
+/**
+ * HTTP request methods.
+ */
+export type ApiRequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 /**
  * Parameters for a generic API request action
@@ -102,13 +77,13 @@ export interface IApiRequestParams {
     endpoint: string;
 
     /** The request's method. */
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+    method: ApiRequestMethod;
 
     /** The body contents. */
     body?: object;
 
-    /** A unique ID to allow request cancellation. */
-    cancelToken?: string;
+    /** Cancel token source object. */
+    cancelSource?: CancelTokenSource;
 
     /** Skip authentication? */
     skipAuth?: boolean;
@@ -125,24 +100,24 @@ export interface IApiRequestParams {
 }
 
 /**
+ * Server response format.
+ */
+export interface IApiResponse {
+    /** Was the request successful? */
+    success: boolean;
+    /** The response message. */
+    message?: string;
+    /** Response data. */
+    data: any;
+}
+
+/**
  * Shape of an API request action.
  */
 export interface IApiAction extends Action <
     typeof API
 > {
     payload: IApiRequestParams;
-}
-
-/**
- * Shape of a cancel API request action.
- */
-export interface ICancelApiAction extends Action <
-    typeof CANCEL_API
-> {
-    payload: {
-        /** Cancel token for the request. */
-        cancelToken: string;
-    };
 }
 
 /**
@@ -183,6 +158,16 @@ export interface IClearAuthErrorAction extends Action <
 }
 
 /**
+ * User login credentials.
+ */
+export interface ILoginParams {
+    /** User email. */
+    email: string;
+    /** User password. */
+    password: string;
+}
+
+/**
  * Shape of a login request action.
  */
 export interface ILoginRequestAction extends Action <
@@ -212,6 +197,18 @@ export interface ILoginFailureAction extends Action <
 }
 
 /**
+ * Registration request payload.
+ */
+export interface IRegisterParams {
+    /** Full user name. */
+    fullName: string;
+    /** User email. */
+    email: string;
+    /** User password. */
+    password: string;
+}
+
+/**
  * Shape of a register request action.
  */
 export interface IRegisterRequestAction extends Action <
@@ -236,31 +233,6 @@ export interface IRegisterSuccessAction extends Action <
  */
 export interface IRegisterFailureAction extends Action <
     typeof REGISTER_FAILURE
-> {
-    payload: IApiError;
-}
-
-/**
- * Shape of a logout request action.
- */
-export interface ILogoutRequestAction extends Action <
-    typeof LOGOUT_REQUEST
-> {
-}
-
-/**
- * Shape of a logout request success action.
- */
-export interface ILogoutSuccessAction extends Action <
-    typeof LOGOUT_SUCCESS
-> {
-}
-
-/**
- * Shape of a logout request failure action.
- */
-export interface ILogoutFailureAction extends Action <
-    typeof LOGOUT_FAILURE
 > {
     payload: IApiError;
 }
@@ -295,29 +267,20 @@ export interface IRefreshTokenFailureAction extends Action <
 }
 
 /**
- * Shape of a get user request action.
+ * Shape of a logout action.
  */
-export interface IGetUserRequestAction extends Action <
-    typeof GET_USER_REQUEST
+export interface ILogoutAction extends Action <
+    typeof LOGOUT
 > {
 }
 
 /**
- * Shape of a get user request success action.
+ * Shape of a set user action.
  */
-export interface IGetUserSuccessAction extends Action <
-    typeof GET_USER_SUCCESS
+export interface ISetUserAction extends Action <
+    typeof SET_USER
 > {
     payload: IUser;
-}
-
-/**
- * Shape of a get user request failure action.
- */
-export interface IGetUserFailureAction extends Action <
-    typeof GET_USER_FAILURE
-> {
-    payload: IApiError;
 }
 
 /**
@@ -325,7 +288,6 @@ export interface IGetUserFailureAction extends Action <
  */
 export type ApiActionTypes =
     | IApiAction
-    | ICancelApiAction
     | ISetApiErrorAction
     | IClearApiErrorAction
     | ISetAuthErrorAction
@@ -336,15 +298,11 @@ export type ApiActionTypes =
     | IRegisterRequestAction
     | IRegisterSuccessAction
     | IRegisterFailureAction
-    | ILogoutRequestAction
-    | ILogoutSuccessAction
-    | ILogoutFailureAction
     | IRefreshTokenRequestAction
     | IRefreshTokenSuccessAction
     | IRefreshTokenFailureAction
-    | IGetUserRequestAction
-    | IGetUserSuccessAction
-    | IGetUserFailureAction
+    | ILogoutAction
+    | ISetUserAction
 ;
 
 /**

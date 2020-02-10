@@ -1,5 +1,5 @@
-@import "../../../styles/mixins";
-@import "../../../styles/variables";
+@import "../../../assets/styles/mixins";
+@import "../../../assets/styles/variables";
 
 .input {
     @include visually-hidden();
@@ -10,24 +10,41 @@
     top: 0.05em;
 
     display: inline-block;
+    height: 0.875em;
+    width: 0.875em;
 
     color: $color-persimmon;
+    line-height: 1;
 
+    border: 2px solid $color-persimmon;
+    border-radius: 1px;
     cursor: pointer;
 
-    transition: color 0.2s linear;
+    transition: color 0.2s linear,
+                border-color 0.2s linear;
 
-    &:hover {
-        color: $color-mine-shaft;
+    .checkbox_invalid & {
+        color: $color-cardinal;
+        border-color: $color-cardinal;
+    }
+
+    .input:focus + & {
+        box-shadow: 0 0 0 0.1em rgba($color-persimmon, 0.5);
+
+        .checkbox_invalid & {
+            box-shadow: 0 0 0 0.1em rgba($color-cardinal, 0.5);
+        }
     }
 }
 
-.check {
-    left: 0;
+.icon {
+    left: 0.025em;
     position: absolute;
     top: 0;
 
     display: none;
+
+    font-size: 0.6em;
 
     .input:checked + .square > & {
         display: block;

@@ -1,0 +1,20 @@
+.image {
+    display: block;
+
+    border-radius: 50%;
+
+    &_size_xs {
+        height: 1.75em;
+        width: 1.75em;
+    }
+
+    &_size_sm {
+        height: 2.25em;
+        width: 2.25em;
+    }
+
+    &_size_md {
+        height: 2.5em;
+        width: 2.5em;
+    }
+}

@@ -1,19 +1,23 @@
-import React, { useEffect } from 'react';
+// Imports
+import React, { FC, useEffect } from 'react';
 import DocumentTitle from 'react-document-title';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import Home from '../../pages/Home/Home';
-import Login from '../../pages/Login/Login';
-import Register from '../../pages/Register/Register';
+// Page Imports
+import { About } from '../../pages/About';
+import { Home } from '../../pages/Home';
+import { Login } from '../../pages/Login';
+import { Register } from '../../pages/Register';
 
-import LoggedInRoute from '../LoggedInRoute/LoggedInRoute';
-import LoggedOutRoute from '../LoggedOutRoute/LoggedOutRoute';
+// UI Imports
+import { LoggedInRoute } from '../LoggedInRoute';
+import { LoggedOutRoute } from '../LoggedOutRoute';
 
-import { AppState } from '../../../store';
 import { getUser, refreshToken } from '../../../store/actions/api';
+import { getIsLoggedIn } from '../../../store/reducers/api';
 
-const App: React.FC = () => {
+export const App: FC = () => {
     const dispatch = useDispatch();
 
     // Try to log in
@@ -21,9 +25,7 @@ const App: React.FC = () => {
         dispatch(refreshToken());
     }, [ dispatch ]);
 
-    const { loggedIn } = useSelector((state: AppState) => ({
-        loggedIn: state.api.auth.accessToken != null,
-    }));
+    const loggedIn = useSelector(getIsLoggedIn);
 
     useEffect(() => {
         if (loggedIn) {
@@ -32,9 +34,11 @@ const App: React.FC = () => {
     }, [ loggedIn, dispatch ]);
 
     return (
-        <DocumentTitle title="DevCircle">
+        <DocumentTitle title="DevSphere">
             <BrowserRouter>
                 <Switch>
+                    <Route path="/about" component={About} />
+
                     <LoggedOutRoute path="/login" component={Login} />
                     <LoggedOutRoute path="/register" component={Register} />
                     <LoggedInRoute path="/" component={Home} />
@@ -43,5 +47,3 @@ const App: React.FC = () => {
         </DocumentTitle>
     );
 };
-
-export default App;

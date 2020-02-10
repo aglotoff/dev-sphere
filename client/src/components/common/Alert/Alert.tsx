@@ -1,24 +1,30 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { MouseEvent, PropsWithChildren, useState } from 'react';
+import React, {
+    FC,
+    MouseEventHandler,
+    PropsWithChildren,
+    useState,
+} from 'react';
 
 import styles from './Alert.module.scss';
 
-interface IAlertProps {
+export interface IAlertProps {
     /** Handle alert dismiss event */
     onDismiss: () => void;
 }
 
-const Alert = (props: PropsWithChildren<IAlertProps>) => {
-    const { children, onDismiss } = props;
-
+export const Alert: FC<PropsWithChildren<IAlertProps>> = ({
+    children,
+    onDismiss,
+}) => {
     const [ visible, setVisible ] = useState(true);
 
     if (!visible) {
         return null;
     }
 
-    const handleClose = (e: MouseEvent) => {
+    const handleClose: MouseEventHandler = (e) => {
         e.preventDefault();
         setVisible(false);
         onDismiss();
@@ -33,5 +39,3 @@ const Alert = (props: PropsWithChildren<IAlertProps>) => {
         </div>
     );
 };
-
-export default Alert;

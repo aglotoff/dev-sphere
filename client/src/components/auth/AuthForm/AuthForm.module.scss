@@ -1,14 +1,26 @@
-@import "../../../styles/variables";
+@import "../../../assets/styles/variables";
 
 .form {
-    align-items: center;
-    display: flex;
-    padding: 3.125em;
+    padding: 2em 5vw;
 
     background: $color-white;
+
+    @media screen and (min-width: 30em) {
+        padding: 3.125em;
+    }
+
+    @media screen and (min-width: 52em) {
+        align-items: center;
+        display: flex;
+        padding: 2em 1.875em;
+    }
+
+    @media screen and (min-width: 60em) {
+        padding: 3.125em;
+    }
 }
 
-.inner {
+.formInner {
     width: 100%;
 }
 
@@ -71,6 +83,10 @@
 
     color: $color-cardinal;
     font-size: 0.75rem;
+
+    .checkboxLabel + & {
+        margin-top: 0;
+    }
 }
 
 .checkbox {
@@ -83,13 +99,14 @@
 }
 
 .checkboxLabel {
-    margin-left: 0.65em;
+    padding-left: 0.65em;
 
     color: $color-empress;
 }
 
 .submit {
     margin-top: 2.85em;
+    width: 100%;
 }
 
 .callout {

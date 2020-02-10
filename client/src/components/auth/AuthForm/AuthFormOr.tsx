@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import styles from './AuthForm.module.scss';
 
-const AuthFormOr = () => (
+export const AuthFormOr: FC = () => (
     <div className={styles.or}>Or</div>
 );
-
-export default AuthFormOr;

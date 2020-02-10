@@ -1,5 +1,5 @@
 /**
- * @file User authentication controller
+ * @file User authentication controller.
  * @author Andrey Glotov
  */
 
@@ -47,9 +47,9 @@ export const generateAndSendTokens = async (
  *
  * @async
  *
- * @param req The HTTP request object
- * @param res The HTTP response object
- * @param next Passes control to the next middleware function
+ * @param req The HTTP request object.
+ * @param res The HTTP response object.
+ * @param next Passes control to the next middleware function.
  */
 export const login: RequestHandler = async (req, res, next) => {
     try {
@@ -88,9 +88,9 @@ export const login: RequestHandler = async (req, res, next) => {
  *
  * @async
  *
- * @param req The HTTP request object
- * @param res The HTTP response object
- * @param next Passes control to the next middleware function
+ * @param req The HTTP request object.
+ * @param res The HTTP response object.
+ * @param next Passes control to the next middleware function.
  */
 export const register: RequestHandler = async (req, res, next) => {
     try {
@@ -129,9 +129,9 @@ export const register: RequestHandler = async (req, res, next) => {
  *
  * @async
  *
- * @param req The HTTP request object
- * @param res The HTTP response object
- * @param next Passes control to the next middleware function
+ * @param req The HTTP request object.
+ * @param res The HTTP response object.
+ * @param next Passes control to the next middleware function.
  */
 export const getUser: RequestHandler = async (req, res, next) => {
     const user = req.user as IUser;

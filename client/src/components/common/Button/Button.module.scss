@@ -1,4 +1,4 @@
-@import "../../../styles/variables";
+@import "../../../assets/styles/variables";
 
 @mixin button-theme($name, $bg-color) {
     &_theme_#{$name} {
@@ -8,9 +8,9 @@
             background: darken($bg-color, 15%);
         }
 
-        &:focus {
-            box-shadow: 0 0 0 0.25em rgba($bg-color, 0.4);
-        }
+        // &:focus {
+        //     box-shadow: 0 0 0 0.25em rgba($bg-color, 0.4);
+        // }
     }
 }
 
@@ -18,13 +18,13 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    padding: 1.25em;
-    width: 100%;
+    padding: 0 1.25em;
 
     color: $color-white;
     font-family: $font-family-default;
     font-size: 0.875rem;
     font-weight: $font-weight-medium;
+    line-height: 1.2;
     text-decoration: none;
 
     border: 0;
@@ -40,12 +40,45 @@
     @include button-theme(google, $color-cinnabar);
 
     &:disabled {
-        background: $color-empress;
-
         pointer-events: none;
+    }
+
+    &_size_sm {
+        padding-bottom: 0.9em;
+        padding-top: 0.9em;
+
+        font-size: 0.625em;
+    }
+
+    &_size_md {
+        padding-bottom: 0.825em;
+        padding-top: 0.825em;
+    }
+
+    &_size_lg {
+        padding-bottom: 1.25em;
+        padding-top: 1.25em;
+    }
+
+    &_sharp {
+        border-radius: 0;
     }
 }
 
-.text {
-    margin-left: 1.25em;
+.icon {
+    margin-right: 1.25em;
+
+    .button_animateSpinner & {
+        animation: spinner 1s infinite linear;
+    }
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(-360deg);
+    }
 }

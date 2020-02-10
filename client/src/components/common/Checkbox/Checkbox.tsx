@@ -1,40 +1,52 @@
-import { faCheckSquare, faSquare } from '@fortawesome/free-regular-svg-icons';
+/**
+ * @file The checkbox component.
+ * @author Andrey Glotov
+ */
+
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { ChangeEvent } from 'react';
+import classNames from 'classnames';
+import React, { forwardRef, HTMLProps } from 'react';
 
 import styles from './Checkbox.module.scss';
 
-interface ICheckboxProps {
-    checked: boolean;
+/**
+ * Props for the Checkbox component.
+ */
+export type ICheckboxProps = HTMLProps<HTMLInputElement> & {
+    invalid?: boolean;
+};
 
-    id: string;
-
-    name: string;
-
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}
-
-const Checkbox = (props: ICheckboxProps) => {
-    const { checked, id, name, onChange } = props;
+/**
+ * Checkbox component.
+ *
+ * Use this styled version instead of a native checkbox.
+ */
+export const Checkbox = forwardRef<HTMLInputElement, ICheckboxProps>((
+    { className, invalid, ...restProps },
+    forwardedRef,
+) => {
+    const checkClass = classNames(
+        styles.checkbox,
+        invalid && styles.checkbox_invalid,
+        classNames,
+    )
 
     return (
-        <label className={styles.checkbox}>
+        <label className={checkClass}>
             <input
+                {...restProps}
                 type="checkbox"
-                id={id}
-                name={name}
-                checked={checked}
+                ref={forwardedRef}
                 className={styles.input}
-                onChange={onChange}
             />
+
             <span className={styles.square}>
-                <FontAwesomeIcon icon={faSquare} />
-                <span className={styles.check}>
-                    <FontAwesomeIcon icon={faCheckSquare} />
-                </span>
+                <FontAwesomeIcon
+                    className={styles.icon}
+                    icon={faCheck}
+                />
             </span>
         </label>
     );
-};
-
-export default Checkbox;
+});

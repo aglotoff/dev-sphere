@@ -2,20 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import './fonts/Metropolis-Bold.woff';
-import './fonts/Metropolis-Bold.woff2';
-import './fonts/Metropolis-Medium.woff';
-import './fonts/Metropolis-Medium.woff2';
-import './fonts/Metropolis-Regular.woff';
-import './fonts/Metropolis-Regular.woff2';
-import './fonts/Metropolis-SemiBold.woff';
-import './fonts/Metropolis-SemiBold.woff2';
+import './assets/fonts/Metropolis-Bold.woff';
+import './assets/fonts/Metropolis-Bold.woff2';
+import './assets/fonts/Metropolis-Medium.woff';
+import './assets/fonts/Metropolis-Medium.woff2';
+import './assets/fonts/Metropolis-Regular.woff';
+import './assets/fonts/Metropolis-Regular.woff2';
+import './assets/fonts/Metropolis-SemiBold.woff';
+import './assets/fonts/Metropolis-SemiBold.woff2';
 
-import './styles/main.scss';
+import './assets/styles/main.scss';
 
-import App from './components/common/App/App';
+import { App } from './components/common/App';
 import * as serviceWorker from './serviceWorker';
-import { store } from './store/index';
+import configureStore from './store/configureStore';
+
+const store = configureStore();
 
 ReactDOM.render(
     <Provider store={store}>

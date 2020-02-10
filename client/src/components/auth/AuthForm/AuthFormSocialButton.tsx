@@ -1,11 +1,14 @@
-import React, { PropsWithChildren } from 'react';
+import React, { FC } from 'react';
 
-import Button, { IButtonProps } from '../../common/Button/Button';
+import { Button, IButtonProps } from '../../common/Button';
 
 import styles from './AuthForm.module.scss';
 
-const AuthFormSocialButton = (props: PropsWithChildren<IButtonProps>) => (
-    <Button className={styles.socialButton} {...props} />
-);
+export type IAuthFormSocialButtonProps = Omit<
+    IButtonProps,
+    'className' | 'size'
+>;
 
-export default AuthFormSocialButton;
+export const AuthFormSocialButton: FC<IAuthFormSocialButtonProps> = (props) => (
+    <Button {...props} className={styles.socialButton} size={'lg'} />
+);

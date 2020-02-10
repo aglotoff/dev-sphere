@@ -1,5 +1,5 @@
 /**
- * @file The main server entry point
+ * @file The main server entry point.
  * @author Andrey Glotov
  */
 
@@ -43,10 +43,10 @@ if (process.env.NODE_ENV === 'production') {
 /**
  * Default error handler.
  *
- * @param err The error object
- * @param req The HTTP request object
- * @param res The HTTP response object
- * @param next Passes control to the next middleware function
+ * @param err The error object.
+ * @param req The HTTP request object.
+ * @param res The HTTP response object.
+ * @param next Passes control to the next middleware function.
  */
 const handleError: express.ErrorRequestHandler = (err, req, res, next) => {
     console.error(err);
@@ -58,7 +58,7 @@ const handleError: express.ErrorRequestHandler = (err, req, res, next) => {
 };
 app.use(handleError);
 
-// Connect to MongoDB and start the server
+// Connect to MongoDB and start the server.
 (async () => {
     try {
         await mongoose.connect(MONGODB_URI, {

@@ -1,40 +1,38 @@
 import { FormikErrors, useFormik } from 'formik';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FC } from 'react';
 
-import Alert from '../../common/Alert/Alert';
-import Link from '../../common/Link/Link';
-import AuthForm from '../AuthForm/AuthForm';
+import { Alert } from '../../common/Alert';
+import { Link } from '../../common/Link';
+import { AuthForm } from '../AuthForm';
 
-import { AppState } from '../../../store';
-import { clearAuthError, register } from '../../../store/actions/api';
 import { IRegisterParams } from '../../../store/types/api';
 
 interface IRegisterValues extends IRegisterParams {
     agree: boolean;
 }
 
+const EMAIL_REGEXP = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+const PASSWORD_REGEXP = /^[a-zA-Z0-9]{6,16}$/;
+
 const validate = (values: IRegisterValues) => {
     const errors: FormikErrors<IRegisterValues> = {};
 
-    const EMAIL_REGEXP = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-
     if (!values.fullName) {
-        errors.fullName = 'Required';
+        errors.fullName = 'This field is required';
     }
 
-    if (!values.email) {
-        errors.email = 'Required';
-    } else if (!EMAIL_REGEXP.test(values.email)) {
-        errors.email = 'Invalid email address';
+    if (!values.email || !EMAIL_REGEXP.test(values.email)) {
+        errors.email = 'Please provide a valid email address';
     }
 
-    if (!values.password) {
-        errors.password = 'Required';
+    if (values.password.length < 6) {
+        errors.password = 'Minimum length is 6 characters';
+    } else if (!PASSWORD_REGEXP.test(values.password)) {
+        errors.password = 'Your password must contain only numbers and letters';
     }
 
     if (!values.agree) {
-        errors.agree = 'Required';
+        errors.agree = 'Please check this box if you want to proceed';
     }
 
     return errors;
@@ -50,31 +48,23 @@ const initialValues = {
 /**
  * Props for the register form component.
  */
-interface IRegisterFormProps {
+export interface IRegisterFormProps {
     /** Additional class name for the form */
-    className: string;
+    className?: string;
+
+    onSubmit: (creds: IRegisterParams) => void;
+
+    onAlertDismiss: () => void;
+
+    errorMessage?: string | null;
 }
 
-const getErrorMessage = (state: AppState) => state.api.auth.errorMessage;
-
-const RegisterForm = (props: IRegisterFormProps) => {
-    const { className } = props;
-
-    const dispatch = useDispatch();
-    const errorMessage = useSelector(getErrorMessage);
-
-    const onSubmit = (creds: IRegisterParams) => {
-        dispatch(register({
-            fullName: creds.fullName,
-            email: creds.email,
-            password: creds.password,
-        }));
-    };
-
-    const handleAlertDismiss = () => {
-        dispatch(clearAuthError());
-    };
-
+export const RegisterForm: FC<IRegisterFormProps> = ({
+    className,
+    errorMessage,
+    onAlertDismiss,
+    onSubmit,
+}) => {
     const {
         errors,
         handleChange,
@@ -94,7 +84,7 @@ const RegisterForm = (props: IRegisterFormProps) => {
             <AuthForm.Title>Sign Up to DevCircle</AuthForm.Title>
 
             {errorMessage &&
-                <Alert onDismiss={handleAlertDismiss}>{errorMessage}</Alert>
+                <Alert onDismiss={onAlertDismiss}>{errorMessage}</Alert>
             }
 
             <AuthForm.Field
@@ -128,7 +118,7 @@ const RegisterForm = (props: IRegisterFormProps) => {
                 id="terms"
                 name="agree"
                 onChange={(e) => {
-                    const target = e.target;
+                    const target = e.target as HTMLInputElement;
                     console.log(target.name, target.checked);
                     setFieldValue(target.name, target.checked);
                 }}
@@ -159,5 +149,3 @@ const RegisterForm = (props: IRegisterFormProps) => {
         </AuthForm>
     );
 };
-
-export default RegisterForm;

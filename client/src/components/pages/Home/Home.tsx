@@ -1,20 +1,9 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { FC } from 'react';
 
-import Header from '../../common/Header/Header';
+import { Page } from '../../common/Page';
 
-import { getUser } from '../../../store/actions/api';
-
-const Home: React.FC = () => {
-    const dispatch = useDispatch();
-
-    return (
-        <>
-            <Header />
-
-            <button onClick={() => dispatch(getUser())}>Test!</button>
-        </>
-    );
-};
-
-export default Home;
+export const Home: FC = () => (
+    <Page title="DevSphere - Social Network for Developers">
+        Hello
+    </Page>
+);

@@ -1,0 +1,84 @@
+@import "../../../assets/styles/variables";
+
+.footer {
+    padding: 1.25em 0;
+
+    background: $color-white;
+
+    &_transparent {
+        background: transparent;
+    }
+}
+
+.inner {
+    padding: 0 1em;
+
+    @media screen and (min-width: 60em) {
+        align-items: center;
+        display: flex;
+        margin: 0 auto;
+        max-width: 75em;
+    }
+}
+
+.copy {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    @media screen and (min-width: 60em) {
+        justify-content: flex-start;
+    }
+}
+
+.logo {
+    display: block;
+    flex: 0 0 1.5em;
+}
+
+.copyText {
+    margin-left: 1.5em;
+    margin-top: 0.25em;
+
+    color: $color-mine-shaft;
+    font-size: 0.875rem;
+}
+
+.menu {
+    margin-top: 1em;
+
+    @media screen and (min-width: 60em) {
+        margin-left: auto;
+        margin-top: 0;
+    }
+}
+
+.menuList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @media screen and (min-width: 60em) {
+        justify-content: flex-start;
+    }
+}
+
+.menuItem {
+    &:not(:first-child) {
+        margin-left: 0.5em;
+    }
+}
+
+.menuLink {
+    display: block;
+    padding: 0.5em 1em;
+
+    color: $color-mine-shaft;
+    font-size: 0.875rem;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
+}

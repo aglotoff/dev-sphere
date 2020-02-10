@@ -1,11 +1,14 @@
-import React, { PropsWithChildren } from 'react';
+import React, { FC } from 'react';
 
-import Button, { IButtonProps } from '../../common/Button/Button';
+import { Button, IButtonProps } from '../../common/Button';
 
 import styles from './AuthForm.module.scss';
 
-const AuthFormSubmit = (props: PropsWithChildren<IButtonProps>) => (
-    <Button {...props} type="submit" className={styles.submit} />
-);
+export type IAuthFormSubmitProps = Omit<
+    IButtonProps,
+    'className' | 'size' | 'type'
+>;
 
-export default AuthFormSubmit;
+export const AuthFormSubmit: FC<IAuthFormSubmitProps> = (props) => (
+    <Button {...props} type="submit" className={styles.submit} size={'lg'} />
+);
