@@ -1,26 +1,30 @@
 /**
- * @file The checkbox component.
+ * @file Checkbox component.
  * @author Andrey Glotov
  */
 
+// Imports
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import React, { forwardRef, HTMLProps } from 'react';
 
+// CSS Imports
 import styles from './Checkbox.module.scss';
 
 /**
  * Props for the Checkbox component.
  */
 export type ICheckboxProps = HTMLProps<HTMLInputElement> & {
+    /** Apply styles to indicate invalid state? */
     invalid?: boolean;
 };
 
 /**
- * Checkbox component.
+ * Checkbox component with customized look and feel.
  *
- * Use this styled version instead of a native checkbox.
+ * @param props The component props.
+ * @returns The element to render.
  */
 export const Checkbox = forwardRef<HTMLInputElement, ICheckboxProps>((
     { className, invalid, ...restProps },
@@ -30,18 +34,18 @@ export const Checkbox = forwardRef<HTMLInputElement, ICheckboxProps>((
         styles.checkbox,
         invalid && styles.checkbox_invalid,
         classNames,
-    )
+    );
 
     return (
         <label className={checkClass}>
             <input
-                {...restProps}
-                type="checkbox"
-                ref={forwardedRef}
                 className={styles.input}
+                ref={forwardedRef}
+                type="checkbox"
+                {...restProps}
             />
 
-            <span className={styles.square}>
+            <span aria-hidden="true" className={styles.square}>
                 <FontAwesomeIcon
                     className={styles.icon}
                     icon={faCheck}

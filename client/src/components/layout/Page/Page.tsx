@@ -1,8 +1,8 @@
 import React, { FC, PropsWithChildren } from 'react';
 import DocumentTitle from 'react-document-title';
 
-import { Footer } from '../../common/Footer';
-import { HeaderContainer } from '../../common/Header';
+import { Footer } from '../Footer';
+import { HeaderContainer } from '../Header';
 
 import styles from './Page.module.scss';
 

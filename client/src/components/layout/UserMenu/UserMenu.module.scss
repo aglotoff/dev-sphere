@@ -7,6 +7,11 @@
 
     color: rgba($color-white, 0.5);
 
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    outline: 0;
+
     &_expanded,
     &:focus,
     &:hover {

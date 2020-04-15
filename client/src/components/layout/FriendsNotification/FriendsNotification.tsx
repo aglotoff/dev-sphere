@@ -8,8 +8,8 @@ import React, { FC, MouseEventHandler } from 'react';
 import { NavLink } from 'react-router-dom';
 
 // UI Imports
-import { Button } from '../Button';
-import { Thumbnail } from '../Thumbnail';
+import { Button } from '../../common/Button';
+import { Thumbnail } from '../../common/Thumbnail';
 
 // CSS Imports
 import styles from './FriendsNotification.module.scss';

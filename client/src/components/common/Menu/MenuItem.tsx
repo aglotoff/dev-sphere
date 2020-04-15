@@ -1,5 +1,5 @@
 /**
- * @file Dropdown Menu Item component.
+ * @file Menu Item component.
  * @author Andrey Glotov
  */
 
@@ -12,33 +12,30 @@ import React, {
 import { NavLink } from 'react-router-dom';
 
 // CSS Imports
-import styles from './DropdownMenu.module.scss';
+import styles from './Menu.module.scss';
 
 /**
- * Props for the Dropdown Menu Item component.
+ * Props for the Menu Item component.
  */
-export interface IDropdownMenuItemProps {
+export interface IMenuItemProps {
     /** Text for an optional badge. */
     badge?: string;
     /** Target URL, if the item contains a link. */
     href?: string;
-    /** Click event handler, if the item contains a button. */
+
+    /** Callback fired when the menu item is clicked. */
     onClick?: MouseEventHandler;
 }
 
 /**
- * Dropdown Menu Item component.
+ * Menu Item component.
  *
- * Components of this type are intended to be used as children of a Dropdown
- * Menu component. Depending on the passed props, an item can be either a link
- * or a button.
+ * Depending on the passed props, renders either a link or a button.
  *
  * @param props The component props.
  * @returns The element to render.
  */
-export const DropdownMenuItem: FC<
-    PropsWithChildren<IDropdownMenuItemProps>
-> = ({
+export const MenuItem: FC<PropsWithChildren<IMenuItemProps>> = ({
     badge,
     children,
     href,
@@ -55,14 +52,19 @@ export const DropdownMenuItem: FC<
         <li>
             {href ? (
                 <NavLink
-                    to={href}
-                    className={styles.link}
                     activeClassName={styles.link_active}
+                    className={styles.link}
+                    onClick={onClick}
+                    to={href}
                 >
                     {itemContent}
                 </NavLink>
             ) : (
-                <button className={styles.link} onClick={onClick}>
+                <button
+                    className={styles.link}
+                    onClick={onClick}
+                    type="button"
+                >
                     {itemContent}
                 </button>
             )}

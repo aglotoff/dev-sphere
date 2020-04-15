@@ -7,7 +7,7 @@
 import React, { FC } from 'react';
 
 // UI Imports
-import { Page } from '../../common/Page';
+import { Page } from '../../layout/Page';
 
 export const About: FC = () => (
     <Page title="About - DevSphere">

@@ -4,15 +4,6 @@
     position: relative;
 }
 
-.toggle {
-    padding: 0;
-
-    background: transparent;
-    border: 0;
-    cursor: pointer;
-    outline: 0;
-}
-
 .popup {
     position: absolute;
     right: -0.625em;
@@ -24,9 +15,6 @@
     opacity: 0;
 
     transform: translateY(1.5em);
-    transition: transform 0.2s linear,
-                opacity 0.2s linear,
-                visibility 0.2s step-start 0.2s;
     visibility: hidden;
 
     &:before {
@@ -46,11 +34,49 @@
         }
     }
 
-    &_expanded {
+    &_state_enter {
+        opacity: 0;
+
+        transform: translateY(1.5em);
+        visibility: hidden;
+    }
+
+    &_state_enterActive {
         opacity: 1;
 
         transform: translateY(0.5em);
-        transition-delay: 0s;
+        transition: opacity 0.2s linear,
+                    transform 0.2s linear;
         visibility: visible;
+    }
+
+    &_state_enterDone {
+        opacity: 1;
+
+        transform: translateY(0.5em);
+        visibility: visible;
+    }
+
+    &_state_exit {
+        opacity: 1;
+
+        transform: translateY(0.5em);
+        visibility: visible;
+    }
+
+    &_state_exitActive {
+        opacity: 0;
+
+        transform: translateY(1.5em);
+        transition: opacity 0.2s linear,
+                    transform 0.2s linear;
+        visibility: visible;
+    }
+
+    &_state_exitDone {
+        opacity: 0;
+
+        transform: translateY(1.5em);
+        visibility: hidden;
     }
 }

@@ -12,10 +12,10 @@ import Media from 'react-media';
 import { NavLink } from 'react-router-dom';
 
 // UI Imports
-import { Button } from '../Button';
+import { Button } from '../../common/Button';
+import { Logo } from '../../common/Logo';
 import { FriendsNotifierContainer } from '../FriendsNotifier';
 import { InboxNotifierContainer } from '../InboxNotifier';
-import { Logo } from '../Logo';
 import { MainMenu } from '../MainMenu';
 import { MiscNotifierContainer } from '../MiscNotifier';
 import { MobileMenuContainer } from '../MobileMenu';
@@ -34,7 +34,7 @@ export const HeaderLoggedInView: FC = () => (
         {(matches) => (
             <header className={styles.header}>
                 <div className={styles.inner}>
-                    <Logo className={styles.logo} hideTextOnMobile />
+                    <Logo className={styles.logo} responsive showTitle />
 
                     {matches && <MainMenu className={styles.menu} />}
 
@@ -78,7 +78,7 @@ export const HeaderLoggedInView: FC = () => (
 export const HeaderLoggedOutView: FC = () => (
     <header className={styles.header}>
         <div className={styles.inner}>
-            <Logo className={styles.logo} hideTextOnMobile />
+            <Logo className={styles.logo} responsive showTitle />
 
             <Button className={styles.loginButton} href="/login">
                 Login

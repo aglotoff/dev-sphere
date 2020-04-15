@@ -41,7 +41,7 @@ export const AuthHeader: FC<IAuthHeaderProps> = ({
 
     return (
         <header className={headerClass}>
-            <Logo />
+            <Logo showTitle />
             <h1 className={styles.title}>{title}</h1>
             <p className={styles.text}>{text}</p>
             <img src={loginImage} alt="" className={styles.image} />

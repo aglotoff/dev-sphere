@@ -6,7 +6,7 @@
 import React, { FC, ReactElement } from 'react';
 
 import { AuthHeader } from '../../auth/AuthHeader';
-import { Footer } from '../../common/Footer';
+import { Footer } from '../../layout/Footer';
 
 import styles from './AuthPage.module.scss';
 

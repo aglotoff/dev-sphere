@@ -1,16 +1,56 @@
 @import "../../../assets/styles/variables";
 
+@mixin button-theme($name, $base-color) {
+    .alert_theme_#{$name} {
+        color: darken($base-color, 10%);
+
+        background: lighten($base-color, 40%);
+        border: 1px solid lighten($base-color, 30%);
+
+        > .close {
+            color: darken($base-color, 40%);
+        }
+    }
+}
+
 .alert {
     position: relative;
 
     padding: 1em 3em 1em 1.25em;
 
-    color: darken($color-cardinal, 15%);
     font-size: 0.75rem;
 
-    background: lighten($color-cardinal, 45%);
-    border: 1px solid lighten($color-cardinal, 30%);
     border-radius: 0.25em;
+    opacity: 0;
+
+    &_state_enter,
+    &_state_appear {
+        opacity: 0;
+    }
+
+    &_state_enterActive,
+    &_state_appearActive {
+        opacity: 1;
+        transition: opacity 0.2s ease-in; 
+    }
+
+    &_state_appearDone,
+    &_state_enterDone {
+        opacity: 1;
+    }
+
+    &_state_exit {
+        opacity: 1;
+    }
+
+    &_state_exitActive {
+        opacity: 0;
+        transition: opacity 0.2s ease-out; 
+    }
+
+    &_state_exitDone {
+        opacity: 0;
+    }
 }
 
 .close {
@@ -19,8 +59,6 @@
     top: 0;
 
     padding: 0.75em 1.25em;
-
-    color: darken($color-cardinal, 30%);
 
     background: transparent;
     border: 0;
@@ -34,3 +72,5 @@
         opacity: 1;
     }
 }
+
+@include button-theme(error, $color-cardinal);

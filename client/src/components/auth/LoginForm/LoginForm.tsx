@@ -110,7 +110,7 @@ export const LoginForm: FC<ILoginFormProps> = ({
             <AuthForm.Callout>
                 Don’t have an account?
                 {' '}
-                <Link to="/register">Register Now</Link>
+                <Link href="/register">Register Now</Link>
             </AuthForm.Callout>
         </AuthForm>
     );

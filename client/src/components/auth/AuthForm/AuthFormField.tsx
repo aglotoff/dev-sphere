@@ -5,7 +5,7 @@
 
 import React, { FC } from 'react';
 
-import { Input, IInputProps } from '../../common/Input';
+import {  IInputProps, Input } from '../../common/Input';
 
 import styles from './AuthForm.module.scss';
 

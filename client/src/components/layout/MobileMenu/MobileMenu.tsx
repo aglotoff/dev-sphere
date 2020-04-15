@@ -22,7 +22,7 @@ import React, {
 import { NavLink } from 'react-router-dom';
 
 // UI Imports
-import { Thumbnail } from '../Thumbnail';
+import { Thumbnail } from '../../common/Thumbnail';
 
 // CSS Imports
 import styles from './MobileMenu.module.scss';

@@ -10,9 +10,9 @@ import classNames from 'classnames';
 import React, { FC } from 'react';
 
 // UI Imports
-import { Dropdown, IInjectedDropdownToggleProps } from '../Dropdown';
-import { DropdownMenu, DropdownMenuItem } from '../DropdownMenu';
-import { Thumbnail } from '../Thumbnail';
+import { Dropdown, IInjectedDropdownButtonProps } from '../../common/Dropdown';
+import { Menu, MenuItem } from '../../common/Menu';
+import { Thumbnail } from '../../common/Thumbnail';
 
 // CSS Imports
 import styles from './UserMenu.module.scss';
@@ -20,7 +20,7 @@ import styles from './UserMenu.module.scss';
 /**
  * Props for the User Menu Toggle component.
  */
-export type IUserMenuToggleProps = IInjectedDropdownToggleProps & {
+export type IUserMenuToggleProps = IInjectedDropdownButtonProps & {
     /** First name of the user. */
     firstName: string;
     /** User profile picture. */
@@ -34,6 +34,7 @@ export type IUserMenuToggleProps = IInjectedDropdownToggleProps & {
  * @returns The element to render.
  */
 export const UserMenuToggle: FC<IUserMenuToggleProps> = ({
+    buttonRef,
     expanded,
     firstName,
     picture,
@@ -44,7 +45,7 @@ export const UserMenuToggle: FC<IUserMenuToggleProps> = ({
     );
 
     return (
-        <span className={toggleClass}>
+        <button className={toggleClass} ref={buttonRef}>
             <Thumbnail src={picture} />
 
             <span className={styles.name}>
@@ -54,7 +55,7 @@ export const UserMenuToggle: FC<IUserMenuToggleProps> = ({
             <i className={styles.arrow} aria-hidden="true">
                 <FontAwesomeIcon icon={faAngleDown} />
             </i>
-        </span>
+        </button>
     );
 };
 
@@ -88,35 +89,36 @@ export const UserMenu: FC<IUserMenuProps> = ({
     picture,
 }) => (
     <Dropdown
-        id="account-menu"
+        popupId="account-menu"
         className={className}
-        renderToggle={({ expanded }) => (
+        renderButton={({ buttonRef, expanded }) => (
             <UserMenuToggle
+                buttonRef={buttonRef}
                 expanded={expanded}
                 firstName={firstName}
                 picture={picture}
             />
         )}
     >
-        <DropdownMenu>
-            <DropdownMenuItem href="/profile">
+        <Menu>
+            <MenuItem href="/profile">
                 Profile
-            </DropdownMenuItem>
-            <DropdownMenuItem href="/messages">
+            </MenuItem>
+            <MenuItem href="/messages">
                 Messages
-            </DropdownMenuItem>
-            <DropdownMenuItem href="/booked-events">
+            </MenuItem>
+            <MenuItem href="/booked-events">
                 Booked Events
-            </DropdownMenuItem>
-            <DropdownMenuItem href="/credits" badge={`$${credits}`}>
+            </MenuItem>
+            <MenuItem href="/credits" badge={`$${credits}`}>
                 Credits
-            </DropdownMenuItem>
-            <DropdownMenuItem href="/settings">
+            </MenuItem>
+            <MenuItem href="/settings">
                 Settings
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={onLogout}>
+            </MenuItem>
+            <MenuItem onClick={onLogout}>
                 Logout
-            </DropdownMenuItem >
-        </DropdownMenu>
+            </MenuItem >
+        </Menu>
     </Dropdown>
 );

@@ -127,14 +127,14 @@ export const RegisterForm: FC<IRegisterFormProps> = ({
             >
                 I agree to DevCircle’s
                 {' '}
-                <Link theme="alt" to="/terms">Terms of Service</Link>
+                <Link theme="alt" href="/terms">Terms of Service</Link>
                 ,
                 {' '}
-                <Link theme="alt" to="/policy">Policy</Link>
+                <Link theme="alt" href="/policy">Policy</Link>
                 {' '}
                 and
                 {' '}
-                <Link theme="alt" to="/content-policies">Content Policies</Link>.
+                <Link theme="alt" href="/content-policies">Content Policies</Link>.
             </AuthForm.Checkbox>
 
             <AuthForm.Submit disabled={isSubmitting}>
@@ -144,7 +144,7 @@ export const RegisterForm: FC<IRegisterFormProps> = ({
             <AuthForm.Callout>
                 If you have an account?
                 {' '}
-                <Link to="/login">Login</Link>
+                <Link href="/login">Login</Link>
             </AuthForm.Callout>
         </AuthForm>
     );

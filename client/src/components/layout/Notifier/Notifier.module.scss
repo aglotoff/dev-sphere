@@ -1,5 +1,14 @@
 @import '../../../assets/styles/variables';
 
+.button {
+    padding: 0;
+
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    outline: 0;
+}
+
 .iconBox {
     position: relative;
 

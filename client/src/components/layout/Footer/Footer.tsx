@@ -9,13 +9,11 @@ import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 
 // UI Imports
-import { Link } from '../Link';
+import { Link } from '../../common/Link';
+import { Logo } from '../../common/Logo';
 
 // CSS Imports
 import styles from './Footer.module.scss';
-
-// Asset Imports
-import logoImage from '../../../assets/images/logo.svg';
 
 /**
  * Props for the Footer component.
@@ -23,7 +21,7 @@ import logoImage from '../../../assets/images/logo.svg';
 export interface IFooterProps {
     /** Additional class name. */
     className?: string;
-    /** Use transparent background. */
+    /** Use transparent background? */
     transparent?: boolean;
 }
 
@@ -56,18 +54,14 @@ export const Footer: FC<IFooterProps> = ({
         <footer className={footerClass}>
             <div className={styles.inner}>
                 <div className={styles.copy}>
-                    <img
-                        src={logoImage}
-                        alt=""
-                        className={styles.logo}
-                    />
+                    <Logo className={styles.logo} />
 
                     <span className={styles.copyText}>
                         &copy;
                         {` ${copyYears} `}
                         DevSphere by
                         {' '}
-                        <Link to="/">Andreas</Link>.
+                        <Link href="/">Andreas</Link>.
                         All Rights Reserved.
                     </span>
                 </div>

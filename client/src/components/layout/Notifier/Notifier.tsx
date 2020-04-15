@@ -12,8 +12,8 @@ import Media from 'react-media';
 import { NavLink } from 'react-router-dom';
 
 // UI Imports
-import { Button } from '../Button';
-import { Dropdown } from '../Dropdown';
+import { Button } from '../../common/Button';
+import { Dropdown } from '../../common/Dropdown';
 
 // CSS Imports
 import styles from './Notifier.module.scss';
@@ -127,13 +127,15 @@ export const NotifierDesktop: FC<PropsWithChildren<INotifierProps>> = ({
     const hasChildren = React.Children.count(children) > 0;
 
     return (
-        <Dropdown renderToggle={({ expanded }) => (
-            <NotifierIcon
-                highlighted={expanded}
-                icon={icon}
-                showIndicator={hasChildren}
-                title={title}
-            />
+        <Dropdown renderButton={({ buttonRef, expanded }) => (
+            <button className={styles.button} ref={buttonRef}>
+                <NotifierIcon
+                    highlighted={expanded}
+                    icon={icon}
+                    showIndicator={hasChildren}
+                    title={title}
+                />
+            </button>
         )}>
             <div className={styles.panel}>
                 <div className={styles.header}>

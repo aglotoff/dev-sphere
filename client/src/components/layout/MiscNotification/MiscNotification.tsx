@@ -8,8 +8,8 @@ import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 
 // UI Imports
-import { Thumbnail } from '../Thumbnail';
-import { TimeAgo } from '../TimeAgo';
+import { Thumbnail } from '../../common/Thumbnail';
+import { TimeAgo } from '../../common/TimeAgo';
 
 // CSS Imports
 import styles from './MiscNotification.module.scss';

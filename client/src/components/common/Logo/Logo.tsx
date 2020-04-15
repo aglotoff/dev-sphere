@@ -6,7 +6,7 @@
 // Imports
 import classnames from 'classnames';
 import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 // CSS Imports
 import styles from './Logo.module.scss';
@@ -20,8 +20,10 @@ import logoImage from '../../../assets/images/logo.svg';
 export interface ILogoProps {
     /** Additional class name. */
     className?: string;
-    /** Hide text and show only image on mobile screens. */
-    hideTextOnMobile?: boolean;
+    /** Hide title on mobile screens. */
+    responsive?: boolean;
+    /** Show the title next to the image. */
+    showTitle?: boolean;
 }
 
 /**
@@ -29,18 +31,19 @@ export interface ILogoProps {
  */
 export const Logo: FC<ILogoProps> = ({
     className,
-    hideTextOnMobile,
+    responsive,
+    showTitle,
 }) => {
     const logoClass = classnames(
         styles.logo,
-        hideTextOnMobile && styles.logo_hideTextMobile,
+        responsive && styles.logo_responsive,
         className,
     );
 
     return (
-        <Link to="/" className={logoClass}>
+        <NavLink to="/" className={logoClass}>
             <img src={logoImage} alt="" className={styles.img} />
-            <span className={styles.text}>DevSphere</span>
-        </Link>
+            {showTitle && <span className={styles.title}>DevSphere</span>}
+        </NavLink>
     );
 };
