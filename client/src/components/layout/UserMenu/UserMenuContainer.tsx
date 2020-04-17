@@ -40,12 +40,14 @@ export const UserMenuContainer: FC<IUserMenuContainerProps> = ({
 
     const [ firstName ] = user.fullName.split(/\s+/);
 
+    const credits = 100;
+
     const handleLogout = () => dispatch(logout());
 
     return (
         <UserMenu
             className={className}
-            credits={100}
+            credits={credits}
             firstName={firstName}
             onLogout={handleLogout}
         />

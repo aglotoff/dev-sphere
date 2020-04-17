@@ -6,14 +6,34 @@
 // Imports
 import classNames from 'classnames';
 import React, { FC } from 'react';
-import { NavLink } from 'react-router-dom';
 
 // UI Imports
 import { Link } from '../../common/Link';
 import { Logo } from '../../common/Logo';
+import { FooterMenu } from '../FooterMenu';
 
 // CSS Imports
 import styles from './Footer.module.scss';
+
+/**
+ * Build dynamic copyright notice.
+ *
+ * @returns The date to be used inside the copyright notice.
+ */
+export function copyYears(startYear: number) {
+    const currentYear = new Date().getFullYear();
+
+    if (currentYear > startYear) {
+        return `${startYear} - ${currentYear}`;
+    } else {
+        return String(startYear);
+    }
+}
+
+const START_YEAR = 2020;
+const APP_NAME = 'DevSphere';
+const CREATOR_NAME = 'Andreas';
+const CREATOR_URL = '#';
 
 /**
  * Props for the Footer component.
@@ -35,15 +55,6 @@ export const Footer: FC<IFooterProps> = ({
     className,
     transparent,
 }) => {
-    const creationYear = 2020;
-    const currentYear = new Date().getFullYear();
-    let copyYears;
-    if (currentYear > creationYear) {
-        copyYears = `${creationYear} - ${currentYear}`;
-    } else {
-        copyYears = String(creationYear);
-    }
-
     const footerClass = classNames(
         styles.footer,
         transparent && styles.footer_transparent,
@@ -58,50 +69,13 @@ export const Footer: FC<IFooterProps> = ({
 
                     <span className={styles.copyText}>
                         &copy;
-                        {` ${copyYears} `}
-                        DevSphere by
-                        {' '}
-                        <Link href="/">Andreas</Link>.
+                        {` ${copyYears(START_YEAR)} ${APP_NAME} by `}
+                        <Link href={CREATOR_URL}>{CREATOR_NAME}</Link>.
                         All Rights Reserved.
                     </span>
                 </div>
 
-                <nav className={styles.menu}>
-                    <ul className={styles.menuList}>
-                        <li className={styles.menuItem}>
-                            <NavLink
-                                to="/privacy"
-                                className={styles.menuLink}
-                            >
-                                Privacy
-                            </NavLink>
-                        </li>
-                        <li className={styles.menuItem}>
-                            <NavLink
-                                to="/terms-and-conditions"
-                                className={styles.menuLink}
-                            >
-                                Terms and Conditions
-                            </NavLink>
-                        </li>
-                        <li className={styles.menuItem}>
-                            <NavLink
-                                to="/about"
-                                className={styles.menuLink}
-                            >
-                                About
-                            </NavLink>
-                        </li>
-                        <li className={styles.menuItem}>
-                            <NavLink
-                                to="/contact-us"
-                                className={styles.menuLink}
-                            >
-                                Contact Us
-                            </NavLink>
-                        </li>
-                    </ul>
-                </nav>
+                <FooterMenu className={styles.menu} />
             </div>
         </footer>
     );

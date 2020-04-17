@@ -5,21 +5,68 @@
 
 // Imports
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import React, { FC } from 'react';
+import React, { FC, MouseEventHandler } from 'react';
 
 // UI Imports
-import {
-    FriendsNotification,
-    IFriendsNotificationProps,
-} from '../FriendsNotification';
-import { Notifier } from '../Notifier';
+import { Button } from '../../common/Button';
+import { Notifier, NotifierEntry } from '../Notifier';
+
+// CSS Imports
+import styles from './FriendsNotifier.module.scss';
+
+/**
+ * Props for the Friend Request Notification component.
+ */
+export interface IFriendsNotifierEntry {
+    /** Handle clicking on the "Accept" button. */
+    onAcceptClick?: MouseEventHandler;
+    /** User profile picture. */
+    picture?: string;
+    /** URL of the user profile. */
+    profileUrl: string;
+    /** User name. */
+    userName: string;
+}
+
+/**
+ * Notification to display inside the Friend Requests Notifier.
+ *
+ * @param props The component props.
+ * @returns The element to render.
+ */
+export const FriendsNotification: FC<IFriendsNotifierEntry> = ({
+    onAcceptClick,
+    picture,
+    profileUrl,
+    userName,
+}) => (
+    <NotifierEntry
+        linkText="View Profile"
+        picture={picture}
+        url={profileUrl}
+    >
+        <div className={styles.entry}>
+            <div className={styles.userName}>
+                {userName}
+            </div>
+
+            <Button
+                size="sm"
+                className={styles.acceptBtn}
+                onClick={onAcceptClick}
+            >
+                Accept
+            </Button>
+        </div>
+    </NotifierEntry>
+);
 
 /**
  * Props for the Friend Requests Notifier component.
  */
 export interface IFriendsNotifierProps {
     /** The items to display inside the dropdown. */
-    items: Array<IFriendsNotificationProps & { userId: string; }>;
+    items: Array<IFriendsNotifierEntry & { userId: string; }>;
     /**
      * Handle the accept friend request action.
      *
@@ -47,13 +94,14 @@ export const FriendsNotifier: FC<IFriendsNotifierProps> = ({
         emptyText="You have no new friend requests"
         icon={faUserPlus}
         onClearAll={onClearAll}
+        popupId="top-friends"
         settingsText="Find Friends"
         settingsUrl="/friends"
         title="Friend Requests"
         viewAllText="View All Friend Requests"
         viewAllUrl="/friends"
     >
-        { items.map(({ userId, userName, profileUrl }) => (
+        {items.map(({ userId, userName, profileUrl }) => (
             <FriendsNotification
                 key={userId}
                 userName={userName}
@@ -65,6 +113,6 @@ export const FriendsNotifier: FC<IFriendsNotifierProps> = ({
                     onAccept(userId);
                 }}
             />
-        )) }
+        ))}
     </Notifier>
 );

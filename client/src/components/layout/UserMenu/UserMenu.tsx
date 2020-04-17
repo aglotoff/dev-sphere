@@ -17,6 +17,8 @@ import { Thumbnail } from '../../common/Thumbnail';
 // CSS Imports
 import styles from './UserMenu.module.scss';
 
+const POPUP_ID = 'user-menu';
+
 /**
  * Props for the User Menu Toggle component.
  */
@@ -45,7 +47,13 @@ export const UserMenuToggle: FC<IUserMenuToggleProps> = ({
     );
 
     return (
-        <button className={toggleClass} ref={buttonRef}>
+        <button
+            aria-controls={POPUP_ID}
+            aria-expanded={expanded}
+            aria-haspopup="true"
+            className={toggleClass}
+            ref={buttonRef}
+        >
             <Thumbnail src={picture} />
 
             <span className={styles.name}>
@@ -69,10 +77,11 @@ export interface IUserMenuProps {
     credits: number;
     /** First name of the user. */
     firstName: string;
-    /** Handle clicking on the logout menu item. */
-    onLogout: () => void;
     /** User profile picture. */
     picture?: string;
+
+    /** Callback fired when users select the logout menu item. */
+    onLogout: () => void;
 }
 
 /**
@@ -89,7 +98,7 @@ export const UserMenu: FC<IUserMenuProps> = ({
     picture,
 }) => (
     <Dropdown
-        popupId="account-menu"
+        popupId={POPUP_ID}
         className={className}
         renderButton={({ buttonRef, expanded }) => (
             <UserMenuToggle
@@ -101,22 +110,22 @@ export const UserMenu: FC<IUserMenuProps> = ({
         )}
     >
         <Menu>
-            <MenuItem href="/profile">
+            <MenuItem href="/profile" key="Propfile">
                 Profile
             </MenuItem>
-            <MenuItem href="/messages">
+            <MenuItem href="/messages" key="Messages">
                 Messages
             </MenuItem>
-            <MenuItem href="/booked-events">
+            <MenuItem href="/booked-events" key="Booked Events">
                 Booked Events
             </MenuItem>
-            <MenuItem href="/credits" badge={`$${credits}`}>
+            <MenuItem href="/credits" badge={`$${credits}`} key="Credits">
                 Credits
             </MenuItem>
-            <MenuItem href="/settings">
+            <MenuItem href="/settings" key="Settings">
                 Settings
             </MenuItem>
-            <MenuItem onClick={onLogout}>
+            <MenuItem key="Logout" onClick={onLogout}>
                 Logout
             </MenuItem >
         </Menu>

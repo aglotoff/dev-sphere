@@ -8,7 +8,6 @@ import {
     faBars,
     faSignOutAlt,
     faTimes,
-    IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -16,7 +15,6 @@ import FocusTrap from 'focus-trap-react';
 import React, {
     FC,
     MouseEventHandler,
-    PropsWithChildren,
     useState,
 } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -27,92 +25,23 @@ import { Thumbnail } from '../../common/Thumbnail';
 // CSS Imports
 import styles from './MobileMenu.module.scss';
 
-/**
- * Props for the Mobile Menu Item component.
- */
-export interface IMobileMenuItemProps {
-    /** Optional icon to display before the text. */
-    icon?: IconDefinition;
-    /** Handle a click event (if the item is a button). */
-    onClick?: MouseEventHandler;
-    /** URL (if the item is a link). */
-    url?: string;
-}
-
-/**
- * Mobile menu item, can be a link or a button.
- *
- * @param props The component props.
- * @returns The element to render.
- */
-export const MobileMenuItem: FC<PropsWithChildren<IMobileMenuItemProps>> = ({
-    children,
-    icon,
-    onClick,
-    url,
-}) => {
-    const itemContent = (
-        <>
-            {icon && (
-                <FontAwesomeIcon icon={icon} className={styles.itemIcon} />
-            )}
-            <span className={styles.itemText}>
-                {children}
-            </span>
-        </>
-    );
-
-    return (
-        <li className={styles.item}>
-            {url ? (
-                <NavLink to={url} className={styles.link}>
-                    {itemContent}
-                </NavLink>
-            ) : (
-                <button className={styles.link} onClick={onClick}>
-                    {itemContent}
-                </button>
-            )}
-        </li>
-    );
-};
-
-/**
- * Props for the Mobile Menu Profile Item component.
- */
-export interface IMobileMenuProfileItemProps {
-    /** User profile picture. */
-    picture?: string;
-    /** User profile URL. */
-    url: string;
-}
-
-/**
- * User profile item of the Mobile Menu.
- *
- * @param props The component props.
- * @return The element to render.
- */
-export const MobileMenuProfileItem: FC<
-    PropsWithChildren<IMobileMenuProfileItemProps>
-> = ({ children, picture, url }) => (
-    <li className={styles.item}>
-        <NavLink
-            className={classNames(styles.link, styles.link_profile)}
-            to={url}
-        >
-            <Thumbnail
-                className={styles.profileImage}
-                size="xs"
-                src={picture}
-            />
-
-            <span className={styles.itemText}>
-                {children}
-            </span>
-        </NavLink>
-    </li>
-);
+const items = [{
+    title: 'Home',
+    href: '/',
+    key: 'Home',
+}, {
+    title: 'Discussion',
+    href: '/discussion',
+    key: 'Discussion',
+}, {
+    title: 'Weather',
+    href: '/weather',
+    key: 'Weather',
+}, {
+    title: 'Blog',
+    href: '/blog',
+    key: 'Blog',
+}];
 
 /**
  * Props for the Mobile Menu component.
@@ -120,10 +49,11 @@ export const MobileMenuProfileItem: FC<
 export interface IMobileMenuProps {
     /** Additional class name. */
     className?: string;
-    /** Handle clicking on the logout menu item. */
-    onLogout: () => void;
     /** The name of the user. */
     userName: string;
+
+    /** Callback fired when the user selects the logout menu item. */
+    onLogout: () => void;
 }
 
 /**
@@ -181,24 +111,45 @@ export const MobileMenu: FC<IMobileMenuProps> = ({
 
                 <li className={containerClass}>
                     <ul className={styles.list} onClick={handleListClick}>
-                        <MobileMenuProfileItem url="/">
-                            {userName}
-                        </MobileMenuProfileItem>
-                        <MobileMenuItem url="/">
-                            Home
-                        </MobileMenuItem>
-                        <MobileMenuItem url="/discussion">
-                            Discussion
-                        </MobileMenuItem>
-                        <MobileMenuItem url="/weather">
-                            Weather
-                        </MobileMenuItem>
-                        <MobileMenuItem url="/blog">
-                            Blog
-                        </MobileMenuItem>
-                        <MobileMenuItem icon={faSignOutAlt} onClick={onLogout}>
-                            Logout
-                        </MobileMenuItem>
+                        <li className={styles.item} key="Profile">
+                            <NavLink
+                                className={classNames(
+                                    styles.link,
+                                    styles.link_profile,
+                                )}
+                                to="/profile"
+                            >
+                                <Thumbnail
+                                    className={styles.profileImage}
+                                    size="xs"
+                                />
+                                {userName}
+                            </NavLink>
+                        </li>
+
+                        {items.map(({ href, key, title }) => (
+                            <li className={styles.item} key={key} >
+                                <NavLink to={href} className={styles.link}>
+                                    {title}
+                                </NavLink>
+                            </li>
+                        ))}
+
+                        <li className={styles.item} key="Logout">
+                            <button className={styles.link} onClick={onLogout}>
+                                <span
+                                    aria-hidden="true"
+                                    className={styles.itemIcon}
+                                >
+                                    <FontAwesomeIcon
+                                        className={styles.itemIcon}
+                                        icon={faSignOutAlt}
+                                    />
+                                </span>
+
+                                Logout
+                            </button>
+                        </li>
                     </ul>
                 </li>
             </nav>

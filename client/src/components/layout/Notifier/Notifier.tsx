@@ -5,8 +5,6 @@
 
 // Imports
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames';
 import React, { FC, PropsWithChildren } from 'react';
 import Media from 'react-media';
 import { NavLink } from 'react-router-dom';
@@ -14,53 +12,10 @@ import { NavLink } from 'react-router-dom';
 // UI Imports
 import { Button } from '../../common/Button';
 import { Dropdown } from '../../common/Dropdown';
+import { HeaderButton } from '../HeaderButton';
 
 // CSS Imports
 import styles from './Notifier.module.scss';
-
-/**
- * Props for the Notifier Icon component.
- */
-export interface INotifierIconProps {
-    /** Apply the highlighted class (used when the dropdown is expanded). */
-    highlighted?: boolean;
-    /** The Font Awesome icon. */
-    icon: IconDefinition;
-    /** Show an indicator in the corner of the box. */
-    showIndicator?: boolean;
-    /** Optional title to make the icon accessible. */
-    title?: string;
-}
-
-/**
- * Icon component to display inside the notifier with an optional round
- * indicator in the top right corner.
- *
- * @param props The component props.
- * @return The element to render.
- */
-export const NotifierIcon: FC<INotifierIconProps> = ({
-    highlighted,
-    icon,
-    showIndicator,
-    title,
-}) => {
-    const iconBoxClass = classNames(
-        styles.iconBox,
-        highlighted && styles.iconBox_highlighted,
-        showIndicator && styles.iconBox_showIndicator,
-    );
-
-    return (
-        <i className={iconBoxClass}>
-            <FontAwesomeIcon
-                className={styles.icon}
-                icon={icon}
-                title={title}
-            />
-        </i>
-    );
-};
 
 /**
  * Props for the Top Notifier component.
@@ -74,6 +29,8 @@ export interface INotifierProps {
     icon: IconDefinition;
     /** Handle clicking on the "Clear All" button. */
     onClearAll?: () => void;
+    /** ID attribute for the dropdown popup. */
+    popupId?: string;
     /** Text for the "Settings" link. */
     settingsText?: string;
     /** URL for the "Settings" link. */
@@ -93,18 +50,16 @@ export interface INotifierProps {
  * @return The element to render.
  */
 export const NotifierMobile: FC<PropsWithChildren<INotifierProps>> = ({
-    children,
     icon,
     title,
     viewAllUrl,
 }) => (
-    <NavLink className={styles.link} to={viewAllUrl}>
-        <NotifierIcon
-            icon={icon}
-            showIndicator={React.Children.count(children) > 0}
-            title={title}
-        />
-    </NavLink>
+    <HeaderButton
+        href={viewAllUrl}
+        icon={icon}
+        showIndicator
+        title={title}
+    />
 );
 
 /**
@@ -118,6 +73,7 @@ export const NotifierDesktop: FC<PropsWithChildren<INotifierProps>> = ({
     emptyText = 'You have no unread notifications',
     icon,
     onClearAll,
+    popupId,
     settingsText = 'Settings',
     settingsUrl,
     title,
@@ -127,16 +83,21 @@ export const NotifierDesktop: FC<PropsWithChildren<INotifierProps>> = ({
     const hasChildren = React.Children.count(children) > 0;
 
     return (
-        <Dropdown renderButton={({ buttonRef, expanded }) => (
-            <button className={styles.button} ref={buttonRef}>
-                <NotifierIcon
+        <Dropdown
+            popupId={popupId}
+            renderButton={({ buttonRef, expanded }) => (
+                <HeaderButton
+                    aria-controls={popupId}
+                    aria-expanded={expanded}
+                    aria-haspopup="true"
                     highlighted={expanded}
                     icon={icon}
+                    ref={buttonRef}
                     showIndicator={hasChildren}
                     title={title}
                 />
-            </button>
-        )}>
+            )}
+        >
             <div className={styles.panel}>
                 <div className={styles.header}>
                     <NavLink className={styles.action} to={settingsUrl}>

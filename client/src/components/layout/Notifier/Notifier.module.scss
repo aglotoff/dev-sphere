@@ -1,61 +1,5 @@
 @import '../../../assets/styles/variables';
 
-.button {
-    padding: 0;
-
-    background: transparent;
-    border: 0;
-    cursor: pointer;
-    outline: 0;
-}
-
-.iconBox {
-    position: relative;
-
-    display: block;
-    padding: 0.5em 0;
-    width: 2.25em;
-
-    color: $color-white;
-    font-size: 1.125rem;
-    line-height: 1;
-    text-align: center;
-
-    @media screen and (min-width: 60em) {
-        padding: 0.75em 0;
-    }
-
-    &_showIndicator:after {
-        content: "";
-
-        position: absolute;
-        right: 0.2em;
-        top: 50%;
-
-        display: block;
-        height: 0.5em;
-        margin-top: -0.75em;
-        width: 0.5em;
-
-        background: $color-persimmon;
-        border-radius: 50%;
-    }
-}
-
-.icon {
-    line-height: 1;
-    text-align: center;
-
-    opacity: 0.5;
-
-    transition: color 0.2s linear;
-
-    .iconBox_highlighted > &,
-    .iconBox:hover > & {
-        opacity: 1;
-    }
-}
-
 .panel {
     min-width: 17.25em;
     overflow: hidden;
@@ -101,4 +45,42 @@
 
 .viewAll {
     width: 100%;
+}
+
+.entry {
+    position: relative;
+
+    align-items: center;
+    display: flex;
+    padding: 1.25em;
+
+    background: $color-white;
+
+    transition: background-color 0.2s linear;
+
+    & + & {
+        border-top: 1px solid $color-mercury;
+    }
+
+    &:hover {
+        background: $color-alabaster;
+    }
+}
+
+.entryInner {
+    flex: 1 1;
+    margin-left: 0.75em;
+}
+
+.entryLink {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    display: block;
+    overflow: hidden;
+
+    text-indent: -100em;
 }

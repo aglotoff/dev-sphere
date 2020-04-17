@@ -1,0 +1,31 @@
+@import "../../../assets/styles/variables";
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @media screen and (min-width: 60em) {
+        justify-content: flex-start;
+    }
+}
+
+.item {
+    &:not(:first-child) {
+        margin-left: 0.5em;
+    }
+}
+
+.link {
+    display: block;
+    padding: 0.5em 1em;
+
+    color: $color-mine-shaft;
+    font-size: 0.875rem;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
+}

@@ -5,16 +5,14 @@
 
  // Imports
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames';
 import React, { FC } from 'react';
 import Media from 'react-media';
-import { NavLink } from 'react-router-dom';
 
 // UI Imports
 import { Button } from '../../common/Button';
 import { Logo } from '../../common/Logo';
 import { FriendsNotifierContainer } from '../FriendsNotifier';
+import { HeaderButton } from '../HeaderButton';
 import { InboxNotifierContainer } from '../InboxNotifier';
 import { MainMenu } from '../MainMenu';
 import { MiscNotifierContainer } from '../MiscNotifier';
@@ -42,16 +40,12 @@ export const HeaderLoggedInView: FC = () => (
                         Add New Event
                     </Button>
 
-                    <NavLink
-                        className={classNames(styles.button, styles.search)}
-                        to="/"
-                    >
-                        <FontAwesomeIcon
-                            className={styles.buttonIcon}
-                            icon={faSearch}
-                            title="Search"
-                        />
-                    </NavLink>
+                    <HeaderButton
+                        className={styles.search}
+                        href="/search"
+                        icon={faSearch}
+                        title="Search"
+                    />
 
                     <div className={styles.notifiers}>
                         <FriendsNotifierContainer />
