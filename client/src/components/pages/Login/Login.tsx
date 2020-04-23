@@ -1,20 +1,23 @@
-import React, { FC } from 'react';
-import DocumentTitle from 'react-document-title';
+/**
+ * @file The Login page.
+ * @author Andrey Glotov
+ */
 
+// Imports
+import React, { FC } from 'react';
+
+// UI Imports
 import { AuthPage } from '../../auth/AuthPage';
 import { LoginFormContainer } from '../../auth/LoginForm';
 
+/**
+ * The Application Login page.
+ *
+ * @param props The component props.
+ * @return The element to render.
+ */
 export const Login: FC = () => (
-    <DocumentTitle title="Login | DevSphere">
-        <AuthPage
-            title="Login Now"
-            text={
-                'This is a toy application, so feel free to use a fake name ' +
-                'and non-existent email for registration!'
-            }
-            renderForm={(injectedProps) => (
-                <LoginFormContainer { ...injectedProps } />
-            )}
-        />
-    </DocumentTitle>
+    <AuthPage heading="Login Now" title="Login | DevSphere">
+        <LoginFormContainer />
+    </AuthPage>
 );

@@ -35,9 +35,10 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((
 
     return (
         <input
-            {...restProps}
+            aria-invalid={invalid ? 'true' : undefined}
             ref={forwardedRef}
             className={inputClass}
+            {...restProps}
         />
     );
 });

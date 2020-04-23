@@ -1,20 +1,23 @@
-import React, { FC } from 'react';
-import DocumentTitle from 'react-document-title';
+/**
+ * @file The Register page.
+ * @author Andrey Glotov
+ */
 
+// Imports
+import React, { FC } from 'react';
+
+// UI Imports
 import { AuthPage } from '../../auth/AuthPage';
 import { RegisterFormContainer } from '../../auth/RegisterForm';
 
+/**
+ * The Application Register page.
+ *
+ * @param props The component props.
+ * @return The element to render.
+ */
 export const Register: FC = () => (
-    <DocumentTitle title="Register | DevSphere">
-        <AuthPage
-            title="Register Now"
-            text={
-                'This is a toy application, so feel free to use a fake name ' +
-                'and non-existent email for registration!'
-            }
-            renderForm={(injectedProps) => (
-                <RegisterFormContainer { ...injectedProps } />
-            )}
-        />
-    </DocumentTitle>
+    <AuthPage heading="Register Now" title="Register | DevSphere">
+        <RegisterFormContainer />
+    </AuthPage>
 );
