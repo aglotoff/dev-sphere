@@ -15,12 +15,14 @@ import FocusTrap from 'focus-trap-react';
 import React, {
     FC,
     MouseEventHandler,
+    useRef,
     useState,
 } from 'react';
 import { NavLink } from 'react-router-dom';
 
 // UI Imports
 import { Thumbnail } from '../../common/Thumbnail';
+import { HeaderButton } from '../HeaderButton';
 
 // CSS Imports
 import styles from './MobileMenu.module.scss';
@@ -72,6 +74,8 @@ export const MobileMenu: FC<IMobileMenuProps> = ({
 }) => {
     const [ expanded, setExpanded ] = useState(false);
 
+    const buttonRef = useRef<HTMLButtonElement>(null);
+
     // Toggle between collapsed and expanded state when the button is clicked.
     const handleToggleClick: MouseEventHandler = () => {
         setExpanded(!expanded);
@@ -80,6 +84,14 @@ export const MobileMenu: FC<IMobileMenuProps> = ({
     // Collapse the menu when an item is selected.
     const handleListClick: MouseEventHandler = () => {
         setExpanded(false);
+    };
+
+    const handleTrapDeactivate = () => {
+        setExpanded(false);
+
+        if (buttonRef.current) {
+            buttonRef.current.focus();
+        }
     };
 
     const menuClass = classNames(
@@ -95,19 +107,18 @@ export const MobileMenu: FC<IMobileMenuProps> = ({
         <FocusTrap active={expanded} focusTrapOptions={{
             escapeDeactivates: true,
             clickOutsideDeactivates: true,
-            onDeactivate: () => setExpanded(false),
+            onDeactivate: handleTrapDeactivate,
         }}>
             <nav className={menuClass}>
-                <button className={styles.toggle} onClick={handleToggleClick}>
-                    <FontAwesomeIcon
-                        aria-controls="mobile-menu"
-                        aria-expanded={expanded}
-                        aria-haspopup="true"
-                        className={styles.toggleIcon}
-                        icon={expanded ? faTimes : faBars}
-                        title={expanded ? 'Close menu' : 'Open menu'}
-                    />
-                </button>
+                <HeaderButton
+                    aria-controls="mobile-menu"
+                    aria-expanded={expanded}
+                    aria-haspopup="true"
+                    icon={expanded ? faTimes : faBars}
+                    onClick={handleToggleClick}
+                    ref={buttonRef}
+                    title={expanded ? 'Close menu' : 'Open menu'}
+                />
 
                 <li className={containerClass}>
                     <ul className={styles.list} onClick={handleListClick}>

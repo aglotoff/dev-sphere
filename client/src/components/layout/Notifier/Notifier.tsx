@@ -123,7 +123,7 @@ export const NotifierDesktop: FC<PropsWithChildren<INotifierProps>> = ({
                     <Button
                         className={styles.viewAll}
                         href={viewAllUrl}
-                        sharp
+                        sharpTop
                     >
                         {viewAllText}
                     </Button>

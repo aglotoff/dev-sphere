@@ -1,4 +1,5 @@
 @import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
 
 .toggle {
     align-items: center;
@@ -13,9 +14,12 @@
     outline: 0;
 
     &_expanded,
-    &:focus,
     &:hover {
         color: $color-white;
+    }
+
+    @include focus-utility() {
+        outline: 2px solid $color-persimmon;
     }
 }
 

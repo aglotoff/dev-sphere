@@ -1,4 +1,5 @@
 @import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
 
 .link {
     display: flex;
@@ -19,9 +20,12 @@
 
     transition: background-color 0.2s linear;
 
-    &:hover,
-    &:focus {
+    &:hover {
         background: $color-white;
+    }
+
+    @include focus-utility() {
+        box-shadow: 0 0 0 2px inset $color-persimmon;
     }
 
     &_active {

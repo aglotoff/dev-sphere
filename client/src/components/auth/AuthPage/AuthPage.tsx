@@ -46,7 +46,7 @@ export const AuthPage: FC<PropsWithChildren<IAuthPageProps>> = ({
 
     return (
         <DocumentTitle title={title}>
-            <div className={styles.page}>
+            <div className={styles.page} id="content">
                 <div className={styles.container}>
                     <div className={styles.inner}>
                         <header className={styles.header}>

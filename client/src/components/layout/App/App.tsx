@@ -13,9 +13,14 @@ import { Register } from '../../pages/Register';
 // UI Imports
 import { LoggedInRoute } from '../LoggedInRoute';
 import { LoggedOutRoute } from '../LoggedOutRoute';
+import { SkipLink } from '../SkipLink';
 
+// App Imports
 import { getUser, refreshToken } from '../../../store/actions/api';
 import { getIsLoggedIn } from '../../../store/reducers/api';
+
+// Hooks Imports
+import { useFocusTrap } from './hooks';
 
 export const App: FC = () => {
     const dispatch = useDispatch();
@@ -33,9 +38,13 @@ export const App: FC = () => {
         }
     }, [ loggedIn, dispatch ]);
 
+    useFocusTrap('focus-utility');
+
     return (
         <DocumentTitle title="DevSphere">
             <BrowserRouter>
+                <SkipLink />
+
                 <Switch>
                     <Route path="/about" component={About} />
 

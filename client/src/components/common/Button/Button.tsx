@@ -36,8 +36,8 @@ export interface IButtonProps {
     size?: 'sm' | 'md' | 'lg';
     /** Appearance theme. */
     theme?: 'default' | 'facebook' | 'google' | 'github';
-    /** Make sharp corners instead of rounded ones? */
-    sharp?: boolean;
+    /** Make top corners sharp instead of rounded ones? */
+    sharpTop?: boolean;
 
     /** Callback fired when the button is clicked. */
     onClick?: MouseEventHandler;
@@ -61,14 +61,14 @@ export const Button: FC<PropsWithChildren<IButtonProps>> = ({
     className,
     onClick,
     theme = 'default',
-    sharp = false,
+    sharpTop = false,
     size = 'md',
     type,
 }) => {
     const buttonClass = classnames(
         styles.button,
         className,
-        sharp && styles.button_sharp,
+        sharpTop && styles.button_sharpTop,
         animateSpinner && styles.button_animateSpinner,
         styles['button_theme_' + theme],
         styles['button_size_' + size],

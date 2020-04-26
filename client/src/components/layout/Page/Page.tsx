@@ -39,7 +39,7 @@ export const Page: FC<PropsWithChildren<IPageProps>> = ({
         <div className={styles.page}>
             <HeaderContainer />
 
-            <main className={styles.main}>
+            <main className={styles.main} id="content">
                 {children}
             </main>
 

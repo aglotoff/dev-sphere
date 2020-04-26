@@ -1,8 +1,9 @@
 @import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
 
 .panel {
     min-width: 17.25em;
-    overflow: hidden;
+    // overflow: hidden;
 
     background: $color-white;
     border-radius: 0 0 0.2em 0.2em;
@@ -11,14 +12,14 @@
 .header {
     display: flex;
     justify-content: space-between;
-    padding: 0 0.75em;
+    padding: 0.3em 0.75em;
 
     border-bottom: 1px solid $color-mercury;
 }
 
 .action {
     display: block;
-    padding: 0.6em;
+    padding: 0.2em;
 
     color: $color-empress;
     font-family: $font-family-default;
@@ -33,7 +34,11 @@
     transition: color 0.2s linear;
 
     &:hover {
-        color: $color-shark;
+        text-decoration: underline;
+    }
+
+    @include focus-utility() {
+        outline: 2px solid $color-persimmon;
     }
 }
 
@@ -44,6 +49,9 @@
 }
 
 .viewAll {
+    position: relative;
+    z-index: 1;
+
     width: 100%;
 }
 
@@ -83,4 +91,8 @@
     overflow: hidden;
 
     text-indent: -100em;
+
+    @include focus-utility() {
+        box-shadow: 0 0 0 2px inset $color-persimmon;
+    }
 }
