@@ -29,22 +29,22 @@ export function timeToString(datetime: Date) {
 
     const diffHours = now.diff(m, 'hours');
     if (diffHours < 24) {
-        return `${diffMinutes}h ago`;
+        return `${diffHours}h ago`;
     }
 
     const diffDays = now.diff(m, 'days');
     if (diffDays < 7) {
-        return `${diffMinutes}d ago`;
+        return `${diffDays}d ago`;
     }
 
     const diffWeeks = now.diff(m, 'weeks');
     if (diffWeeks < 5) {
-        return `${diffMinutes}w ago`;
+        return `${diffWeeks}w ago`;
     }
 
     const diffMonths = now.diff(m, 'months');
     if (diffMonths < 12) {
-        return `${diffMinutes}m ago`;
+        return `${diffMonths}m ago`;
     }
 
     const diffYears = now.diff(m, 'years');
