@@ -8,8 +8,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // App Imports
-import { clearAuthError, setAuthError } from '../store/actions/api';
-import { getAuthError } from '../store/reducers/api';
+import { clearError, setError } from '../store/actions/error';
+import { getErrorMessage } from '../store/reducers/error';
 
 // Hooks Imports
 import { useURLSearchParams } from './useURLSearchParams';
@@ -24,7 +24,7 @@ import { useURLSearchParams } from './useURLSearchParams';
  */
 export const useURLError = () => {
     // Error from the store
-    const authError = useSelector(getAuthError);
+    const errorMessage = useSelector(getErrorMessage);
 
     // Error from the query sttring
     const urlSearchParams = useURLSearchParams();
@@ -34,13 +34,13 @@ export const useURLError = () => {
 
     useEffect(() => {
         if (urlError) {
-            dispatch(setAuthError(urlError));
+            dispatch(setError(new Error(urlError)));
         }
 
         return () => {
-            dispatch(clearAuthError());
+            dispatch(clearError());
         };
     }, [ dispatch, urlError ]);
 
-    return authError;
+    return errorMessage;
 };

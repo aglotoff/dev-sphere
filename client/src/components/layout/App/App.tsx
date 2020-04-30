@@ -1,7 +1,11 @@
+/**
+ * @file Application main component.
+ * @author Andrey Glotov
+ */
+
 // Imports
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import DocumentTitle from 'react-document-title';
-import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 // Page Imports
@@ -15,30 +19,23 @@ import { LoggedInRoute } from '../LoggedInRoute';
 import { LoggedOutRoute } from '../LoggedOutRoute';
 import { SkipLink } from '../SkipLink';
 
-// App Imports
-import { getUser, refreshToken } from '../../../store/actions/api';
-import { getIsLoggedIn } from '../../../store/reducers/api';
-
 // Hooks Imports
-import { useFocusTrap } from './hooks';
+import { useAutomaticLogin, useFocusTrap } from './hooks';
 
+/**
+ * Main application component.
+ *
+ * @returns The element to render.
+ */
 export const App: FC = () => {
-    const dispatch = useDispatch();
-
-    // Try to log in
-    useEffect(() => {
-        dispatch(refreshToken());
-    }, [ dispatch ]);
-
-    const loggedIn = useSelector(getIsLoggedIn);
-
-    useEffect(() => {
-        if (loggedIn) {
-            dispatch(getUser());
-        }
-    }, [ loggedIn, dispatch ]);
-
     useFocusTrap('focus-utility');
+
+    const loginChecked = useAutomaticLogin();
+
+    // Prevent the login page from showing up before login is checked
+    if (!loginChecked) {
+        return null;
+    }
 
     return (
         <DocumentTitle title="DevSphere">

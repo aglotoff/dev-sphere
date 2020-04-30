@@ -1,23 +1,33 @@
-import React, { FC, useEffect } from 'react';
+/**
+ * @file Register Form Container component.
+ * @author Andrey Glotov
+ */
+
+// Imports
+import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+// UI Imports
 import { RegisterForm } from './RegisterForm';
 
-import {
-    clearAuthError,
-    register,
-    setAuthError,
-} from '../../../store/actions/api';
-import {
-    getAuthError,
-    getIsAuthenticating,
-} from '../../../store/reducers/api';
+// App Imports
+import { register } from '../../../store/actions/api';
+import { clearError } from '../../../store/actions/error';
+import { getIsAuthenticating } from '../../../store/reducers/api';
 import { IRegisterParams } from '../../../store/types/api';
 
-import { useURLSearchParams } from '../../../hooks';
+// Hooks Imports
+import { useURLError } from '../../../hooks';
 
+/**
+ * Container component for the Register Form.
+ *
+ * @param props The component props.
+ * @returns The element to render.
+ */
 export const RegisterFormContainer: FC = (props) => {
-    const authError = useSelector(getAuthError);
+    const error = useURLError();
+
     const isAuthenticating = useSelector(getIsAuthenticating);
 
     const dispatch = useDispatch();
@@ -30,26 +40,17 @@ export const RegisterFormContainer: FC = (props) => {
         }));
     };
 
-    const urlSearchParams = useURLSearchParams();
-    const urlError = urlSearchParams.get('error');
-
-    useEffect(() => {
-        if (urlError) {
-            dispatch(setAuthError(urlError));
-
-            return () => {
-                dispatch(clearAuthError());
-            };
-        }
-    }, [ dispatch, urlError ]);
+    const handleDismissError = () => {
+        dispatch(clearError());
+    };
 
     return (
         <RegisterForm
             {...props}
             isFetching={isAuthenticating}
-            errorMessage={authError}
+            errorMessage={error}
             onSubmit={handleSubmit}
-            onDismissError={() => dispatch(clearAuthError())}
+            onDismissError={handleDismissError}
         />
     );
 };

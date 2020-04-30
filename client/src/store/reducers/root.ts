@@ -3,19 +3,20 @@
  * @author Andrey Glotov
  */
 
-import {
-    combineReducers,
-    Reducer,
-} from 'redux';
+// Imports
+import { combineReducers, Reducer } from 'redux';
 
-import { LOGOUT } from '../types/api';
+// App Imports
+import { LOGOUT_SUCCESS } from '../types/api';
 import apiReducer from './api';
+import errorReducer from './error';
 
 /**
  * Combined reducer for the application store.
  */
 export const appReducer = combineReducers({
     api: apiReducer,
+    error: errorReducer,
 });
 
 /** Shape of the application state. */
@@ -33,7 +34,7 @@ export type AppState = ReturnType<typeof appReducer>;
  * @returns The new application state.
  */
 const rootReducer: Reducer<AppState> = (state, action) => appReducer(
-    (action.type === LOGOUT) ? undefined : state,
+    (action.type === LOGOUT_SUCCESS) ? undefined : state,
     action,
 );
 

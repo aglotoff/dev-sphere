@@ -11,7 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LoginForm } from './LoginForm';
 
 // App Imports
-import { clearAuthError, login } from '../../../store/actions/api';
+import { login } from '../../../store/actions/api';
+import { clearError } from '../../../store/actions/error';
 import { getIsAuthenticating } from '../../../store/reducers/api';
 import { ILoginParams } from '../../../store/types/api';
 
@@ -36,7 +37,7 @@ export const LoginFormContainer: FC = () => {
     };
 
     const handleDismissError = () => {
-        dispatch(clearAuthError());
+        dispatch(clearError());
     };
 
     return (
