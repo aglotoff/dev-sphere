@@ -2,7 +2,10 @@
 
 [![Build Status](https://travis-ci.org/aglotoff/dev-sphere.svg?branch=develop)](https://travis-ci.org/aglotoff/dev-sphere)
 
-Social network app for software developers built with the MERN stack.
+Toy social network application for software developers built with the MERN 
+stack.
+
+Visit the app: https://dev-sphere.herokuapp.com/
 
 ## Quick Start
 
