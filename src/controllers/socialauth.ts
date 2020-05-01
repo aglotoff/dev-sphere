@@ -1,11 +1,13 @@
 /**
  * @file Social logins routes.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
+// Imports
 import { RequestHandler } from 'express';
 import passport from 'passport';
 
+// App Imports
 import { IUser } from '../models/User';
 
 const SERVER_NAME = process.env.SERVER_NAME || 'http://localhost:3000';

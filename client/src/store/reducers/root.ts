@@ -1,6 +1,6 @@
 /**
  * @file Root reducer.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports

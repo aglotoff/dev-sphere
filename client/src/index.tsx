@@ -1,6 +1,6 @@
 /**
  * @file Client application entry point.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports

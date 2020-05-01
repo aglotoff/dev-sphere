@@ -1,6 +1,6 @@
 /**
  * @file Mobile Menu container component.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports

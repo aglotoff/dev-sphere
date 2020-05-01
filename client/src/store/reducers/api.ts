@@ -1,6 +1,6 @@
 /**
  * @file API reducers and selectors.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports

@@ -1,6 +1,6 @@
 /**
  * @file Use URL Error hook.
- * @aithor Andrey Glotov
+ * @aithor Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports

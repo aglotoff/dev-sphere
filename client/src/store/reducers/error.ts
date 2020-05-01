@@ -1,6 +1,6 @@
 /**
  * @file Error state reducers and selectors.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports

@@ -1,10 +1,12 @@
 /**
  * @file User authentication API routes.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
+// Imports
 import { Router } from 'express';
 
+// App Imports
 import { isAuthenticated } from '../../config/passport';
 import {
     getUser,

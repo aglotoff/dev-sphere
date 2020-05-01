@@ -1,10 +1,9 @@
 /**
  * @file useTimestamp hook.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports
-import moment from 'moment';
 import { useEffect, useState } from 'react';
 
 /**
@@ -14,40 +13,37 @@ import { useEffect, useState } from 'react';
  * @return The corresponding string in "time ago" format.
  */
 export function timeToString(datetime: Date) {
-    const m = moment(datetime);
-    const now = moment(Date.now());
-
-    const diffSeconds = now.diff(m, 'seconds');
+    const diffSeconds = Date.now() - datetime.getTime();
     if (diffSeconds < 60) {
         return 'Just now';
     }
 
-    const diffMinutes = now.diff(m, 'minutes');
+    const diffMinutes = Math.floor(diffSeconds / 60);
     if (diffMinutes < 60) {
         return `${diffMinutes} min ago`;
     }
 
-    const diffHours = now.diff(m, 'hours');
+    const diffHours = Math.floor(diffMinutes / 60);
     if (diffHours < 24) {
         return `${diffHours}h ago`;
     }
 
-    const diffDays = now.diff(m, 'days');
+    const diffDays = Math.floor(diffHours / 24);
     if (diffDays < 7) {
         return `${diffDays}d ago`;
     }
 
-    const diffWeeks = now.diff(m, 'weeks');
+    const diffWeeks = Math.floor(diffDays / 7);
     if (diffWeeks < 5) {
         return `${diffWeeks}w ago`;
     }
 
-    const diffMonths = now.diff(m, 'months');
+    const diffMonths = Math.floor(diffDays / 30);
     if (diffMonths < 12) {
         return `${diffMonths}m ago`;
     }
 
-    const diffYears = now.diff(m, 'years');
+    const diffYears = Math.floor(diffDays / 365);
     return `${diffYears}y ago`;
 }
 

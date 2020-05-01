@@ -1,6 +1,6 @@
 /**
  * @file API action creators.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports

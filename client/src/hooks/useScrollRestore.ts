@@ -1,6 +1,6 @@
 /**
  * @file Use Scroll Restore hook.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports

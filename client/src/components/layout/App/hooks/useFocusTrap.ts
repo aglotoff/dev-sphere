@@ -1,6 +1,6 @@
 /**
  * @file Use Focus Trap hook.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 import { useEffect } from 'react';

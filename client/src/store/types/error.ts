@@ -1,6 +1,6 @@
 /**
  * @file Application error state types, action constants and shapes.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports

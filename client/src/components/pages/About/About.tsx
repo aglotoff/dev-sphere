@@ -1,6 +1,6 @@
 /**
  * @file The About page.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports

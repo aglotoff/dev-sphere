@@ -1,15 +1,18 @@
 /**
  * @file The main server entry point.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
+// Node Imports
 import path from 'path';
 
+// Imports
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import mongoose from 'mongoose';
 import passport from 'passport';
 
+// App Imports
 import apiAuthRoute from './routes/api/auth';
 import socialAuthRoute from './routes/socialauth';
 

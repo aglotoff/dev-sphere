@@ -1,6 +1,6 @@
 /**
  * @file Store configuration.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports

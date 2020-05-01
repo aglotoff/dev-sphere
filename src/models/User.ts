@@ -1,8 +1,9 @@
 /**
  * @file User model definition.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
+// Imports
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Document, model, Schema } from 'mongoose';

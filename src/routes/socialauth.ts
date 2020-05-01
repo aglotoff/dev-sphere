@@ -1,11 +1,13 @@
 /**
  * @file Social login routes.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
+// Imports
 import { Router } from 'express';
 import passport from 'passport';
 
+// App Imports
 import { loginWithFacebook, loginWithGoogle } from '../controllers/socialauth';
 
 const router = Router();

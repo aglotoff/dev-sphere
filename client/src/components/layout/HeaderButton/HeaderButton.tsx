@@ -1,6 +1,6 @@
 /**
  * @file Header Button component.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports

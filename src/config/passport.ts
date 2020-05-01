@@ -1,15 +1,16 @@
 /**
  * @file Configuration settings for Passport.js.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
-import { Request } from 'express';
+// Imports
+import { Request, RequestHandler } from 'express';
 import passport from 'passport';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
 
-import { RequestHandler } from 'express-serve-static-core';
+// App Imports
 import { IUser, User } from '../models/User';
 
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || 'secret';

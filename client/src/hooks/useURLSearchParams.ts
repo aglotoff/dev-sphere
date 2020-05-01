@@ -1,6 +1,6 @@
 /**
  * @file Use URL Search Parameters hook.
- * @autor Andrey Glotov
+ * @autor Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports

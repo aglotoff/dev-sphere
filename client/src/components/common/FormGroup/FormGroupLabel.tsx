@@ -1,6 +1,6 @@
 /**
  * @file Form Group Label container.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports

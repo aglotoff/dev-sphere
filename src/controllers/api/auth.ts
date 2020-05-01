@@ -1,11 +1,13 @@
 /**
  * @file User authentication controller.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
+// Imports
 import { RequestHandler, Response } from 'express';
 import passport from 'passport';
 
+// App Imports
 import { IUser, User } from '../../models/User';
 import { validateLogin, validateRegister } from '../../validation/auth';
 
