@@ -1,0 +1,63 @@
+@import "../../../assets/styles/variables";
+@import "../../../assets/styles/mixins";
+
+.container {
+    padding-bottom: 2.75em;
+    padding-top: 1.5em;
+}
+
+.list {
+    padding: 0 1em;
+
+    @media screen and (min-width: 30em) {
+        display: flex;
+        margin: 0 auto;
+        max-width: 75em;
+    }
+}
+
+.item {
+    display: none;
+
+    color: $color-mine-shaft;
+    font-size: 0.875rem;
+    line-height: 1.7;
+
+    &:nth-last-child(2) {
+        display: block;
+
+        &:before {
+            content: "«";
+    
+            margin-right: 0.5em;
+        }
+    }
+
+    @media screen and (min-width: 30em) {
+        display: block;
+
+        &:first-child:before {
+            display: none;
+        }
+
+        &:not(:first-child):before {
+            content: "/";
+
+            margin-left: 0.25em;
+            margin-right: 0.25em;
+        }
+    }
+}
+
+.link {
+    color: $color-mine-shaft;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    @include focus-utility() {
+        outline: 2px solid $color-persimmon;
+    }
+}

@@ -7,6 +7,7 @@
 import React, { FC } from 'react';
 
 // UI Imports
+import { Breadcrumbs } from '../../layout/Breadcrumbs';
 import { Page } from '../../layout/Page';
 
 /**
@@ -17,6 +18,12 @@ import { Page } from '../../layout/Page';
  */
 export const About: FC = () => (
     <Page title="About - DevSphere">
-        About (:
+        <Breadcrumbs items={[{
+            label: 'Home',
+            url: '/',
+        }, {
+            label: 'About',
+            url: '/about',
+        }]} />
     </Page>
 );
