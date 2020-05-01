@@ -1,29 +1,31 @@
 /**
  * @file Dropdown component.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports
 import classNames from 'classnames';
 import React, {
     FC,
-    KeyboardEventHandler,
-    MouseEventHandler,
     PropsWithChildren,
     ReactElement,
-    useEffect,
-    useRef,
-    useState,
+    Ref,
 } from 'react';
+import { CSSTransition } from 'react-transition-group';
 
-// CSS imports
+// CSS Imports
 import styles from './Dropdown.module.scss';
 
+// Hooks Imports
+import { useDropdown } from './hooks';
+
 /**
- * Props injected by the Dropdown component into the toggle render function.
+ * Props injected by the Dropdown component into the button render function.
  */
-export interface IInjectedDropdownToggleProps {
-    /** Current expanded state. */
+export interface IInjectedDropdownButtonProps {
+    /** Ref to be attached to the button. */
+    buttonRef: Ref<HTMLButtonElement>;
+    /** Is the dropdown expanded?. */
     expanded: boolean;
 }
 
@@ -33,16 +35,30 @@ export interface IInjectedDropdownToggleProps {
 export interface IDropdownProps {
     /** Additional class name. */
     className?: string;
-    /** ID attribute. */
-    id?: string;
+    /** ID attribute for the dropdown popup. */
+    popupId?: string;
+
     /**
      * Render the contents of the dropdown toggle button.
      *
      * @param props The props injected by the Dropdown component.
      * @returns The element to render.
      */
-    renderToggle: (props: IInjectedDropdownToggleProps) => ReactElement;
+    renderButton: (props: IInjectedDropdownButtonProps) => ReactElement;
 }
+
+// Classes applied to the popup during transitions.
+const transitionClasses = {
+    enter: styles.popup_state_enter,
+    enterActive: styles.popup_state_enterActive,
+    enterDone: styles.popup_state_enterDone,
+    exit: styles.popup_state_exit,
+    exitActive: styles.popup_state_exitActive,
+    exitDone: styles.popup_state_exitDone,
+};
+
+// Duration of fade in / fade out animations in ms.
+const TRANSITION_DURATION = 200;
 
 /**
  * Basic component to create dropdowns.
@@ -53,88 +69,41 @@ export interface IDropdownProps {
 export const Dropdown: FC<PropsWithChildren<IDropdownProps>> = ({
     children,
     className,
-    id,
-    renderToggle,
+    popupId,
+    renderButton,
 }) => {
-    const [ expanded, setExpanded ] = useState(false);
+    const {
+        buttonRef,
+        dropdownRef,
+        expanded,
 
-    const dropdownRef = useRef<HTMLDivElement>(null);
-    const toggleRef = useRef<HTMLButtonElement>(null);
-
-    // When the dropdown is expanded, attach an event listener to automatically
-    // collapse it when clicking outside.
-    useEffect(() => {
-        if (expanded) {
-            const handleOutsideClick = (event: Event) => {
-                const { target } = event;
-
-                if (
-                    (target !== document) &&
-                    (target instanceof HTMLElement) &&
-                    !dropdownRef.current!.contains(target)
-                ) {
-                    setExpanded(false);
-                }
-            };
-
-            document.addEventListener('click', handleOutsideClick);
-            document.addEventListener('focusin', handleOutsideClick);
-
-            dropdownRef.current!.focus();
-
-            return () => {
-                document.removeEventListener('click', handleOutsideClick);
-                document.removeEventListener('focusin', handleOutsideClick);
-            };
-        }
-    }, [ expanded ]);
-
-    // Expand/collapse the dropdown on mouse click.
-    const handleClick: MouseEventHandler = (event) => {
-        event.preventDefault();
-        setExpanded(!expanded);
-    };
-
-    // Collapse the dropdown when the escape key is pressed.
-    const handleKeyDown: KeyboardEventHandler = (event) => {
-        if (event.key === 'Escape') {
-            setExpanded(false);
-            toggleRef.current!.focus();
-        }
-    };
+        handleClick,
+        handleKeyDown,
+    } = useDropdown();
 
     const dropdownClass = classNames(
         styles.dropdown,
         className,
-    );
-    const popupClass = classNames(
-        styles.popup,
-        expanded && styles.popup_expanded,
     );
 
     return (
         <div
             className={dropdownClass}
             onClick={handleClick}
+            onKeyDown={handleKeyDown}
             ref={dropdownRef}
         >
-            <button
-                className={styles.toggle}
-                aria-haspopup="true"
-                aria-expanded={expanded}
-                aria-controls={id}
-                ref={toggleRef}
-            >
-                {renderToggle({ expanded })}
-            </button>
+            {renderButton({ buttonRef, expanded })}
 
-            <div
-                className={popupClass}
-                id={id}
-                onKeyDown={handleKeyDown}
+            <CSSTransition
+                classNames={transitionClasses}
+                in={expanded}
+                timeout={TRANSITION_DURATION}
             >
-                {children}
-            </div>
+                <div className={styles.popup} id={popupId}>
+                    {children}
+                </div>
+            </CSSTransition>
         </div>
     );
 };

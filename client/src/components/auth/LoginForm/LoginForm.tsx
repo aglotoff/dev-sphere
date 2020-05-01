@@ -1,117 +1,142 @@
-import {
-    faFacebookF,
-    faGoogle,
-} from '@fortawesome/free-brands-svg-icons';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { useFormik } from 'formik';
-import React, { FC, useEffect } from 'react';
+/**
+ * @file Login Form component.
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
+ */
 
+// Imports
+import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
+import React, { FC } from 'react';
+
+// UI Imports
 import { Alert } from '../../common/Alert';
+import { Button } from '../../common/Button';
+import { FormInput } from '../../common/FormInput';
 import { Link } from '../../common/Link';
-import { AuthForm } from '../AuthForm/';
+import { SubmitButton } from '../../common/SubmitButton';
 
-import { ILoginParams } from '../../../store/types/api';
+// Hooks Imports
+import { ILoginFormValues, useLoginForm } from './hooks';
 
-const initialValues = {
-    email: '',
-    password: '',
-};
+// CSS Imports
+import styles from './LoginForm.module.scss';
 
 /**
  * Props for the login form component.
  */
 export interface ILoginFormProps {
-    /** Additional class name for the form */
-    className?: string;
-
-    onSubmit: (creds: ILoginParams) => void;
-
-    onAlertDismiss: () => void;
-
+    /** API error message (displayed inside an alert box). */
     errorMessage?: string | null;
+    /** Is authentication currently in progress? */
+    isFetching: boolean;
 
-    isAuthenticating: boolean;
+    /**
+     * Callback fired when the user dismisser the alert box.
+     */
+    onDismissError: () => void;
+    /**
+     * Callback fired when the user submits the form.
+     *
+     * @param values The submitted values.
+     */
+    onSubmit: (values: ILoginFormValues) => void;
 }
 
+/**
+ * Application login form.
+ *
+ * @param props The component props.
+ * @returns The element to render.
+ */
 export const LoginForm: FC<ILoginFormProps> = ({
-    className,
     errorMessage,
-    isAuthenticating,
-    onAlertDismiss,
+    isFetching,
+    onDismissError,
     onSubmit,
 }) => {
     const {
+        errors,
         handleChange,
         handleSubmit,
-        setSubmitting,
+        isSubmitting,
+        touched,
         values,
-    } = useFormik<ILoginParams>({
-        initialValues,
+    } = useLoginForm({
+        isFetching,
         onSubmit,
     });
 
-    useEffect(() => {
-        if (!isAuthenticating) {
-            setSubmitting(false);
-        }
-    }, [ isAuthenticating, setSubmitting ]);
-
     return (
-        <AuthForm
-            className={className}
+        <form
+            className={styles.form}
+            method="post"
+            noValidate
             onSubmit={handleSubmit}
         >
-            <AuthForm.SocialButton
+            <Button
+                className={styles.socialButton}
                 href="/socialauth/facebook"
                 icon={faFacebookF}
+                size="lg"
                 theme="facebook"
+                type="button"
             >
                 Continue with Facebook
-            </AuthForm.SocialButton>
+            </Button>
 
-            <AuthForm.SocialButton
+            <Button
+                className={styles.socialButton}
                 href="/socialauth/google"
                 icon={faGoogle}
+                size="lg"
                 theme="google"
+                type="button"
             >
                 Continue with Google
-            </AuthForm.SocialButton>
+            </Button>
 
-            <AuthForm.Or />
+            <div className={styles.or}>Or</div>
 
             {errorMessage &&
-                <Alert onDismiss={onAlertDismiss}>{errorMessage}</Alert>
+                <Alert onDismiss={onDismissError}>{errorMessage}</Alert>
             }
 
-            <AuthForm.Field
-                type="text"
+            <FormInput
+                className={styles.field}
+                error={touched.email ? errors.email : undefined}
+                hideLabel
+                id="login-email"
+                label="Email"
                 name="email"
-                placeholder="Type email"
                 onChange={handleChange}
+                placeholder="Email"
+                type="email"
                 value={values.email}
             />
 
-            <AuthForm.Field
-                type="password"
+            <FormInput
+                className={styles.field}
+                error={touched.password ? errors.password : undefined}
+                hideLabel
+                id="login-password"
+                label="Password"
                 name="password"
-                placeholder="Password"
                 onChange={handleChange}
+                placeholder="Password"
                 value={values.password}
             />
 
-            <AuthForm.Submit
-                animateSpinner={isAuthenticating}
-                disabled={isAuthenticating}
-                icon={isAuthenticating ? faSpinner : undefined}
+            <SubmitButton
+                className={styles.submitButton}
+                isSubmitting={isSubmitting}
             >
                 Login Now
-            </AuthForm.Submit>
+            </SubmitButton>
 
-            <AuthForm.Callout>
+            <div className={styles.bottomText}>
                 Don’t have an account?
                 {' '}
-                <Link to="/register">Register Now</Link>
-            </AuthForm.Callout>
-        </AuthForm>
+                <Link href="/register">Register Now</Link>
+            </div>
+        </form>
     );
 };

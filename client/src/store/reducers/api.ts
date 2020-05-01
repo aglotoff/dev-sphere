@@ -1,36 +1,41 @@
 /**
  * @file API reducers and selectors.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
+// Imports
 import { combineReducers } from 'redux';
 
+// App Imports
 import {
     ApiActionTypes,
-    CLEAR_API_ERROR,
-    CLEAR_AUTH_ERROR,
-    IApiError,
+    CHECK_LOGIN_FAILURE,
+    CHECK_LOGIN_REQUEST,
+    CHECK_LOGIN_SUCCESS,
+    // GET_USER_FAILURE,
+    // GET_USER_REQUEST,
+    GET_USER_SUCCESS,
     IAuthState,
     IUser,
     LOGIN_FAILURE,
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
+    // LOGOUT_FAILURE,
+    // LOGOUT_REQUEST,
+    LOGOUT_SUCCESS,
     REFRESH_TOKEN_FAILURE,
     REFRESH_TOKEN_REQUEST,
     REFRESH_TOKEN_SUCCESS,
     REGISTER_FAILURE,
     REGISTER_REQUEST,
     REGISTER_SUCCESS,
-    SET_API_ERROR,
-    SET_AUTH_ERROR,
-    SET_USER,
 } from '../types/api';
 import { AppState } from './root';
 
 const initialAuthState: IAuthState = {
     accessToken: null,
-    errorMessage: null,
     isAuthenticating: false,
+    isLoginChecked: false,
     isRefreshingToken: false,
 };
 
@@ -47,6 +52,25 @@ export const authReducer = (
     action: ApiActionTypes,
 ) => {
     switch (action.type) {
+        case CHECK_LOGIN_REQUEST:
+            return {
+                ...state,
+                isRefreshingToken: true,
+            };
+        case CHECK_LOGIN_SUCCESS:
+            return {
+                ...state,
+                accessToken: action.payload.accessToken,
+                isLoginChecked: true,
+                isRefreshingToken: false,
+            };
+        case CHECK_LOGIN_FAILURE:
+            return {
+                ...state,
+                isLoginChecked: true,
+                isRefreshingToken: false,
+            };
+
         case LOGIN_REQUEST:
         case REGISTER_REQUEST:
             return {
@@ -87,16 +111,8 @@ export const authReducer = (
                 isRefreshingToken: false,
             };
 
-        case SET_AUTH_ERROR:
-            return {
-                ...state,
-                errorMessage: action.payload.message,
-            };
-        case CLEAR_AUTH_ERROR:
-            return {
-                ...state,
-                errorMessage: null,
-            };
+        case LOGOUT_SUCCESS:
+            return { ...initialAuthState };
 
         default:
             return state;
@@ -116,30 +132,8 @@ export const userReducer = (
     action: ApiActionTypes,
 ) => {
     switch (action.type) {
-        case SET_USER:
+        case GET_USER_SUCCESS:
             return action.payload;
-        default:
-            return state;
-    }
-};
-
-/**
- * Reducer for the error slice of the API state.
- *
- * @param state The current state.
- * @param action The action dispatched.
- *
- * @returns The new state.
- */
-export const errorReducer = (
-    state: IApiError | null = null,
-    action: ApiActionTypes,
-) => {
-    switch (action.type) {
-        case SET_API_ERROR:
-            return action.payload;
-        case CLEAR_API_ERROR:
-            return null;
         default:
             return state;
     }
@@ -151,7 +145,6 @@ export const errorReducer = (
 export default combineReducers({
     auth: authReducer,
     user: userReducer,
-    error: errorReducer,
 });
 
 /**
@@ -173,13 +166,14 @@ export const getAccessToken = (state: AppState) => state.api.auth.accessToken;
 export const getUser = (state: AppState) => state.api.user;
 
 /**
- * Get the last authentication error.
+ * Get the login checked state.
  *
  * @param state The application state.
  *
- * @return The last authentication error.
+ * @return true if the initial login check has been performed; false otherwise.
  */
-export const getAuthError = (state: AppState) => state.api.auth.errorMessage;
+export const getIsLoginChecked = (state: AppState) =>
+    state.api.auth.isLoginChecked;
 
 /**
  * Get the current log in state.

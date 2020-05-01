@@ -1,43 +1,44 @@
 /**
  * @file Generic API Middleware.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
-import axios, {
-    AxiosRequestConfig,
-    AxiosResponse,
-    CancelTokenSource,
-} from 'axios';
+// Imports
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { Middleware } from 'redux';
 
+// App Imports
 import { refreshToken } from '../actions/api';
+import { getAccessToken, getIsRefreshingToken } from '../reducers/api';
 import {
-    getAccessToken,
-    getIsLoggedIn,
-    getIsRefreshingToken,
-} from '../reducers/api';
-import {
+    CHECK_LOGIN_FAILURE,
     IApiAction,
     IApiResponse,
     isApiAction,
-    LOGIN_SUCCESS,
-    LOGOUT,
     REFRESH_TOKEN_SUCCESS,
-    REGISTER_SUCCESS,
-    SET_API_ERROR,
 } from '../types/api';
+import { SET_ERROR } from '../types/error';
 
 const BASE_URL = '/api';
 
 /**
  * Middleware that handles server communication and authentication.
+ *
+ * This middleware intercepts all actions of type API and makes a server
+ * request using the specified parameters.
+ *
+ * During the request's lifecycle, optional additional actions are being
+ * dispatched: before the request, after successful request, and after
+ * request error. If no error handler is specified, a default error action is
+ * dispatched.
+ *
+ * If authentication is required, adds an authorization header containing the
+ * access token. When the access token expires, automatically refreshes the
+ * token and re-issues failed requests.
  */
 export const apiMiddleware: Middleware = ({ dispatch, getState }) => {
     // List of actions waiting for the resfresh token request to complete.
-    let pendingActions: IApiAction[] = [];
-
-    // Cancellation tokens for pending requests.
-    let cancelSources: CancelTokenSource[] = [];
+    const pendingActions: IApiAction[] = [];
 
     /**
      * Handle an API request action.
@@ -51,7 +52,7 @@ export const apiMiddleware: Middleware = ({ dispatch, getState }) => {
 
         const {
             body,
-            cancelSource,
+            cancelToken,
             endpoint,
             method,
             skipAuth,
@@ -74,18 +75,7 @@ export const apiMiddleware: Middleware = ({ dispatch, getState }) => {
         requestConfig.method = method;
         requestConfig.headers = headers;
         requestConfig.data = body;
-
-        let source = cancelSource;
-        if (!source && !skipAuth) {
-            source = axios.CancelToken.source();
-        }
-
-        if (source) {
-            requestConfig.cancelToken = source.token;
-            if (!skipAuth) {
-                cancelSources.push(source);
-            }
-        }
+        requestConfig.cancelToken = cancelToken;
 
         if (statusHandlers.request) {
             dispatch({ type: statusHandlers.request });
@@ -93,88 +83,62 @@ export const apiMiddleware: Middleware = ({ dispatch, getState }) => {
 
         try {
             const response = await axios(requestConfig);
-
             const responseBody = response.data;
 
-            if (responseBody.success && statusHandlers.success) {
-                dispatch({
-                    type: statusHandlers.success,
-                    payload: responseBody.data,
-                });
-            } else if (!responseBody.success && statusHandlers.failure) {
-                // TODO: actually, we should not get here because all failed
-                // requests are supposed to throw an exception.
-                dispatch({
-                    type: statusHandlers.failure,
-                    payload: {
-                        status: response.status,
-                        message: responseBody.message,
-                    },
-                });
+            if (responseBody.success) {
+                if (statusHandlers.success) {
+                    dispatch({
+                        type: statusHandlers.success,
+                        payload: responseBody.data,
+                    });
+                }
+            } else {
+                // Will be catched below
+                throw new Error(responseBody.message);
             }
         } catch (error) {
+            const axiosError = error as AxiosError<IApiResponse>;
+
             // If the request has been cancelled, no further processing is
             // required.
-            if (axios.isCancel(error)) {
+            if (axios.isCancel(axiosError)) {
                 return;
             }
 
-            // If this is a network or unknown client-side error, dispatch a
-            // default error action.
-            if (!error.response) {
-                dispatch({
-                    type: SET_API_ERROR,
-                    payload: {
-                        status: -1,
-                        message: error.message,
-                    },
-                });
-                return;
-            }
+            const response = axiosError.response;
 
-            const {
-                data: { message },
-                status,
-            } = error.response as AxiosResponse<IApiResponse>;
-
-            if (status === 401) {
-                const newState = getState();
-
+            // If the request failed because of access token expiration, try
+            // to refresh token and retry the action later
+            if (response && (response.status === 401)) {
                 // TODO: use application error codes instead of message strings.
-                if (message === 'Access token expired') {
-                    // Token expired: add the failed action to the queue to
-                    // retry later after obtaining a new token.
-                    if (!getIsRefreshingToken(newState)) {
-                        pendingActions.push(action);
+                if (response.data.message === 'Access token expired') {
+                    pendingActions.push({
+                        ...action,
+                        payload: {
+                            ...action.payload,
+                            // Do not dispatch an extra "request" action
+                            statusHandlers: {
+                                success: statusHandlers.success,
+                                failure: statusHandlers.failure,
+                            },
+                        },
+                    });
 
-                        dispatch(refreshToken(axios.CancelToken.source()));
+                    if (!getIsRefreshingToken(getState())) {
+                        dispatch(refreshToken());
                     }
+
                     return;
-                } else {
-                    // Automatically log out upon getting an Unauthorized error.
-                    if (getIsLoggedIn(newState)) {
-                        dispatch({ type: LOGOUT });
-                    }
                 }
             }
 
             // Allow the caller to handle the error or fall back to the default
             // error action.
             dispatch({
-                type: statusHandlers.failure || SET_API_ERROR,
-                payload: {
-                    status,
-                    message: message || error.message,
-                },
+                type: statusHandlers.failure || SET_ERROR,
+                payload: error,
+                error: true,
             });
-        } finally {
-            // Regardless of whether or not the request has been successfully
-            // finished, we have to remove the cancel source from the list.
-            if (source != null) {
-                cancelSources = cancelSources.filter((s) => {
-                    return s !== source;
-                });
-            }
         }
     }
 
@@ -183,46 +147,26 @@ export const apiMiddleware: Middleware = ({ dispatch, getState }) => {
             return handleApiAction(action);
         }
 
-        const currentState = getState();
+        // Retry all pending requests upon successful token refresh.
+        if (action.type === REFRESH_TOKEN_SUCCESS) {
+            // Update the access token before issuing new requests.
+            const res = next(action);
 
-        switch (action.type) {
-            // Retry all pending requests upon successful token refresh.
-            case REFRESH_TOKEN_SUCCESS:
-                if (!getIsRefreshingToken(currentState)) {
-                    return;
-                }
+            while (pendingActions.length > 0) {
+                const nextAction = pendingActions.shift() as IApiAction;
+                dispatch(nextAction);
+            }
 
-                // Update the access token before issuing new requests.
-                const res = next(action);
-
-                while (pendingActions.length > 0) {
-                    const nextAction = pendingActions.shift() as IApiAction;
-                    dispatch(nextAction);
-                }
-
-                return res;
-
-            // Abort all pending requests upon user logout.
-            case LOGOUT:
-                pendingActions = [];
-
-                while (cancelSources.length > 0) {
-                    const source = cancelSources.shift() as CancelTokenSource;
-                    source.cancel();
-                }
-
-                return next(action);
-
-            // Make sure the state is reset before login/logout.
-            case LOGIN_SUCCESS:
-            case REGISTER_SUCCESS:
-                if (getIsLoggedIn(currentState)) {
-                    dispatch({ type: LOGOUT });
-                }
-                return next(action);
-
-            default:
-                return next(action);
+            return res;
         }
+
+        // If initial login check fails, prevent the error from propagating to
+        // the error reducer and showing up in the UI.
+        if (action.type === CHECK_LOGIN_FAILURE) {
+            action.error = false;
+            action.payload = undefined;
+        }
+
+        return next(action);
     };
 };

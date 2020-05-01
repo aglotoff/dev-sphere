@@ -1,16 +1,15 @@
 /**
  * @file Store configuration.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
-import {
-    applyMiddleware,
-    createStore,
-} from 'redux';
+// Imports
+import { applyMiddleware, createStore } from 'redux';
 import {
     composeWithDevTools,
 } from 'redux-devtools-extension/logOnlyInProduction';
 
+// App Imports
 import { apiMiddleware } from './middleware/api';
 import rootReducer from './reducers/root';
 
@@ -21,7 +20,7 @@ import rootReducer from './reducers/root';
  */
 export default function configureStore() {
     const composeEnhancers = composeWithDevTools({});
-    return  createStore(
+    return createStore(
         rootReducer,
         composeEnhancers(applyMiddleware(apiMiddleware)),
     );

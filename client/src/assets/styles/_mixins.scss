@@ -13,3 +13,11 @@
     
     overflow: hidden;
 }
+
+/// Global focus utility
+/// @group helpers
+@mixin focus-utility() {
+    :global(:root.focus-utility) &:focus {
+        @content;
+    }
+}

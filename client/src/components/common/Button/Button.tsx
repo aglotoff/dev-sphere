@@ -1,6 +1,6 @@
 /**
  * @file Button component.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports
@@ -26,24 +26,28 @@ export interface IButtonProps {
     disabled?: boolean;
     /** Additional class name. */
     className?: string;
-    /** Optiona FontAwesome icon. */
+    /** Target URL (if this is a link). */
+    href?: string;
+    /** Optional FontAwesome icon. */
     icon?: IconDefinition;
     /** The type of the button ('button' by default). */
     type?: 'button' | 'submit' | 'reset';
     /** Button size ('md' by default). */
     size?: 'sm' | 'md' | 'lg';
-    /** Button theme ('default' by default). */
+    /** Appearance theme. */
     theme?: 'default' | 'facebook' | 'google' | 'github';
-    /** Target URL (if this is a link). */
-    href?: string;
-    /** Handler for a click event. */
+    /** Make top corners sharp instead of rounded ones? */
+    sharpTop?: boolean;
+
+    /** Callback fired when the button is clicked. */
     onClick?: MouseEventHandler;
-    /** Make sharp corners instead of rounded ones? */
-    sharp?: boolean;
 }
 
 /**
  * Button with predefined styles and sizes.
+ *
+ * If the href prop is present, the component renders a link styled as a
+ * button. Otherwise a true button element is rendered.
  *
  * @param props The component props.
  * @returns The element to render.
@@ -57,14 +61,14 @@ export const Button: FC<PropsWithChildren<IButtonProps>> = ({
     className,
     onClick,
     theme = 'default',
-    sharp = false,
+    sharpTop = false,
     size = 'md',
     type,
 }) => {
     const buttonClass = classnames(
         styles.button,
         className,
-        sharp && styles.button_sharp,
+        sharpTop && styles.button_sharpTop,
         animateSpinner && styles.button_animateSpinner,
         styles['button_theme_' + theme],
         styles['button_size_' + size],
@@ -85,17 +89,17 @@ export const Button: FC<PropsWithChildren<IButtonProps>> = ({
 
     if (href) {
         return (
-            <a className={buttonClass} href={href}>
+            <a className={buttonClass} href={href} onClick={onClick}>
                 {buttonContent}
             </a>
         );
     } else {
         return (
             <button
-                disabled={disabled}
-                type={type}
-                onClick={onClick}
                 className={buttonClass}
+                disabled={disabled}
+                onClick={onClick}
+                type={type}
             >
                 {buttonContent}
             </button>

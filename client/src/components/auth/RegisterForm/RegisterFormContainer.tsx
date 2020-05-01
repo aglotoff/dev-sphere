@@ -1,24 +1,36 @@
+/**
+ * @file Register Form Container component.
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
+ */
+
+// Imports
 import React, { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { IRegisterFormProps, RegisterForm } from './RegisterForm';
+// UI Imports
+import { RegisterForm } from './RegisterForm';
 
+// App Imports
 import { register } from '../../../store/actions/api';
+import { clearError } from '../../../store/actions/error';
+import { getIsAuthenticating } from '../../../store/reducers/api';
 import { IRegisterParams } from '../../../store/types/api';
 
-import useAuthError from '../../../hooks/useAuthError';
+// Hooks Imports
+import { useURLError } from '../../../hooks';
 
-export type IRegisterFormContainerProps = Omit<
-    IRegisterFormProps,
-    'errorMessage' | 'onAlertDismiss' | 'onSubmit'
->;
+/**
+ * Container component for the Register Form.
+ *
+ * @param props The component props.
+ * @returns The element to render.
+ */
+export const RegisterFormContainer: FC = (props) => {
+    const error = useURLError();
 
-export const RegisterFormContainer: FC<
-    IRegisterFormContainerProps
-> = (props) => {
+    const isAuthenticating = useSelector(getIsAuthenticating);
+
     const dispatch = useDispatch();
-
-    const [ error, dismissError ] = useAuthError();
 
     const handleSubmit = (creds: IRegisterParams) => {
         dispatch(register({
@@ -28,12 +40,17 @@ export const RegisterFormContainer: FC<
         }));
     };
 
+    const handleDismissError = () => {
+        dispatch(clearError());
+    };
+
     return (
         <RegisterForm
             {...props}
+            isFetching={isAuthenticating}
             errorMessage={error}
             onSubmit={handleSubmit}
-            onAlertDismiss={dismissError}
+            onDismissError={handleDismissError}
         />
     );
 };

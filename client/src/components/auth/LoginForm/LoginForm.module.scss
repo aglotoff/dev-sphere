@@ -1,0 +1,53 @@
+@import "../../../assets/styles/variables";
+
+.field {
+    margin-top: 1.875em;
+}
+
+.submitButton {
+    margin-top: 2.85em;
+    width: 100%;
+}
+
+.socialButton {
+    & + & {
+        margin-top: 1.4em;
+    }
+}
+
+.or {
+    align-items: center;
+    display: flex;
+    margin: 1.85em 0;
+
+    color: $color-empress;
+    font-size: 0.875rem;
+
+    &:before,
+    &:after {
+        content: "";
+
+        display: block;
+        flex: 1 1;
+        height: 1px;
+
+        background: $color-mercury;
+    }
+
+    &:before {
+        margin-right: 1.35em;
+    }
+
+    &:after {
+        margin-left: 1.35em;
+    }
+}
+
+.bottomText {
+    margin-top: 2.85em;
+
+    color: $color-empress;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    text-align: center;
+}

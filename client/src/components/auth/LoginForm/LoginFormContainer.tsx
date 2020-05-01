@@ -1,37 +1,51 @@
+/**
+ * @file Login Form Container component.
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
+ */
+
+// Imports
 import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+// UI Imports
 import { LoginForm } from './LoginForm';
 
+// App Imports
 import { login } from '../../../store/actions/api';
+import { clearError } from '../../../store/actions/error';
 import { getIsAuthenticating } from '../../../store/reducers/api';
 import { ILoginParams } from '../../../store/types/api';
 
-import useAuthError from '../../../hooks/useAuthError';
+// Hooks Imports
+import { useURLError } from '../../../hooks';
 
-export interface ILoginFormContainerProps {
-    className?: string;
-}
+/**
+ * Container component for the Login Form.
+ *
+ * @param props The component props.
+ * @returns The element to render.
+ */
+export const LoginFormContainer: FC = () => {
+    const error = useURLError();
 
-export const LoginFormContainer: FC<ILoginFormContainerProps> = ({
-    className,
-}) => {
     const isAuthenticating = useSelector(getIsAuthenticating);
-    const dispatch = useDispatch();
 
-    const [ error, dismissError ] = useAuthError();
+    const dispatch = useDispatch();
 
     const handleSubmit = (creds: ILoginParams) => {
         dispatch(login(creds));
     };
 
+    const handleDismissError = () => {
+        dispatch(clearError());
+    };
+
     return (
         <LoginForm
-            className={className}
             errorMessage={error}
-            isAuthenticating={isAuthenticating}
+            isFetching={isAuthenticating}
             onSubmit={handleSubmit}
-            onAlertDismiss={dismissError}
+            onDismissError={handleDismissError}
         />
     );
 };

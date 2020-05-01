@@ -1,0 +1,41 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.toggle {
+    align-items: center;
+    display: flex;
+    padding: 0.5em 1.25em;
+
+    color: rgba($color-white, 0.5);
+
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    outline: 0;
+
+    &_expanded,
+    &:hover {
+        color: $color-white;
+    }
+
+    @include focus-utility() {
+        outline: 2px solid $color-persimmon;
+    }
+}
+
+.name {
+    margin-left: 1em;
+    max-width: 9em;
+    overflow: hidden;
+    
+    font-family: $font-family-default;
+    font-size: 0.875rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    transition: all 0.2s linear;
+}
+
+.arrow {
+    margin-left: 0.85em;
+}

@@ -1,39 +1,33 @@
 /**
- * @file The authentication page component
- * @author Andrey Glotov
+ * @file The Authentication Page component
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
-import React, { FC, ReactElement } from 'react';
+// Imports
+import React, { FC, PropsWithChildren } from 'react';
+import DocumentTitle from 'react-document-title';
 
-import { AuthHeader } from '../../auth/AuthHeader';
-import { Footer } from '../../common/Footer';
+// UI Imports
+import { Logo } from '../../common/Logo';
+import { Footer } from '../../layout/Footer';
 
+// Hook Imports
+import { useScrollRestore } from '../../../hooks';
+
+// CSS Imports
 import styles from './AuthPage.module.scss';
 
-/**
- * Props injected to the child form component.
- */
-export interface IInjectedAuthPageProps {
-    /** Additional class name for the form */
-    className?: string;
-}
+// Asset Imports
+import loginImage from '../../../assets/images/login.svg';
 
 /**
  * Props for the authentication page component
  */
 export interface IAuthPageProps {
-    /** Page title */
+    /** Heading to display in the page header (not the document title). */
+    heading: string;
+    /** Document title. */
     title: string;
-
-    /** Lead paragraph */
-    text: string;
-
-    /**
-     * Render the child form component.
-     *
-     * @param injectedProps Props injected by the page component.
-     */
-    renderForm: (injectedProps: IInjectedAuthPageProps) => ReactElement;
 }
 
 /**
@@ -43,24 +37,44 @@ export interface IAuthPageProps {
  *
  * @param props The component props
  */
-export const AuthPage: FC<IAuthPageProps> = ({
-    renderForm,
+export const AuthPage: FC<PropsWithChildren<IAuthPageProps>> = ({
+    children,
+    heading,
     title,
-    text,
-}) => (
-    <div className={styles.page}>
-        <div className={styles.container}>
-            <div className={styles.inner}>
-                <AuthHeader
-                    title={title}
-                    text={text}
-                    className={styles.header}
-                />
+}) => {
+    useScrollRestore();
 
-                {renderForm({ className: styles.form })}
+    return (
+        <DocumentTitle title={title}>
+            <div className={styles.page} id="content">
+                <div className={styles.container}>
+                    <div className={styles.inner}>
+                        <header className={styles.header}>
+                            <Logo showTitle />
+
+                            <h1 className={styles.title}>{heading}</h1>
+
+                            <p className={styles.text}>
+                                This is a toy application, so feel free to use
+                                a fake name and non-existent email for
+                                registration!
+                            </p>
+
+                            <img
+                                alt=""
+                                className={styles.image}
+                                src={loginImage}
+                            />
+                        </header>
+
+                        <main className={styles.form}>
+                            {children}
+                        </main>
+                    </div>
+                </div>
+
+                <Footer className={styles.footer} transparent />
             </div>
-        </div>
-
-        <Footer className={styles.footer} transparent />
-    </div>
-);
+        </DocumentTitle>
+    );
+};

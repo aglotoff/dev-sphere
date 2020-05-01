@@ -1,0 +1,14 @@
+@import "../../../assets/styles/variables";
+
+.container {
+    position: relative;
+
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.label {
+    padding-left: 0.65em;
+
+    color: $color-empress;
+}

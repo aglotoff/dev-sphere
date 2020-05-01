@@ -1,4 +1,5 @@
 @import "../../../assets/styles/variables";
+@import '../../../assets/styles/mixins';
 
 .logo {
     align-items: center;
@@ -6,20 +7,24 @@
 
     color: $color-white;
     text-decoration: none;
+
+    @include focus-utility() {
+        outline: 2px solid $color-persimmon;
+    }
 }
 
 .img {
     max-width: 100%;
 }
 
-.text {
+.title {
     margin-left: 0.6em;
 
     font-size: 1.5em;
     font-weight: $font-weight-semibold;
     letter-spacing: -0.02em;
 
-    .logo_hideTextMobile > & {
+    .logo_responsive > & {
         display: none;
 
         @media screen and (min-width: 30em) {

@@ -1,8 +1,9 @@
 /**
  * @file Validation functions for API authentication routes.
- * @author Andrey Glotov
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
+// Imports
 import Joi from 'joi';
 
 const loginSchema = {

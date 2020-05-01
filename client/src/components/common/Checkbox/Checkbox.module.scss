@@ -1,8 +1,18 @@
-@import "../../../assets/styles/mixins";
 @import "../../../assets/styles/variables";
+@import "../../../assets/styles/mixins";
 
 .input {
     @include visually-hidden();
+
+    @include focus-utility() {
+        + .square {
+            box-shadow: 0 0 0 0.1em rgba($color-persimmon, 0.5);
+    
+            .checkbox_invalid & {
+                box-shadow: 0 0 0 0.1em rgba($color-cardinal, 0.5);
+            }
+        }
+    }
 }
 
 .square {
@@ -26,14 +36,6 @@
     .checkbox_invalid & {
         color: $color-cardinal;
         border-color: $color-cardinal;
-    }
-
-    .input:focus + & {
-        box-shadow: 0 0 0 0.1em rgba($color-persimmon, 0.5);
-
-        .checkbox_invalid & {
-            box-shadow: 0 0 0 0.1em rgba($color-cardinal, 0.5);
-        }
     }
 }
 

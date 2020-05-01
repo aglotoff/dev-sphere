@@ -1,68 +1,55 @@
-import { FormikErrors, useFormik } from 'formik';
+/**
+ * @file Register Form component.
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
+ */
+
+// Imports
 import React, { FC } from 'react';
 
+// UI Imports
 import { Alert } from '../../common/Alert';
+import { FormCheck } from '../../common/FormCheck';
+import { FormInput } from '../../common/FormInput';
 import { Link } from '../../common/Link';
-import { AuthForm } from '../AuthForm';
+import { SubmitButton } from '../../common/SubmitButton';
 
-import { IRegisterParams } from '../../../store/types/api';
+// Hooks Imports
+import { IRegisterFormValues, useRegisterForm } from './hooks';
 
-interface IRegisterValues extends IRegisterParams {
-    agree: boolean;
-}
-
-const EMAIL_REGEXP = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-const PASSWORD_REGEXP = /^[a-zA-Z0-9]{6,16}$/;
-
-const validate = (values: IRegisterValues) => {
-    const errors: FormikErrors<IRegisterValues> = {};
-
-    if (!values.fullName) {
-        errors.fullName = 'This field is required';
-    }
-
-    if (!values.email || !EMAIL_REGEXP.test(values.email)) {
-        errors.email = 'Please provide a valid email address';
-    }
-
-    if (values.password.length < 6) {
-        errors.password = 'Minimum length is 6 characters';
-    } else if (!PASSWORD_REGEXP.test(values.password)) {
-        errors.password = 'Your password must contain only numbers and letters';
-    }
-
-    if (!values.agree) {
-        errors.agree = 'Please check this box if you want to proceed';
-    }
-
-    return errors;
-};
-
-const initialValues = {
-    fullName: '',
-    email: '',
-    password: '',
-    agree: false,
-};
+// CSS Imports
+import styles from './RegisterForm.module.scss';
 
 /**
  * Props for the register form component.
  */
 export interface IRegisterFormProps {
-    /** Additional class name for the form */
-    className?: string;
-
-    onSubmit: (creds: IRegisterParams) => void;
-
-    onAlertDismiss: () => void;
-
+    /** API error message (displayed inside an alert box). */
     errorMessage?: string | null;
+    /** Is authentication currently in progress? */
+    isFetching: boolean;
+
+    /**
+     * Callback fired when the user dismisser the alert box.
+     */
+    onDismissError: () => void;
+    /**
+     * Callback fired when the user submits the form.
+     *
+     * @param values The submitted values.
+     */
+    onSubmit: (values: IRegisterFormValues) => void;
 }
 
+/**
+ * Application register form.
+ *
+ * @param props The component props.
+ * @returns The element to render.
+ */
 export const RegisterForm: FC<IRegisterFormProps> = ({
-    className,
     errorMessage,
-    onAlertDismiss,
+    isFetching,
+    onDismissError,
     onSubmit,
 }) => {
     const {
@@ -72,80 +59,96 @@ export const RegisterForm: FC<IRegisterFormProps> = ({
         isSubmitting,
         touched,
         values,
-        setFieldValue,
-    } = useFormik<IRegisterValues>({
-        initialValues,
+    } = useRegisterForm({
+        isFetching,
         onSubmit,
-        validate,
     });
 
     return (
-        <AuthForm className={className} onSubmit={handleSubmit}>
-            <AuthForm.Title>Sign Up to DevCircle</AuthForm.Title>
+        <form
+            className={styles.form}
+            method="post"
+            noValidate
+            onSubmit={handleSubmit}
+        >
+            <h2 className={styles.title}>Sign Up to DevCircle</h2>
 
             {errorMessage &&
-                <Alert onDismiss={onAlertDismiss}>{errorMessage}</Alert>
+                <Alert onDismiss={onDismissError}>{errorMessage}</Alert>
             }
 
-            <AuthForm.Field
-                type="text"
-                name="fullName"
-                placeholder="Full Name"
-                onChange={handleChange}
-                value={values.fullName}
+            <FormInput
+                className={styles.field}
                 error={touched.fullName ? errors.fullName : undefined}
+                hideLabel
+                id="register-full-name"
+                label="Full Name"
+                name="fullName"
+                onChange={handleChange}
+                placeholder="Full Name"
+                value={values.fullName}
             />
 
-            <AuthForm.Field
-                type="text"
-                name="email"
-                placeholder="Type email"
-                onChange={handleChange}
-                value={values.email}
+            <FormInput
+                className={styles.field}
                 error={touched.email ? errors.email : undefined}
-            />
-
-            <AuthForm.Field
-                type="password"
-                name="password"
-                placeholder="Password"
+                hideLabel
+                id="register-email"
+                label="Email Address"
+                name="email"
                 onChange={handleChange}
-                value={values.password}
-                error={touched.password ? errors.password : undefined}
+                placeholder="Email Address"
+                type="email"
+                value={values.email}
             />
 
-            <AuthForm.Checkbox
-                id="terms"
-                name="agree"
-                onChange={(e) => {
-                    const target = e.target as HTMLInputElement;
-                    console.log(target.name, target.checked);
-                    setFieldValue(target.name, target.checked);
-                }}
-                checked={values.agree}
-                error={touched.agree ? errors.agree : undefined}
+            <FormInput
+                className={styles.field}
+                error={touched.password ? errors.password : undefined}
+                hideLabel
+                id="register-password"
+                label="Password"
+                name="password"
+                onChange={handleChange}
+                placeholder="Password"
+                value={values.password}
+            />
+
+            <FormCheck
+                checked={values.consent}
+                className={styles.field}
+                error={touched.consent ? errors.consent : undefined}
+                id="consent"
+                name="consent"
+                onChange={handleChange}
             >
-                I agree to DevCircle’s
-                {' '}
-                <Link theme="alt" to="/terms">Terms of Service</Link>
-                ,
-                {' '}
-                <Link theme="alt" to="/policy">Policy</Link>
-                {' '}
-                and
-                {' '}
-                <Link theme="alt" to="/content-policies">Content Policies</Link>.
-            </AuthForm.Checkbox>
+                {'I agree to DevCircle’s '}
+                <Link theme="alt" href="/terms">
+                    Terms of Service
+                </Link>
+                {', '}
+                <Link theme="alt" href="/policy">
+                    Policy
+                </Link>
+                {' and '}
+                <Link theme="alt" href="/content-policies">
+                    Content Policies
+                </Link>
+                .
+            </FormCheck>
 
-            <AuthForm.Submit disabled={isSubmitting}>
+            <SubmitButton
+                className={styles.submitButton}
+                isSubmitting={isSubmitting}
+            >
                 Register Now
-            </AuthForm.Submit>
+            </SubmitButton>
 
-            <AuthForm.Callout>
+            <div className={styles.bottomText}>
                 If you have an account?
                 {' '}
-                <Link to="/login">Login</Link>
-            </AuthForm.Callout>
-        </AuthForm>
+                <Link href="/login">Login</Link>
+            </div>
+        </form>
     );
 };

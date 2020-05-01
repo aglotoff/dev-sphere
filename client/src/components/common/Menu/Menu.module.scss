@@ -1,0 +1,42 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.link {
+    display: flex;
+    padding: 0.9em 1.6em;
+    width: 100%;
+
+    color: $color-empress;
+    font-family: $font-family-default;
+    font-size: 0.75rem;
+    text-align: left;
+    text-decoration: none;
+
+    background: $color-alabaster;
+    border: 0;
+    border-left: 2px solid transparent;
+    cursor: pointer;
+    outline: 0;
+
+    transition: background-color 0.2s linear;
+
+    &:hover {
+        background: $color-white;
+    }
+
+    @include focus-utility() {
+        box-shadow: 0 0 0 2px inset $color-persimmon;
+    }
+
+    &_active {
+        color: $color-cinnabar;
+
+        border-left-color: $color-cinnabar;
+    }
+}
+
+.badge {
+    margin-left: auto;
+
+    color: $color-mine-shaft;
+}
