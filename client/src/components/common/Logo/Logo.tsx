@@ -28,6 +28,9 @@ export interface ILogoProps {
 
 /**
  * Application logo, also acts as a link to the home page.
+ *
+ * @param props The component props.
+ * @returns The element to render.
  */
 export const Logo: FC<ILogoProps> = ({
     className,
