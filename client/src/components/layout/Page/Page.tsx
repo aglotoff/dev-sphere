@@ -4,7 +4,7 @@
  */
 
 // Imports
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC } from 'react';
 import DocumentTitle from 'react-document-title';
 
 // UI Imports
@@ -31,7 +31,7 @@ export interface IPageProps {
  * @param param The component props.
  * @returns The element to render.
  */
-export const Page: FC<PropsWithChildren<IPageProps>> = ({
+export const Page: FC<IPageProps> = ({
     title,
     children,
 }) => (

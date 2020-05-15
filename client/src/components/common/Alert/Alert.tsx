@@ -7,12 +7,7 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import React, {
-    FC,
-    MouseEventHandler,
-    PropsWithChildren,
-    useState,
-} from 'react';
+import React, { FC, MouseEventHandler, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 // CSS Imports
@@ -53,7 +48,7 @@ const TRANSITION_DURATION = 200;
  * @param props The component props.
  * @return The element to render.
  */
-export const Alert: FC<PropsWithChildren<IAlertProps>> = ({
+export const Alert: FC<IAlertProps> = ({
     children,
     className,
     onDismiss,

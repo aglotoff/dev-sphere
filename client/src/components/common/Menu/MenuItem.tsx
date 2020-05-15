@@ -4,11 +4,7 @@
  */
 
 // Imports
-import React, {
-    FC,
-    MouseEventHandler,
-    PropsWithChildren,
-} from 'react';
+import React, { FC, MouseEventHandler } from 'react';
 import { NavLink } from 'react-router-dom';
 
 // CSS Imports
@@ -35,7 +31,7 @@ export interface IMenuItemProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const MenuItem: FC<PropsWithChildren<IMenuItemProps>> = ({
+export const MenuItem: FC<IMenuItemProps> = ({
     badge,
     children,
     href,

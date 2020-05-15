@@ -5,7 +5,7 @@
 
 // Imports
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC } from 'react';
 
 // UI Imports
 import { Button } from '../Button';
@@ -26,7 +26,7 @@ export interface ISubmitButtonProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const SubmitButton: FC<PropsWithChildren<ISubmitButtonProps>> = ({
+export const SubmitButton: FC<ISubmitButtonProps> = ({
     children,
     className,
     isSubmitting,

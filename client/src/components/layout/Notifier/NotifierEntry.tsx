@@ -4,7 +4,7 @@
  */
 
 // Imports
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 
 // UI Imports
@@ -31,7 +31,7 @@ export interface INotifierEntryProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const NotifierEntry: FC<PropsWithChildren<INotifierEntryProps>> = ({
+export const NotifierEntry: FC<INotifierEntryProps> = ({
     children,
     linkText,
     picture,

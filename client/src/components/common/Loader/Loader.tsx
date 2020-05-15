@@ -5,7 +5,7 @@
 
 // Imports
 import classNames from 'classnames';
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC } from 'react';
 
 // CSS Imports
 import styles from './Loader.module.scss';
@@ -24,7 +24,7 @@ export interface ILoaderProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const Loader: FC<PropsWithChildren<ILoaderProps>> = ({
+export const Loader: FC<ILoaderProps> = ({
     children,
     className,
 }) => (

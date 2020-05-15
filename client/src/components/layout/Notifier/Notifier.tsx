@@ -5,7 +5,7 @@
 
 // Imports
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC } from 'react';
 import Media from 'react-media';
 import { NavLink } from 'react-router-dom';
 
@@ -49,7 +49,7 @@ export interface INotifierProps {
  * @param props The component props.
  * @return The element to render.
  */
-export const NotifierMobile: FC<PropsWithChildren<INotifierProps>> = ({
+export const NotifierMobile: FC<INotifierProps> = ({
     icon,
     title,
     viewAllUrl,
@@ -68,7 +68,7 @@ export const NotifierMobile: FC<PropsWithChildren<INotifierProps>> = ({
  * @param props The component props.
  * @return The element to render.
  */
-export const NotifierDesktop: FC<PropsWithChildren<INotifierProps>> = ({
+export const NotifierDesktop: FC<INotifierProps> = ({
     children,
     emptyText = 'You have no unread notifications',
     icon,
@@ -142,7 +142,7 @@ export const NotifierDesktop: FC<PropsWithChildren<INotifierProps>> = ({
  * @param props The component props.
  * @return The element to render.
  */
-export const Notifier: FC<PropsWithChildren<INotifierProps>> = (props) => (
+export const Notifier: FC<INotifierProps> = (props) => (
     <Media query="(min-width: 60em)">
         {(matches) => matches ? (
             <NotifierDesktop {...props} />
