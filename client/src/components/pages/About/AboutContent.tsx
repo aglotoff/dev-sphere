@@ -7,6 +7,9 @@
 import React, { FC } from 'react';
 
 // UI Imports
+import { AboutUs } from '../../about/AboutUs';
+import { Team } from '../../about/Team';
+import { Testimonials } from '../../about/Testimonials';
 import { Breadcrumbs } from '../../layout/Breadcrumbs';
 
 /**
@@ -24,6 +27,10 @@ export const AboutContent: FC = () => (
             label: 'About',
             url: '/about',
         }]} />
+
+        <AboutUs />
+        <Team />
+        <Testimonials />
     </>
 );
 

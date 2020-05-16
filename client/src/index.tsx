@@ -17,6 +17,14 @@ import './assets/fonts/Metropolis-Regular.woff';
 import './assets/fonts/Metropolis-Regular.woff2';
 import './assets/fonts/Metropolis-SemiBold.woff';
 import './assets/fonts/Metropolis-SemiBold.woff2';
+import './assets/fonts/OpenSans-Bold.woff';
+import './assets/fonts/OpenSans-Bold.woff2';
+import './assets/fonts/OpenSans-BoldItalic.woff';
+import './assets/fonts/OpenSans-BoldItalic.woff2';
+import './assets/fonts/OpenSans-Italic.woff';
+import './assets/fonts/OpenSans-Italic.woff2';
+import './assets/fonts/OpenSans-Regular.woff';
+import './assets/fonts/OpenSans-Regular.woff2';
 
 // Global CSS Imports
 import './assets/styles/main.scss';

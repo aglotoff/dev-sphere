@@ -1,0 +1,42 @@
+@import "../../../assets/styles/variables";
+@import "../../../assets/styles/mixins";
+
+.title {
+    color: $color-mine-shaft;
+    font-size: 1rem;
+    font-weight: $font-weight-bold;
+    line-height: 1;
+
+    @media screen and (min-width: 30em) {
+        font-size: 1.125rem;
+    }
+
+    &_centered {
+        text-align: center;
+    }
+
+    &_large {
+        font-size: 1.25rem;
+
+        @media screen and (min-width: 30em) {
+            font-size: 1.5rem;
+        }
+    }
+
+    &_inverse {
+        color: $color-white;
+    }
+}
+
+.link {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    @include focus-utility() {
+        outline: 2px solid $color-persimmon;
+    }
+}

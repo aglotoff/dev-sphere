@@ -1,0 +1,41 @@
+@import "../../../assets/styles/variables";
+@import '../../../assets/styles/mixins';
+
+.container {
+    background: $color-white;
+
+    padding-bottom: 3.125em;
+    padding-top: 2.875em;
+}
+
+.inner {
+    @include container();
+}
+
+.memberList {
+    margin-top: 1.75em;
+
+    @media screen and (min-width: 35em) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-left: -0.875em;
+        margin-right: -0.875em;
+        margin-top: 1.125em;
+    }
+}
+
+.member {
+    margin-top: 1em;
+
+    @media screen and (min-width: 35em) {
+        flex: 0 0 auto;
+        margin-top: 1.75em;
+        padding: 0 0.875em;
+        width: 50%;
+    }
+
+    @media screen and (min-width: 48em) {
+        width: 33.3333%;
+    }
+}
