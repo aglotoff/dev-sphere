@@ -7,11 +7,7 @@
 import { IconDefinition } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
-import React, {
-    FC,
-    MouseEventHandler,
-    PropsWithChildren,
-} from 'react';
+import React, { FC, MouseEventHandler } from 'react';
 
 // CSS Imports
 import styles from './Button.module.scss';
@@ -52,7 +48,7 @@ export interface IButtonProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const Button: FC<PropsWithChildren<IButtonProps>> = ({
+export const Button: FC<IButtonProps> = ({
     animateSpinner,
     children,
     disabled,

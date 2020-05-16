@@ -4,10 +4,15 @@
  */
 
 // Imports
+import loadable from '@loadable/component';
 import React, { FC } from 'react';
 
 // UI Imports
-import { Page } from '../../layout/Page';
+import { Page, PageLoader } from '../../layout/Page';
+
+const AboutContent = loadable(() => import('./AboutContent'), {
+    fallback: <PageLoader />,
+});
 
 /**
  * The Application About page.
@@ -17,6 +22,6 @@ import { Page } from '../../layout/Page';
  */
 export const About: FC = () => (
     <Page title="About - DevSphere">
-        About (:
+        <AboutContent />
     </Page>
 );

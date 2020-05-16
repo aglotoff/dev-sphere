@@ -5,7 +5,7 @@
 
 // Imports
 import classNames from 'classnames';
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC } from 'react';
 
 // CSS Imports
 import styles from './FormGroup.module.scss';
@@ -24,7 +24,7 @@ export interface IFormGroupProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const FormGroup: FC<PropsWithChildren<IFormGroupProps>> = ({
+export const FormGroup: FC<IFormGroupProps> = ({
     children,
     className,
 }) => (

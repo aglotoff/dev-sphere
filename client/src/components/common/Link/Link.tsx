@@ -5,11 +5,7 @@
 
 // Imports
 import classNames from 'classnames';
-import React, {
-    AnchorHTMLAttributes,
-    forwardRef,
-    PropsWithChildren,
-} from 'react';
+import React, { AnchorHTMLAttributes, forwardRef } from 'react';
 import { NavLink } from 'react-router-dom';
 
 // CSS Imports
@@ -44,10 +40,7 @@ export interface ILinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
  * @param props The component props.
  * @returns The element to render.
  */
-export const Link = forwardRef<
-    HTMLAnchorElement,
-    PropsWithChildren<ILinkProps>
->((
+export const Link = forwardRef<HTMLAnchorElement, ILinkProps>((
     { children, className, href, theme = 'default', ...restProps },
     forwardedRef,
 ) => {

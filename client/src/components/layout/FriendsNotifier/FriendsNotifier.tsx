@@ -101,11 +101,12 @@ export const FriendsNotifier: FC<IFriendsNotifierProps> = ({
         viewAllText="View All Friend Requests"
         viewAllUrl="/friends"
     >
-        {items.map(({ userId, userName, profileUrl }) => (
+        {items.map(({ userId, userName, profileUrl, picture }) => (
             <FriendsNotification
                 key={userId}
                 userName={userName}
                 profileUrl={profileUrl}
+                picture={picture}
                 onAcceptClick={(e) => {
                     // Prevent the dropdown from collapsing when clicking on
                     // the "accept" button.

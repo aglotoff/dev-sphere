@@ -4,7 +4,7 @@
  */
 
 // Imports
-import React, { ChangeEventHandler, FC, PropsWithChildren } from 'react';
+import React, { ChangeEventHandler, FC } from 'react';
 
 // UI Imports
 import { Checkbox } from '../Checkbox';
@@ -38,7 +38,7 @@ export interface IFormCheckProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const FormCheck: FC<PropsWithChildren<IFormCheckProps>> = ({
+export const FormCheck: FC<IFormCheckProps> = ({
     checked,
     children,
     className,

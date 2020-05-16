@@ -5,12 +5,7 @@
 
 // Imports
 import classNames from 'classnames';
-import React, {
-    FC,
-    PropsWithChildren,
-    ReactElement,
-    Ref,
-} from 'react';
+import React, { FC, ReactElement, Ref } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 // CSS Imports
@@ -66,7 +61,7 @@ const TRANSITION_DURATION = 200;
  * @param props The component props.
  * @returns The element to render.
  */
-export const Dropdown: FC<PropsWithChildren<IDropdownProps>> = ({
+export const Dropdown: FC<IDropdownProps> = ({
     children,
     className,
     popupId,

@@ -4,7 +4,7 @@
  */
 
 // Imports
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC } from 'react';
 import DocumentTitle from 'react-document-title';
 
 // UI Imports
@@ -37,7 +37,7 @@ export interface IAuthPageProps {
  *
  * @param props The component props
  */
-export const AuthPage: FC<PropsWithChildren<IAuthPageProps>> = ({
+export const AuthPage: FC<IAuthPageProps> = ({
     children,
     heading,
     title,

@@ -4,7 +4,7 @@
  */
 
 // Imports
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC } from 'react';
 
 // CSS Imports
 import styles from './Menu.module.scss';
@@ -18,7 +18,7 @@ import styles from './Menu.module.scss';
  * @param props The component props.
  * @returns The element to render.
  */
-export const Menu: FC<PropsWithChildren<{}>> = ({ children }) => (
+export const Menu: FC = ({ children }) => (
     <ul className={styles.menu}>
         {children}
     </ul>

@@ -21,3 +21,12 @@
         @content;
     }
 }
+
+/// Responsive container with max width
+/// @group helpers
+@mixin container() {
+    margin: 0 auto;
+    max-width: 75em;
+    padding-left: 1em;
+    padding-right: 1em;
+}

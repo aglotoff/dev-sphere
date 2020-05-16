@@ -17,9 +17,8 @@
 
 .button {
     align-items: center;
-    display: flex;
+    display: inline-flex;
     justify-content: center;
-    padding: 0 1.25em;
 
     color: $color-white;
     font-family: $font-family-default;
@@ -45,20 +44,17 @@
     }
 
     &_size_sm {
-        padding-bottom: 0.9em;
-        padding-top: 0.9em;
+        padding: 0.9em 1.25em;
 
         font-size: 0.625em;
     }
 
     &_size_md {
-        padding-bottom: 0.825em;
-        padding-top: 0.825em;
+        padding: 0.825em 1.25em;
     }
 
     &_size_lg {
-        padding-bottom: 1.25em;
-        padding-top: 1.25em;
+        padding: 1.125em 1.375em ;
     }
 
     &_sharpTop {

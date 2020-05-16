@@ -4,7 +4,7 @@
  */
 
 // Imports
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC } from 'react';
 
 // CSS Imports
 import styles from './FormGroup.module.scss';
@@ -23,7 +23,7 @@ export interface IFormGroupErrorProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const FormGroupError: FC<PropsWithChildren<IFormGroupErrorProps>> = ({
+export const FormGroupError: FC<IFormGroupErrorProps> = ({
     children,
     id,
 }) => (

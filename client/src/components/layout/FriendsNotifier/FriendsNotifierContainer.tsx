@@ -9,6 +9,11 @@ import React, { FC } from 'react';
 // UI Imports
 import { FriendsNotifier } from './FriendsNotifier';
 
+// Photo Imports
+import pic2 from '../../../assets/images/avatars/MjEzMDIuanBn.jpg';
+import pic1 from '../../../assets/images/avatars/XzA1NjkxNzQuanBn.jpg';
+import pic3 from '../../../assets/images/avatars/XzA2NzExMjQuanBn.jpg';
+
 /**
  * Container component for the Friend Requests Notifier.
  *
@@ -20,14 +25,17 @@ export const FriendsNotifierContainer: FC = () => {
         userId: '1',
         userName: 'Jessica William',
         profileUrl: '/',
+        picture: pic1,
     }, {
         userId: '2',
         userName: 'Rock Smith',
         profileUrl: '/',
+        picture: pic2,
     }, {
         userId: '3',
-        userName: 'Joy Doe',
+        userName: 'Jane Doe',
         profileUrl: '/',
+        picture: pic3,
     }];
 
     const handleAccept = () => null;

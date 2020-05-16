@@ -21,19 +21,19 @@ export const MiscNotifierContainer: FC = () => {
         title: 'Jassica William',
         description: 'comment on your video',
         url: '/',
-        time: new Date(Date.now() - 720000),
+        time: new Date(Date.now() - 720),
     }, {
         id: '2',
         title: 'Congratulations!',
         description: 'your order is accepted',
         url: '/',
-        time: new Date(Date.now() - 300000),
+        time: new Date(Date.now() - 300),
     }, {
         id: '3',
         title: 'Tickets!',
         description: 'your bill slip sent on your email',
         url: '/',
-        time: new Date(Date.now() - 1500000),
+        time: new Date(Date.now() - 1500),
     }];
 
     const handleClearAll = () => null;

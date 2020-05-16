@@ -1,0 +1,66 @@
+@import '../../../assets/styles/variables';
+
+.loader {
+    display: inline-flex;
+    padding: 0.25em;
+
+    background: $color-white;
+    border: 1px solid $color-mercury;
+    border-radius: 0.625em;
+}
+
+.loader:before,
+.loader:after,
+.text {
+    height: 0.625em;
+    width: 0.625em;
+
+    background: $color-mine-shaft;
+    border-radius: 50%;
+
+    animation: loader-dot 1000ms infinite;
+}
+
+.loader:before,
+.loader:after {
+    content: "";
+}
+
+.loader:before {
+    animation-delay: 0s;
+}
+
+.loader:after {
+    animation-delay: 250ms;
+}
+
+.text {
+    margin: 0 0.3125em;
+
+    text-indent: 100em;
+    overflow: hidden;
+
+    animation-delay: 125ms;
+}
+
+@keyframes loader-dot {
+    0% {
+        opacity: 0.4;
+    }
+
+    25% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 0.4;
+    }
+}
