@@ -41,3 +41,7 @@ npm run dev-client
 ### License
 
 This project is licensed under the MIT License
+
+### People Photos
+
+People photos are generated using this service: https://generated.photos/
