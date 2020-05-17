@@ -12,6 +12,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { About } from '../../pages/About';
 import { Home } from '../../pages/Home';
 import { Login } from '../../pages/Login';
+import { NotFound } from '../../pages/NotFound';
 import { Register } from '../../pages/Register';
 
 // UI Imports
@@ -43,11 +44,13 @@ export const App: FC = () => {
                 <SkipLink />
 
                 <Switch>
-                    <Route path="/about" component={About} />
+                    <Route path="/about" component={About} exact />
 
-                    <LoggedOutRoute path="/login" component={Login} />
-                    <LoggedOutRoute path="/register" component={Register} />
-                    <LoggedInRoute path="/" component={Home} />
+                    <LoggedOutRoute path="/login" component={Login} exact />
+                    <LoggedOutRoute path="/register" component={Register} exact />
+                    <LoggedInRoute path="/" component={Home} exact />
+
+                    <Route component={NotFound} />
                 </Switch>
             </BrowserRouter>
         </DocumentTitle>
