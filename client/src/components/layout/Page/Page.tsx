@@ -11,6 +11,9 @@ import DocumentTitle from 'react-document-title';
 import { Footer } from '../Footer';
 import { HeaderContainer } from '../Header';
 
+// Hook Imports
+import { useScrollRestore } from '../../../hooks';
+
 // CSS Imports
 import styles from './Page.module.scss';
 
@@ -34,16 +37,20 @@ export interface IPageProps {
 export const Page: FC<IPageProps> = ({
     title,
     children,
-}) => (
-    <DocumentTitle title={title}>
-        <div className={styles.page}>
-            <HeaderContainer />
+}) => {
+    useScrollRestore();
 
-            <main className={styles.main} id="content">
-                {children}
-            </main>
+    return (
+        <DocumentTitle title={title}>
+            <div className={styles.page}>
+                <HeaderContainer />
 
-            <Footer className={styles.footer} />
-        </div>
-    </DocumentTitle>
-);
+                <main className={styles.main} id="content">
+                    {children}
+                </main>
+
+                <Footer className={styles.footer} />
+            </div>
+        </DocumentTitle>
+    );
+};
