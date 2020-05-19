@@ -21,9 +21,9 @@ import { TeamMember } from '../TeamMember';
 import styles from './Team.module.scss';
 
 // Image Imports
-import pic1 from '../../../assets/images/avatars/MzA4ODMuanBn.jpg';
-import pic3 from '../../../assets/images/avatars/XzAwMTIxMTIuanBn.jpg';
-import pic2 from '../../../assets/images/avatars/XzAwNzA1NjUuanBn.jpg';
+import pic2 from '../../../assets/images/avatars/XzA0ODEzMzAuanBn.jpg';
+import pic3 from '../../../assets/images/avatars/XzA5MTU0MzMuanBn.jpg';
+import pic1 from '../../../assets/images/avatars/XzAyMzg5NzUuanBn.jpg';
 
 const members = [{
     name: 'John Doe',

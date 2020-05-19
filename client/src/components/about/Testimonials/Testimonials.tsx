@@ -47,7 +47,7 @@ export const Testimonials: FC = () => (
                 autoPlay
                 className={styles.carousel}
                 infiniteLoop
-                interval={10000}
+                interval={7500}
                 showArrows={false}
                 showStatus={false}
                 showThumbs={false}
