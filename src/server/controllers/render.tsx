@@ -6,6 +6,7 @@ import { dom } from '@fortawesome/fontawesome-svg-core';
 import { RequestHandler } from 'express';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+import { Helmet } from 'react-helmet';
 import {
     ImportedStream,
     printDrainHydrateMarks,
@@ -44,6 +45,8 @@ export const render: RequestHandler = async (req, res, next) => {
             </Provider>,
         );
 
+        const helmet = Helmet.renderStatic();
+
         const usedStyles = getUsedStyles(html, stylesLookup);
 
         const links = usedStyles.map((fileName) => {
@@ -67,13 +70,14 @@ export const render: RequestHandler = async (req, res, next) => {
 
         res.setHeader('Content-Type', 'text/html');
         res.send(`<!DOCTYPE html>
-<html>
+<html ${helmet.htmlAttributes.toString()}>
     <head>
-        <meta charset="UTF-8" />
-        <title>Hello)))!</title>
+        ${helmet.title.toString()}
+        ${helmet.meta.toString()}
+        ${helmet.link.toString()}
 
         <style>${dom.css()}</style>
-        ${links.join('\n        ')}
+        ${links.join('')}
 
         ${printDrainHydrateMarks(stream)}
     </head>

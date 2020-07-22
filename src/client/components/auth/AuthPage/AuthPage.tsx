@@ -5,7 +5,7 @@
 
 // Imports
 import React, { FC } from 'react';
-import DocumentTitle from 'react-document-title';
+import { Helmet } from 'react-helmet';
 
 // UI Imports
 import { Logo } from '../../common/Logo';
@@ -45,36 +45,38 @@ export const AuthPage: FC<IAuthPageProps> = ({
     useScrollRestore();
 
     return (
-        <DocumentTitle title={title}>
-            <div className={styles.page} id="content">
-                <div className={styles.container}>
-                    <div className={styles.inner}>
-                        <header className={styles.header}>
-                            <Logo showTitle />
+        <div className={styles.page} id="content">
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
 
-                            <h1 className={styles.title}>{heading}</h1>
+            <div className={styles.container}>
+                <div className={styles.inner}>
+                    <header className={styles.header}>
+                        <Logo showTitle />
 
-                            <p className={styles.text}>
-                                This is a toy application, so feel free to use
-                                a fake name and non-existent email for
-                                registration!
-                            </p>
+                        <h1 className={styles.title}>{heading}</h1>
 
-                            <img
-                                alt=""
-                                className={styles.image}
-                                src={loginImage}
-                            />
-                        </header>
+                        <p className={styles.text}>
+                            This is a toy application, so feel free to use
+                            a fake name and non-existent email for
+                            registration!
+                        </p>
 
-                        <main className={styles.form}>
-                            {children}
-                        </main>
-                    </div>
+                        <img
+                            alt=""
+                            className={styles.image}
+                            src={loginImage}
+                        />
+                    </header>
+
+                    <main className={styles.form}>
+                        {children}
+                    </main>
                 </div>
-
-                <Footer className={styles.footer} transparent />
             </div>
-        </DocumentTitle>
+
+            <Footer className={styles.footer} transparent />
+        </div>
     );
 };

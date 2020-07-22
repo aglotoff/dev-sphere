@@ -16,7 +16,7 @@ import { Page } from '../../layout/Page';
  * @return The element to render.
  */
 export const Home: FC = () => (
-    <Page title="DevSphere - Social Network for Developers">
+    <Page>
         Hello
     </Page>
 );

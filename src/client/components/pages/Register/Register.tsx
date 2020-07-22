@@ -17,7 +17,7 @@ import { RegisterFormContainer } from '../../auth/RegisterForm';
  * @return The element to render.
  */
 export const Register: FC = () => (
-    <AuthPage heading="Register Now" title="Register | DevSphere">
+    <AuthPage heading="Register Now" title="Register">
         <RegisterFormContainer />
     </AuthPage>
 );

@@ -17,7 +17,7 @@ import { LoginFormContainer } from '../../auth/LoginForm';
  * @return The element to render.
  */
 export const Login: FC = () => (
-    <AuthPage heading="Login Now" title="Login | DevSphere">
+    <AuthPage heading="Login Now" title="Login">
         <LoginFormContainer />
     </AuthPage>
 );
