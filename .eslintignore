@@ -1,5 +1,4 @@
-.vscode/
-dist/
 node_modules/
 src/client/imported.ts
-package-lock.json
+webpack/
+webpack.config.js
