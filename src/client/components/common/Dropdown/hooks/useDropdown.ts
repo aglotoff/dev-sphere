@@ -52,7 +52,7 @@ export function useDropdown(): IDropdown {
                     (target !== document)
                     && (target instanceof HTMLElement)
                     && dropdownRef.current
-                    && dropdownRef.current.contains(target)
+                    && !dropdownRef.current.contains(target)
                 ) {
                     setExpanded(false);
                 }

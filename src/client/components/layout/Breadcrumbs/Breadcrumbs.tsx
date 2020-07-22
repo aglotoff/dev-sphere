@@ -50,7 +50,7 @@ export const Breadcrumbs: FC<IBreadcrumbsProps> = ({ items }) => (
                     key={url}
                 >
                     <NavLink
-                        aria-current={(i === (items.length - 1)) && 'page'}
+                        aria-current={(i === (items.length - 1)) ? 'page' : undefined}
                         className={styles.link}
                         itemID={url}
                         itemProp="item"

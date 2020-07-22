@@ -11,7 +11,6 @@ import { Carousel } from 'react-responsive-carousel';
 import { Title } from '../../common/Title';
 
 // CSS Imports
-import '../../../assets/styles/test.css';
 import '../../../../../node_modules/react-responsive-carousel/lib/styles/carousel.min.css';
 
 import styles from './Testimonials.module.scss';

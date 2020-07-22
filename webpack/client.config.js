@@ -23,17 +23,13 @@ module.exports = (env) => merge(require('./base.config')({
 
     entry: {
         index: [
-            ...(env.production ? [] : [
-                // Required to  receive notifications abound bundle rebuilds
-                'webpack-hot-middleware/client',
-            ]),
             './src/client/index'
         ],
     },
 
     output: {
-        filename: 'js/[name].bundle.js',
-        chunkFilename: 'js/[name].bundle.js',
+        filename: 'assets/js/[name].bundle.js',
+        chunkFilename: 'assets/js/[name].bundle.js',
         path: path.resolve(__dirname, '..', 'dist', 'public'),
     },
 
@@ -48,11 +44,11 @@ module.exports = (env) => merge(require('./base.config')({
 
         new MiniCssExtractPlugin({
             filename: env.production ?
-                'css/[name].[contenthash:8].css' :
-                'css/[name].css',
+                'assets/css/[name].[contenthash:8].css' :
+                'assets/css/[name].css',
             chunkFilename: env.production ?
-                'css/[name].chunk.[contenthash:8].css' :
-                'css/[name].chunk.css',
+                'assets/css/[name].chunk.[contenthash:8].css' :
+                'assets/css/[name].chunk.css',
         }),
 
         ...(env.production ? [] : [
@@ -60,4 +56,19 @@ module.exports = (env) => merge(require('./base.config')({
             new webpack.HotModuleReplacementPlugin(),
         ])
     ],
+
+    // In development mode, serve the client code using webpack-dev-server
+    devServer: {
+        contentBase: path.join(__dirname, '..', 'dist', 'public'),
+        compress: true,
+        hot: true,
+        port: 3000,
+
+        // Proxy all requests to the backend except those for the assets
+        proxy: [{
+            context: [ '**', '!/assets/**' ],
+            target: 'http://localhost:4000',
+            changeOrigin: true,
+        }],
+    },
 });

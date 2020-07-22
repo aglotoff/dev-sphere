@@ -142,7 +142,7 @@ module.exports = (env) => ({
                         loader: 'file-loader',
                         options: {
                             emitFile: !env.server,
-                            outputPath: 'images',
+                            outputPath: 'assets/images',
                         },
                     }
                 ]
@@ -155,7 +155,7 @@ module.exports = (env) => ({
                         loader: 'file-loader',
                         options: {
                             emitFile: !env.server,
-                            outputPath: 'fonts',
+                            outputPath: 'assets/fonts',
                         },
                     }
                 ]

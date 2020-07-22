@@ -3,12 +3,7 @@
  * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable global-require */
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable no-console */
 
 // Node Imports
 import path from 'path';
@@ -25,7 +20,7 @@ import renderRoute from './routes/render';
 import socialAuthRoute from './routes/socialauth';
 
 // Environment variables
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/devcircle';
 
 const app = express();
@@ -39,21 +34,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/auth', apiAuthRoute);
 app.use('/socialauth', socialAuthRoute);
 app.use('/', renderRoute);
-
-if (process.env.NODE_ENV !== 'production') {
-    const webpack = require('webpack');
-    const webpackDevMiddleware = require('webpack-dev-middleware');
-    const webpackHotMiddleware = require('webpack-hot-middleware');
-
-    const webpackConfig = require('../../webpack.config')()[0];
-    const compiler = webpack(webpackConfig);
-
-    app.use(webpackDevMiddleware(compiler, {
-        publicPath: webpackConfig.output.publicPath,
-    }));
-
-    app.use(webpackHotMiddleware(compiler));
-}
 
 /**
  * Default error handler.
@@ -83,7 +63,7 @@ app.use(handleError);
         });
 
         app.listen(PORT, () => {
-            console.log(`Server listening on port ${PORT}!`);
+            console.log(`Server listening on port ${PORT}`);
         });
     } catch (err) {
         console.log('Database connection error');

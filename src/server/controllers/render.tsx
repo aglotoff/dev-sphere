@@ -81,7 +81,7 @@ export const render: RequestHandler = async (req, res, next) => {
         <div id="root">${html}</div>
 
         <script>window.__PRELOADED_STATE__ = ${preloadedState};</script>
-        <script src="/js/index.bundle.js"></script>
+        <script src="/assets/js/index.bundle.js"></script>
     </body>
 </html>`);
     } catch (err) {
