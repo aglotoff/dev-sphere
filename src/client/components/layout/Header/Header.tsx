@@ -70,15 +70,25 @@ export const HeaderLoggedInView: FC = () => (
  * @returns The element to render.
  */
 export const HeaderLoggedOutView: FC = () => (
-    <header className={styles.header}>
-        <div className={styles.inner}>
-            <Logo className={styles.logo} responsive showTitle />
+    <Media query="(min-width: 60em)">
+        {(matches) => (
+            <header className={styles.header}>
+                <div className={styles.inner}>
+                    <Logo className={styles.logo} responsive showTitle />
 
-            <Button className={styles.loginButton} href="/login">
-                Login
-            </Button>
-        </div>
-    </header>
+                    {matches && <MainMenu className={styles.menu} />}
+
+                    <Button className={styles.loginButton} href="/login">
+                        Login
+                    </Button>
+
+                    {!matches && (
+                        <MobileMenuContainer className={styles.mobileMenu} />
+                    )}
+                </div>
+            </header>
+        )}
+    </Media>
 );
 
 /**

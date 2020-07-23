@@ -88,5 +88,10 @@
 
 .loginButton {
     margin-left: auto;
+    margin-right: 1.25em;
     min-width: 8em;
+
+    @media screen and (min-width: 60em) {
+        margin-right: 0;
+    }
 }

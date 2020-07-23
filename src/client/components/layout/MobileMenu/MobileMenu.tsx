@@ -52,10 +52,10 @@ export interface IMobileMenuProps {
     /** Additional class name. */
     className?: string;
     /** The name of the user. */
-    userName: string;
+    userName?: string;
 
     /** Callback fired when the user selects the logout menu item. */
-    onLogout: () => void;
+    onLogout?: () => void;
 }
 
 /**
@@ -125,21 +125,23 @@ export const MobileMenu: FC<IMobileMenuProps> = ({
 
                 <li className={containerClass}>
                     <ul className={styles.list} onClick={handleListClick}>
-                        <li className={styles.item} key="Profile">
-                            <NavLink
-                                className={classNames(
-                                    styles.link,
-                                    styles.link_profile,
-                                )}
-                                to="/profile"
-                            >
-                                <Thumbnail
-                                    className={styles.profileImage}
-                                    size="xs"
-                                />
-                                {userName}
-                            </NavLink>
-                        </li>
+                        {userName && (
+                            <li className={styles.item} key="Profile">
+                                <NavLink
+                                    className={classNames(
+                                        styles.link,
+                                        styles.link_profile,
+                                    )}
+                                    to="/profile"
+                                >
+                                    <Thumbnail
+                                        className={styles.profileImage}
+                                        size="xs"
+                                    />
+                                    {userName}
+                                </NavLink>
+                            </li>
+                        )}
 
                         {items.map(({ href, key, title }) => (
                             <li className={styles.item} key={key}>
@@ -149,25 +151,27 @@ export const MobileMenu: FC<IMobileMenuProps> = ({
                             </li>
                         ))}
 
-                        <li className={styles.item} key="Logout">
-                            <button
-                                className={styles.link}
-                                onClick={onLogout}
-                                type="button"
-                            >
-                                <span
-                                    aria-hidden="true"
-                                    className={styles.itemIcon}
+                        {onLogout && (
+                            <li className={styles.item} key="Logout">
+                                <button
+                                    className={styles.link}
+                                    onClick={onLogout}
+                                    type="button"
                                 >
-                                    <FontAwesomeIcon
+                                    <span
+                                        aria-hidden="true"
                                         className={styles.itemIcon}
-                                        icon={faSignOutAlt}
-                                    />
-                                </span>
+                                    >
+                                        <FontAwesomeIcon
+                                            className={styles.itemIcon}
+                                            icon={faSignOutAlt}
+                                        />
+                                    </span>
 
-                                Logout
-                            </button>
-                        </li>
+                                    Logout
+                                </button>
+                            </li>
+                        )}
                     </ul>
                 </li>
             </nav>

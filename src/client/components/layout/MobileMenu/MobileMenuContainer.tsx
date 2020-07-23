@@ -35,7 +35,9 @@ export const MobileMenuContainer: FC<IMobileMenuContainerProps> = ({
 
     const user = useSelector(getUser);
     if (user == null) {
-        return null;
+        return (
+            <MobileMenu className={className} />
+        );
     }
 
     const [ firstName ] = user.fullName.split(/\s+/);
