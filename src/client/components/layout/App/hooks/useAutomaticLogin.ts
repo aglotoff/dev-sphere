@@ -8,10 +8,14 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // App Imports
-import { checkLogin, getUser } from '../../../../store/actions/api';
+import {
+    checkLogin,
+    getUser as fetchUser,
+} from '../../../../store/actions/api';
 import {
     getIsLoggedIn,
     getIsLoginChecked,
+    getUser,
 } from '../../../../store/reducers/api';
 
 /**
@@ -27,6 +31,7 @@ export const useAutomaticLogin = () => {
 
     const loggedIn = useSelector(getIsLoggedIn);
     const loginChecked = useSelector(getIsLoginChecked);
+    const user = useSelector(getUser);
 
     useEffect(() => {
         if (!loginChecked) {
@@ -35,10 +40,10 @@ export const useAutomaticLogin = () => {
     }, [ dispatch, loginChecked ]);
 
     useEffect(() => {
-        if (loggedIn) {
-            dispatch(getUser());
+        if (loggedIn && (user === null)) {
+            dispatch(fetchUser());
         }
     }, [ loggedIn, dispatch ]);
 
-    return loginChecked;
+    return { loggedIn, user };
 };

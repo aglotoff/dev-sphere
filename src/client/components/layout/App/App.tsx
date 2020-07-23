@@ -79,13 +79,8 @@ const routes: RouteConfig[] = [
  */
 const ColdApp: FC = () => {
     useFocusTrap('focus-utility');
-    useAutomaticLogin();
 
-    // const loginChecked = useAutomaticLogin();
-    // Prevent the login page from showing up before login is checked
-    // if (!loginChecked) {
-    //     return null;
-    // }
+    const { loggedIn, user } = useAutomaticLogin();
 
     return (
         <>
@@ -107,9 +102,13 @@ const ColdApp: FC = () => {
 
             <SkipLink />
 
-            <Switch>
-                {renderRoutes(routes)}
-            </Switch>
+            {(loggedIn && (user == null)) ? (
+                <div>Wait...</div>
+            ) : (
+                <Switch>
+                    {renderRoutes(routes)}
+                </Switch>
+            )}
         </>
     );
 };
