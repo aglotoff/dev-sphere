@@ -1,39 +1,39 @@
 /**
- * @file API state reducer.
+ * @file Current user reducer.
  * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
 // Imports
-import { combineReducers, Reducer } from 'redux';
+import { Reducer, combineReducers } from 'redux';
 
 // App Imports
 import {
-    SET_API_ERROR,
-    CLEAR_API_ERROR,
-    ApiActionTypes,
-} from '../types/api';
+    FETCH_USER_SUCCESS,
+    SET_USER,
+    User,
+    UserActionTypes,
+} from '../types/user';
 
 /**
- * Store the last API error.
+ * Store the current application user.
  *
  * @param state The current state.
  * @param action The action being dispatched.
  * @returns New state.
  */
-export const error: Reducer<Error | null, ApiActionTypes> = (
+export const current: Reducer<User | null, UserActionTypes> = (
     state = null,
     action,
 ) => {
     switch (action.type) {
-        case SET_API_ERROR:
+        case FETCH_USER_SUCCESS:
+        case SET_USER:
             return action.payload;
-        case CLEAR_API_ERROR:
-            return null;
         default:
             return state;
     }
 };
 
 export default combineReducers({
-    error,
+    current,
 });

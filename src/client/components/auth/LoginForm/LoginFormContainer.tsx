@@ -11,10 +11,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LoginForm } from './LoginForm';
 
 // App Imports
-import { login } from '../../../store/actions/api';
-import { clearError } from '../../../store/actions/error';
-import { getIsAuthenticating } from '../../../store/reducers/api';
-import { ILoginParams } from '../../../store/types/api';
+import { clearAuthError, login } from '../../../store/actions/auth';
+import { getIsAuthenticating } from '../../../store/selectors/auth';
+import { LoginRequestParams } from '../../../store/types/auth';
 
 // Hooks Imports
 import { useURLError } from '../../../hooks';
@@ -32,17 +31,17 @@ export const LoginFormContainer: FC = () => {
 
     const dispatch = useDispatch();
 
-    const handleSubmit = (creds: ILoginParams) => {
+    const handleSubmit = (creds: LoginRequestParams) => {
         dispatch(login(creds));
     };
 
     const handleDismissError = () => {
-        dispatch(clearError());
+        dispatch(clearAuthError());
     };
 
     return (
         <LoginForm
-            errorMessage={error}
+            errorMessage={error && error.message}
             isFetching={isAuthenticating}
             onSubmit={handleSubmit}
             onDismissError={handleDismissError}

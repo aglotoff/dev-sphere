@@ -23,7 +23,7 @@ import { LoggedOutRoute } from '../LoggedOutRoute';
 import { SkipLink } from '../SkipLink';
 
 // Hooks Imports
-import { useAutomaticLogin, useFocusTrap } from './hooks';
+import { useFocusTrap } from './hooks';
 
 // Font Imports
 import '../../../assets/fonts/Metropolis-Bold.woff';
@@ -80,8 +80,6 @@ const routes: RouteConfig[] = [
 const ColdApp: FC = () => {
     useFocusTrap('focus-utility');
 
-    const { loggedIn, user } = useAutomaticLogin();
-
     return (
         <>
             <Helmet
@@ -102,13 +100,9 @@ const ColdApp: FC = () => {
 
             <SkipLink />
 
-            {(loggedIn && (user == null)) ? (
-                <div>Wait...</div>
-            ) : (
-                <Switch>
-                    {renderRoutes(routes)}
-                </Switch>
-            )}
+            <Switch>
+                {renderRoutes(routes)}
+            </Switch>
         </>
     );
 };

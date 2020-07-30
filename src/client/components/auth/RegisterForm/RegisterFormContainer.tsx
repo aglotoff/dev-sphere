@@ -11,10 +11,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RegisterForm } from './RegisterForm';
 
 // App Imports
-import { register } from '../../../store/actions/api';
-import { clearError } from '../../../store/actions/error';
-import { getIsAuthenticating } from '../../../store/reducers/api';
-import { IRegisterParams } from '../../../store/types/api';
+import { clearAuthError, register } from '../../../store/actions/auth';
+import { getIsAuthenticating } from '../../../store/selectors/auth';
+import { RegisterRequestParams } from '../../../store/types/auth';
 
 // Hooks Imports
 import { useURLError } from '../../../hooks';
@@ -32,7 +31,7 @@ export const RegisterFormContainer: FC = () => {
 
     const dispatch = useDispatch();
 
-    const handleSubmit = (creds: IRegisterParams) => {
+    const handleSubmit = (creds: RegisterRequestParams) => {
         dispatch(register({
             fullName: creds.fullName,
             email: creds.email,
@@ -41,13 +40,13 @@ export const RegisterFormContainer: FC = () => {
     };
 
     const handleDismissError = () => {
-        dispatch(clearError());
+        dispatch(clearAuthError());
     };
 
     return (
         <RegisterForm
             isFetching={isAuthenticating}
-            errorMessage={error}
+            errorMessage={error && error.message}
             onSubmit={handleSubmit}
             onDismissError={handleDismissError}
         />

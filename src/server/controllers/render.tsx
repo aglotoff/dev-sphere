@@ -26,11 +26,9 @@ import { discoverProjectStyles, getUsedStyles } from 'used-styles';
 // App Imports
 import '../../client/imported';
 import { App } from '../../client/components/layout/App';
-import configureStore from '../../client/store/configureStore';
-import {
-    LOGIN_SUCCESS,
-    GET_USER_SUCCESS,
-} from '../../client/store/types/api';
+import { configureStore } from '../../client/store';
+import { setAccessToken } from '../../client/store/actions/auth';
+import { setUser } from '../../client/store/actions/user';
 
 // API server name
 const SERVER_NAME = process.env.SERVER_NAME || 'http://localhost:4000';
@@ -74,10 +72,7 @@ const createStore = async (req: Request, res: Response) => {
         }
 
         const accessToken = responseBody.data.accessToken as string;
-        store.dispatch({
-            type: LOGIN_SUCCESS,
-            payload: { accessToken },
-        });
+        store.dispatch(setAccessToken(accessToken));
 
         // Set new refresh token cookie
         const { headers } = response;
@@ -101,10 +96,7 @@ const createStore = async (req: Request, res: Response) => {
 
         responseBody = response.data;
         if (responseBody.success) {
-            store.dispatch({
-                type: GET_USER_SUCCESS,
-                payload: responseBody.data,
-            });
+            store.dispatch(setUser(responseBody.data));
         }
     } catch (err) {
         // eslint-disable-next-line no-console

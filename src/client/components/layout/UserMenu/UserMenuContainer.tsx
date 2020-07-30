@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { UserMenu } from './UserMenu';
 
 // App Imports
-import { logout } from '../../../store/actions/api';
-import { getUser } from '../../../store/reducers/api';
+import { logout } from '../../../store/actions/auth';
+import { getCurrentUser } from '../../../store/selectors/user';
 
 /**
  * Props for the User Menu container component.
@@ -33,7 +33,7 @@ export const UserMenuContainer: FC<IUserMenuContainerProps> = ({
 }) => {
     const dispatch = useDispatch();
 
-    const user = useSelector(getUser);
+    const user = useSelector(getCurrentUser);
     if (user == null) {
         return null;
     }

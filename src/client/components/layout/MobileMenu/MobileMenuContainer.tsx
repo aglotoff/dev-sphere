@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MobileMenu } from './MobileMenu';
 
 // App Imports
-import { logout } from '../../../store/actions/api';
-import { getUser } from '../../../store/reducers/api';
+import { logout } from '../../../store/actions/auth';
+import { getCurrentUser } from '../../../store/selectors/user';
 
 /**
  * Props for the Mobile Menu container component.
@@ -33,7 +33,7 @@ export const MobileMenuContainer: FC<IMobileMenuContainerProps> = ({
 }) => {
     const dispatch = useDispatch();
 
-    const user = useSelector(getUser);
+    const user = useSelector(getCurrentUser);
     if (user == null) {
         return (
             <MobileMenu className={className} />

@@ -11,8 +11,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './imported';
 
 import { App } from './components/layout/App';
-import configureStore from './store/configureStore';
-import { AppState } from './store/reducers/root';
+import { AppState, configureStore } from './store';
 
 declare global {
     interface Window { __PRELOADED_STATE__?: AppState }

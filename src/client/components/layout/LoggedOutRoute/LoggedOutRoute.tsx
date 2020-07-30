@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 // App Imports
-import { getIsLoggedIn } from '../../../store/reducers/api';
+import { getIsLoggedIn } from '../../../store/selectors/auth';
 
 /**
  * Props for the Logged Out Route component.

@@ -8,16 +8,23 @@ import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { Middleware } from 'redux';
 
 // App Imports
-import { refreshToken } from '../actions/api';
-import { getAccessToken, getIsRefreshingToken } from '../reducers/api';
+import { refreshToken } from '../actions/auth';
+import { fetchUser } from '../actions/user';
 import {
-    CHECK_LOGIN_FAILURE,
-    IApiAction,
-    IApiResponse,
+    getAccessToken,
+    getIsRefreshingToken,
+} from '../selectors/auth';
+import {
+    ApiAction,
+    ApiResponse,
     isApiAction,
-    REFRESH_TOKEN_SUCCESS,
+    SET_API_ERROR,
 } from '../types/api';
-import { SET_ERROR } from '../types/error';
+import {
+    REFRESH_TOKEN_SUCCESS,
+    LOGIN_SUCCESS,
+    REGISTER_SUCCESS,
+} from '../types/auth';
 
 const BASE_URL = '/api';
 
@@ -38,14 +45,14 @@ const BASE_URL = '/api';
  */
 export const apiMiddleware: Middleware = ({ dispatch, getState }) => {
     // List of actions waiting for the resfresh token request to complete.
-    const pendingActions: IApiAction[] = [];
+    const pendingActions: ApiAction[] = [];
 
     /**
      * Handle an API request action.
      *
      * @param action The action dispatched.
      */
-    async function handleApiAction(action: IApiAction) {
+    async function handleApiAction(action: ApiAction) {
         const currentState = getState();
         const accessToken = getAccessToken(currentState);
         const isRefreshingToken = getIsRefreshingToken(currentState);
@@ -97,7 +104,7 @@ export const apiMiddleware: Middleware = ({ dispatch, getState }) => {
                 throw new Error(responseBody.message);
             }
         } catch (error) {
-            const axiosError = error as AxiosError<IApiResponse>;
+            const axiosError = error as AxiosError<ApiResponse<unknown>>;
 
             // If the request has been cancelled, no further processing is
             // required.
@@ -135,7 +142,7 @@ export const apiMiddleware: Middleware = ({ dispatch, getState }) => {
             // Allow the caller to handle the error or fall back to the default
             // error action.
             dispatch({
-                type: statusHandlers.failure || SET_ERROR,
+                type: statusHandlers.failure || SET_API_ERROR,
                 payload: error,
                 error: true,
             });
@@ -147,26 +154,27 @@ export const apiMiddleware: Middleware = ({ dispatch, getState }) => {
             return handleApiAction(action);
         }
 
-        // Retry all pending requests upon successful token refresh.
-        if (action.type === REFRESH_TOKEN_SUCCESS) {
-            // Update the access token before issuing new requests.
-            const res = next(action);
+        const res = next(action);
 
-            while (pendingActions.length > 0) {
-                const nextAction = pendingActions.shift() as IApiAction;
-                dispatch(nextAction);
-            }
+        switch (action.type) {
+            // Retry all pending requests upon successful token refresh.
+            case REFRESH_TOKEN_SUCCESS:
+                while (pendingActions.length > 0) {
+                    const nextAction = pendingActions.shift() as ApiAction;
+                    dispatch(nextAction);
+                }
+                break;
 
-            return res;
+            // Fetch user info and notifications upon successful login.
+            case LOGIN_SUCCESS:
+            case REGISTER_SUCCESS:
+                dispatch(fetchUser());
+                break;
+
+            default:
+                break;
         }
 
-        // If initial login check fails, prevent the error from propagating to
-        // the error reducer and showing up in the UI.
-        if (action.type === CHECK_LOGIN_FAILURE) {
-            action.error = false;
-            action.payload = undefined;
-        }
-
-        return next(action);
+        return res;
     };
 };
