@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { Header } from './Header';
 
 // App Imports
-import { getIsLoggedIn } from '../../../store/reducers/api';
+import { getIsLoggedIn } from '../../../store/selectors/auth';
 
 /**
  * Container component for the Header.

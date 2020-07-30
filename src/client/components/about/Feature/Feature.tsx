@@ -18,7 +18,7 @@ import styles from './Feature.module.scss';
 /**
  * Props for the Feature component.
  */
-export interface IFeatureProps {
+export interface FeatureProps {
     /** Feature description. */
     desc: string;
     /** Feature icon. */
@@ -33,7 +33,7 @@ export interface IFeatureProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const Feature: FC<IFeatureProps> = ({
+export const Feature: FC<FeatureProps> = ({
     desc,
     icon,
     title,

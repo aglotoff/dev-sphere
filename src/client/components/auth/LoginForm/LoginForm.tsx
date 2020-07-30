@@ -14,8 +14,11 @@ import { FormInput } from '../../common/FormInput';
 import { Link } from '../../common/Link';
 import { SubmitButton } from '../../common/SubmitButton';
 
+// App Imports
+import { LoginRequestParams } from '../../../store/types/auth';
+
 // Hooks Imports
-import { ILoginFormValues, useLoginForm } from './hooks';
+import { useLoginForm } from './hooks';
 
 // CSS Imports
 import styles from './LoginForm.module.scss';
@@ -38,7 +41,7 @@ export interface ILoginFormProps {
      *
      * @param values The submitted values.
      */
-    onSubmit: (values: ILoginFormValues) => void;
+    onSubmit: (values: LoginRequestParams) => void;
 }
 
 /**

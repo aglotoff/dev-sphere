@@ -1,5 +1,5 @@
 /**
- * @file Social logins routes.
+ * @file Social login controller.
  * @author Andrey Glotov <andrei.glotoff@gmail.com>
  */
 
@@ -10,7 +10,7 @@ import passport from 'passport';
 // App Imports
 import { IUser } from '../models/User';
 
-const SERVER_NAME = process.env.SERVER_NAME || 'http://localhost:3000';
+const SERVER_NAME = process.env.SERVER_NAME || 'http://localhost:4000';
 
 /**
  * Authenticate users using an external social login provider.

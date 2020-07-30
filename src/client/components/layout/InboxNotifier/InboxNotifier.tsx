@@ -17,7 +17,7 @@ import styles from './InboxNotifier.module.scss';
 /**
  * Props for the Inbox Message Notifier Entry component.
  */
-export interface IInboxNotifierEntryProps {
+export interface InboxNotifierEntryProps {
     /** URL of the corresponding chat. */
     chatUrl: string;
     /** Message text. */
@@ -36,7 +36,7 @@ export interface IInboxNotifierEntryProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const InboxNotifierEntry: FC<IInboxNotifierEntryProps> = ({
+export const InboxNotifierEntry: FC<InboxNotifierEntryProps> = ({
     userName,
     userAvatar,
     message,
@@ -62,9 +62,9 @@ export const InboxNotifierEntry: FC<IInboxNotifierEntryProps> = ({
 /**
  * Props for the Inbox Messages Notifier component.
  */
-export interface IInboxNotifierProps {
+export interface InboxNotifierProps {
     /** The items to display inside the dropdown. */
-    items: Array<IInboxNotifierEntryProps & { userId: string; }>;
+    items: Array<InboxNotifierEntryProps & { userId: string; }>;
     /** Handle the clear all action. */
     onClearAll: () => void;
 }
@@ -77,7 +77,7 @@ export interface IInboxNotifierProps {
  * @param param The component props.
  * @returns The element to render.
  */
-export const InboxNotifier: FC<IInboxNotifierProps> = ({
+export const InboxNotifier: FC<InboxNotifierProps> = ({
     items,
     onClearAll,
 }) => (

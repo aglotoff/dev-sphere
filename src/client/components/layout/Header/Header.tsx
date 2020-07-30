@@ -70,21 +70,31 @@ export const HeaderLoggedInView: FC = () => (
  * @returns The element to render.
  */
 export const HeaderLoggedOutView: FC = () => (
-    <header className={styles.header}>
-        <div className={styles.inner}>
-            <Logo className={styles.logo} responsive showTitle />
+    <Media query="(min-width: 60em)">
+        {(matches) => (
+            <header className={styles.header}>
+                <div className={styles.inner}>
+                    <Logo className={styles.logo} responsive showTitle />
 
-            <Button className={styles.loginButton} href="/login">
-                Login
-            </Button>
-        </div>
-    </header>
+                    {matches && <MainMenu className={styles.menu} />}
+
+                    <Button className={styles.loginButton} href="/login">
+                        Login
+                    </Button>
+
+                    {!matches && (
+                        <MobileMenuContainer className={styles.mobileMenu} />
+                    )}
+                </div>
+            </header>
+        )}
+    </Media>
 );
 
 /**
  * Props for the Header component.
  */
-export interface IHeaderProps {
+export interface HeaderProps {
     /** Is the user logged in? */
     isLoggedIn: boolean;
 }
@@ -97,7 +107,7 @@ export interface IHeaderProps {
  *
  * @returns The element to render.
  */
-export const Header: FC<IHeaderProps> = ({ isLoggedIn }) => (isLoggedIn ? (
+export const Header: FC<HeaderProps> = ({ isLoggedIn }) => (isLoggedIn ? (
     <HeaderLoggedInView />
 ) : (
     <HeaderLoggedOutView />

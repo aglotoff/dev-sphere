@@ -24,7 +24,7 @@ export function isExternal(url: string) {
 /**
  * Props for the Link component.
  */
-export interface ILinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
     /** Target URL. */
     href: string;
     /** Appearance theme. */
@@ -40,7 +40,7 @@ export interface ILinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
  * @param props The component props.
  * @returns The element to render.
  */
-export const Link = forwardRef<HTMLAnchorElement, ILinkProps>((
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>((
     {
         children,
         className,

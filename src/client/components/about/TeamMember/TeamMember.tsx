@@ -17,7 +17,7 @@ import styles from './TeamMember.module.scss';
 /**
  * Props for the Team Member component.
  */
-export interface ITeamMemberProps {
+export interface TeamMemberProps {
     /** Name of the person. */
     name: string;
     /** Picture of the person. */
@@ -41,7 +41,7 @@ export interface ITeamMemberProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const TeamMember: FC<ITeamMemberProps> = ({
+export const TeamMember: FC<TeamMemberProps> = ({
     name,
     picture,
     socialLinks,

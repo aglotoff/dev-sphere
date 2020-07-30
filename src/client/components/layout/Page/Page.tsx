@@ -5,7 +5,7 @@
 
 // Imports
 import React, { FC } from 'react';
-import DocumentTitle from 'react-document-title';
+import { Helmet } from 'react-helmet';
 
 // UI Imports
 import { Footer } from '../Footer';
@@ -20,9 +20,9 @@ import styles from './Page.module.scss';
 /**
  * Props for the Page component.
  */
-export interface IPageProps {
+export interface PageProps {
     /** Document title. */
-    title: string;
+    title?: string;
 }
 
 /**
@@ -34,23 +34,25 @@ export interface IPageProps {
  * @param param The component props.
  * @returns The element to render.
  */
-export const Page: FC<IPageProps> = ({
+export const Page: FC<PageProps> = ({
     title,
     children,
 }) => {
     useScrollRestore();
 
     return (
-        <DocumentTitle title={title}>
-            <div className={styles.page}>
-                <HeaderContainer />
+        <div className={styles.page}>
+            <Helmet>
+                {title && <title>{title}</title>}
+            </Helmet>
 
-                <main className={styles.main} id="content">
-                    {children}
-                </main>
+            <HeaderContainer />
 
-                <Footer className={styles.footer} />
-            </div>
-        </DocumentTitle>
+            <main className={styles.main} id="content">
+                {children}
+            </main>
+
+            <Footer className={styles.footer} />
+        </div>
     );
 };

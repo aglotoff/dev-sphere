@@ -5,7 +5,7 @@
 
 // Imports
 import React, { FC } from 'react';
-import DocumentTitle from 'react-document-title';
+import { Helmet } from 'react-helmet';
 import { hot } from 'react-hot-loader';
 import { renderRoutes, RouteConfig } from 'react-router-config';
 import { Switch } from 'react-router-dom';
@@ -23,7 +23,7 @@ import { LoggedOutRoute } from '../LoggedOutRoute';
 import { SkipLink } from '../SkipLink';
 
 // Hooks Imports
-import { useAutomaticLogin, useFocusTrap } from './hooks';
+import { useFocusTrap } from './hooks';
 
 // Font Imports
 import '../../../assets/fonts/Metropolis-Bold.woff';
@@ -79,24 +79,31 @@ const routes: RouteConfig[] = [
  */
 const ColdApp: FC = () => {
     useFocusTrap('focus-utility');
-    useAutomaticLogin();
-
-    // const loginChecked = useAutomaticLogin();
-    // Prevent the login page from showing up before login is checked
-    // if (!loginChecked) {
-    //     return null;
-    // }
 
     return (
-        <DocumentTitle title="DevSphere">
-            <>
-                <SkipLink />
+        <>
+            <Helmet
+                defaultTitle="DevSphere - Social Network for Developers"
+                titleTemplate="%s - DevSphere"
+            >
+                <html lang="en" />
+                <meta charSet="utf-8" />
 
-                <Switch>
-                    {renderRoutes(routes)}
-                </Switch>
-            </>
-        </DocumentTitle>
+                <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+                <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+                <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+                <link rel="manifest" href="/site.webmanifest" />
+                <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+                <meta name="msapplication-TileColor" content="#da532c" />
+                <meta name="theme-color" content="#ffffff" />
+            </Helmet>
+
+            <SkipLink />
+
+            <Switch>
+                {renderRoutes(routes)}
+            </Switch>
+        </>
     );
 };
 

@@ -1,4 +1,7 @@
-// tslint:disable: no-any
+/**
+ * @file Global type declarations.
+ * @author Andrey Glotov <andrei.glotoff@gmail.com>
+ */
 
 // CSS
 declare module '*.scss' {

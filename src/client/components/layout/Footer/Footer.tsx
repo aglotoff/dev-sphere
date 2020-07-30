@@ -38,7 +38,7 @@ const CREATOR_URL = '#';
 /**
  * Props for the Footer component.
  */
-export interface IFooterProps {
+export interface FooterProps {
     /** Additional class name. */
     className?: string;
     /** Use transparent background? */
@@ -51,7 +51,7 @@ export interface IFooterProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const Footer: FC<IFooterProps> = ({
+export const Footer: FC<FooterProps> = ({
     className,
     transparent,
 }) => {

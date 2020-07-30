@@ -31,7 +31,6 @@ export const generateAndSendTokens = async (
 
     res.cookie('refreshtoken', newRefreshToken, {
         httpOnly: true,
-        path: '/api/auth/refresh_token',
         secure: process.env.NODE_ENV === 'production',
     });
 
@@ -157,7 +156,7 @@ export const getUser: RequestHandler = (req, res) => {
 export const logout: RequestHandler = (req, res) => {
     res.clearCookie('refreshtoken', {
         // httpOnly: true,
-        path: '/api/auth/refresh_token',
+        // path: '/api/auth/refresh_token',
         // secure: process.env.NODE_ENV === 'production',
     });
 

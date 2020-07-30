@@ -8,19 +8,8 @@ import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import * as Yup from 'yup';
 
-/**
- * Shape of register form fields.
- */
-export interface IRegisterFormValues {
-    /** Does the user agree to accept the Terms of Service? */
-    consent: boolean;
-    /** User email. */
-    email: string;
-    /** Full user name. */
-    fullName: string;
-    /** User password. */
-    password: string;
-}
+// App Imports
+import { RegisterRequestParams } from '../../../../store/types/auth';
 
 // Validation schema
 const LoginSchema = Yup.object().shape({
@@ -44,7 +33,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 // Initial values
-const initialValues: IRegisterFormValues = {
+const initialValues: RegisterRequestParams = {
     consent: false,
     email: '',
     fullName: '',
@@ -63,7 +52,7 @@ export interface IRegisterFormConfig {
      *
      * @param values Submitted values.
      */
-    onSubmit: (values: IRegisterFormValues) => void;
+    onSubmit: (values: RegisterRequestParams) => void;
 }
 
 /**
@@ -74,7 +63,7 @@ export interface IRegisterFormConfig {
 export function useRegisterForm(config: IRegisterFormConfig) {
     const { isFetching, onSubmit } = config;
 
-    const formik = useFormik<IRegisterFormValues>({
+    const formik = useFormik<RegisterRequestParams>({
         initialValues,
         onSubmit,
         validationSchema: LoginSchema,

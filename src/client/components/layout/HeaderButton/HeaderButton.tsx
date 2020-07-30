@@ -16,7 +16,7 @@ import styles from './HeaderButton.module.scss';
 /**
  * Props for the Header Button component.
  */
-export interface IHeaderButtonProps extends HTMLAttributes<HTMLElement> {
+export interface HeaderButtonProps extends HTMLAttributes<HTMLElement> {
     /** Apply the highlighted class. */
     highlighted?: boolean;
     /** Target URL (if this is a link). */
@@ -39,7 +39,7 @@ export interface IHeaderButtonProps extends HTMLAttributes<HTMLElement> {
  * @param props The component props.
  * @returns The element to render.
  */
-export const HeaderButton = forwardRef<HTMLElement, IHeaderButtonProps>((
+export const HeaderButton = forwardRef<HTMLElement, HeaderButtonProps>((
     {
         className,
         highlighted,

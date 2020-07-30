@@ -13,7 +13,7 @@ import styles from './FormGroup.module.scss';
 /**
  * Props for the Form Group Label component.
  */
-export interface IFormGroupLabelProps {
+export interface FormGroupLabelProps {
     /** Visually hide the label (but leave accessible to screen readers). */
     hidden?: boolean;
     /** ID of the form element this label is bound to. */
@@ -28,7 +28,7 @@ export interface IFormGroupLabelProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const FormGroupLabel: FC<IFormGroupLabelProps> = ({
+export const FormGroupLabel: FC<FormGroupLabelProps> = ({
     children,
     hidden,
     htmlFor,

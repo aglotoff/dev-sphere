@@ -24,7 +24,7 @@ const AboutContent = imported(
  * @return The element to render.
  */
 export const About: FC = () => (
-    <Page title="About - DevSphere">
+    <Page title="About">
         <AboutContent />
     </Page>
 );

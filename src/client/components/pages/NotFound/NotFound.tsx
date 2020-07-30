@@ -17,7 +17,7 @@ import { Page } from '../../layout/Page';
  * @return The element to render.
  */
 export const NotFound: FC = () => (
-    <Page title="Page Not Found - DevSphere">
+    <Page title="Page Not Found">
         <Error404 />
     </Page>
 );

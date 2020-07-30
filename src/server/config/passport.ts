@@ -32,6 +32,7 @@ passport.use('refresh-token', new JwtStrategy({
 }, async (payload, done) => {
     try {
         const user = await User.findById(payload.id);
+
         if (user) {
             return done(null, user);
         }

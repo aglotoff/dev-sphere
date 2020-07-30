@@ -9,12 +9,12 @@ import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 // App Imports
-import { getIsLoggedIn } from '../../../store/reducers/api';
+import { getIsLoggedIn } from '../../../store/selectors/auth';
 
 /**
  * Props for the Logged Out Route component.
  */
-export interface ILoggedOutRouteProps {
+export interface LoggedOutRouteProps {
     /** The component to render when the location matches. */
     component: React.ComponentType;
 }
@@ -28,7 +28,7 @@ export interface ILoggedOutRouteProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const LoggedOutRoute: FC<ILoggedOutRouteProps> = ({
+export const LoggedOutRoute: FC<LoggedOutRouteProps> = ({
     component: Component,
 }) => {
     const isLoggedIn = useSelector(getIsLoggedIn);

@@ -13,7 +13,7 @@ import styles from './Menu.module.scss';
 /**
  * Props for the Menu Item component.
  */
-export interface IMenuItemProps {
+export interface MenuItemProps {
     /** Text for an optional badge. */
     badge?: string;
     /** Target URL, if the item contains a link. */
@@ -31,7 +31,7 @@ export interface IMenuItemProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const MenuItem: FC<IMenuItemProps> = ({
+export const MenuItem: FC<MenuItemProps> = ({
     badge,
     children,
     href,

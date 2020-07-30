@@ -13,7 +13,7 @@ import { Button } from '../Button';
 /**
  * Props for the SUbmit Button component.
  */
-export interface ISubmitButtonProps {
+export interface SubmitButtonProps {
     /** Additional class name. */
     className?: string;
     /** Is the form being currently submitted? */
@@ -26,7 +26,7 @@ export interface ISubmitButtonProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const SubmitButton: FC<ISubmitButtonProps> = ({
+export const SubmitButton: FC<SubmitButtonProps> = ({
     children,
     className,
     isSubmitting,
