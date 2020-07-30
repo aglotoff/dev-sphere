@@ -13,8 +13,11 @@ import { FormInput } from '../../common/FormInput';
 import { Link } from '../../common/Link';
 import { SubmitButton } from '../../common/SubmitButton';
 
+// App Imports
+import { RegisterRequestParams } from '../../../store/types/auth';
+
 // Hooks Imports
-import { IRegisterFormValues, useRegisterForm } from './hooks';
+import { useRegisterForm } from './hooks';
 
 // CSS Imports
 import styles from './RegisterForm.module.scss';
@@ -22,7 +25,7 @@ import styles from './RegisterForm.module.scss';
 /**
  * Props for the register form component.
  */
-export interface IRegisterFormProps {
+export interface RegisterFormProps {
     /** API error message (displayed inside an alert box). */
     errorMessage?: string | null;
     /** Is authentication currently in progress? */
@@ -37,7 +40,7 @@ export interface IRegisterFormProps {
      *
      * @param values The submitted values.
      */
-    onSubmit: (values: IRegisterFormValues) => void;
+    onSubmit: (values: RegisterRequestParams) => void;
 }
 
 /**
@@ -46,7 +49,7 @@ export interface IRegisterFormProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const RegisterForm: FC<IRegisterFormProps> = ({
+export const RegisterForm: FC<RegisterFormProps> = ({
     errorMessage,
     isFetching,
     onDismissError,

@@ -13,7 +13,7 @@ import styles from './Input.module.scss';
 /**
  * Props for the Input Field component.
  */
-export interface IInputProps extends HTMLProps<HTMLInputElement> {
+export interface InputProps extends HTMLProps<HTMLInputElement> {
     invalid?: boolean;
 }
 
@@ -23,7 +23,7 @@ export interface IInputProps extends HTMLProps<HTMLInputElement> {
  * @param props The component props.
  * @returns The element to render.
  */
-export const Input = forwardRef<HTMLInputElement, IInputProps>((
+export const Input = forwardRef<HTMLInputElement, InputProps>((
     { className, invalid, ...restProps },
     forwardedRef,
 ) => {

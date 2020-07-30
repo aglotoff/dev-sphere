@@ -16,7 +16,7 @@ import styles from './Alert.module.scss';
 /**
  * Props for the Alert Box component.
  */
-export interface IAlertProps {
+export interface AlertProps {
     /** Additional class name. */
     className?: string;
     /** Appearance theme. */
@@ -48,7 +48,7 @@ const TRANSITION_DURATION = 200;
  * @param props The component props.
  * @return The element to render.
  */
-export const Alert: FC<IAlertProps> = ({
+export const Alert: FC<AlertProps> = ({
     children,
     className,
     onDismiss,

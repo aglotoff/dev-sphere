@@ -71,6 +71,8 @@ export interface LoginFailureAction extends Action<typeof LOGIN_FAILURE> {
  * Register request body.
  */
 export interface RegisterRequestParams {
+    /** Does the user agree to accept the Terms of Service? */
+    consent: boolean;
     /** Full user name. */
     fullName: string;
     /** User email. */

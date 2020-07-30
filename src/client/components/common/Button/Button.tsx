@@ -15,7 +15,7 @@ import styles from './Button.module.scss';
 /**
  * Props for the Button component.
  */
-export interface IButtonProps {
+export interface ButtonProps {
     /** Animate the spinner icon? */
     animateSpinner?: boolean;
     /** Is the button disabled? */
@@ -48,7 +48,7 @@ export interface IButtonProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const Button: FC<IButtonProps> = ({
+export const Button: FC<ButtonProps> = ({
     animateSpinner,
     children,
     disabled,

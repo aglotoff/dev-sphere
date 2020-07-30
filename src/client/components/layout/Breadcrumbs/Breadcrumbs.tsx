@@ -13,7 +13,7 @@ import styles from './Breadcrumbs.module.scss';
 /**
  * Shape of a breadcrumb item.
  */
-export interface IBreadcrumbsItem {
+export interface BreadcrumbsItem {
     /** Link label. */
     label: string;
     /** Link URL. */
@@ -23,9 +23,9 @@ export interface IBreadcrumbsItem {
 /**
  * Props for the Breadcrumbs component.
  */
-export interface IBreadcrumbsProps {
+export interface BreadcrumbsProps {
     /** The set of links to display. */
-    items: IBreadcrumbsItem[];
+    items: BreadcrumbsItem[];
 }
 
 /**
@@ -34,7 +34,7 @@ export interface IBreadcrumbsProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const Breadcrumbs: FC<IBreadcrumbsProps> = ({ items }) => (
+export const Breadcrumbs: FC<BreadcrumbsProps> = ({ items }) => (
     <nav aria-label="Breadcrumb" className={styles.container}>
         <ol
             className={styles.list}

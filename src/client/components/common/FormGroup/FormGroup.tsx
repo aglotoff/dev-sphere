@@ -13,7 +13,7 @@ import styles from './FormGroup.module.scss';
 /**
  * Props for the Form Group component.
  */
-export interface IFormGroupProps {
+export interface FormGroupProps {
     /** Additional class name. */
     className?: string;
 }
@@ -24,7 +24,7 @@ export interface IFormGroupProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const FormGroup: FC<IFormGroupProps> = ({
+export const FormGroup: FC<FormGroupProps> = ({
     children,
     className,
 }) => (

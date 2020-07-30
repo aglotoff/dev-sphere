@@ -15,7 +15,7 @@ import styles from './Checkbox.module.scss';
 /**
  * Props for the Checkbox component.
  */
-export type ICheckboxProps = HTMLProps<HTMLInputElement> & {
+export type CheckboxProps = HTMLProps<HTMLInputElement> & {
     /** Apply styles to indicate invalid state? */
     invalid?: boolean;
 };
@@ -26,7 +26,7 @@ export type ICheckboxProps = HTMLProps<HTMLInputElement> & {
  * @param props The component props.
  * @returns The element to render.
  */
-export const Checkbox = forwardRef<HTMLInputElement, ICheckboxProps>((
+export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((
     { className, invalid, ...restProps },
     forwardedRef,
 ) => {

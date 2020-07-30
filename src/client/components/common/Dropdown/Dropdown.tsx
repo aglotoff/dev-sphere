@@ -17,7 +17,7 @@ import { useDropdown } from './hooks';
 /**
  * Props injected by the Dropdown component into the button render function.
  */
-export interface IInjectedDropdownButtonProps {
+export interface InjectedDropdownButtonProps {
     /** Ref to be attached to the button. */
     buttonRef: Ref<HTMLButtonElement>;
     /** Is the dropdown expanded?. */
@@ -27,7 +27,7 @@ export interface IInjectedDropdownButtonProps {
 /**
  * Props for the Dropdown component.
  */
-export interface IDropdownProps {
+export interface DropdownProps {
     /** Additional class name. */
     className?: string;
     /** ID attribute for the dropdown popup. */
@@ -39,7 +39,7 @@ export interface IDropdownProps {
      * @param props The props injected by the Dropdown component.
      * @returns The element to render.
      */
-    renderButton: (props: IInjectedDropdownButtonProps) => ReactElement;
+    renderButton: (props: InjectedDropdownButtonProps) => ReactElement;
 }
 
 // Classes applied to the popup during transitions.
@@ -61,7 +61,7 @@ const TRANSITION_DURATION = 200;
  * @param props The component props.
  * @returns The element to render.
  */
-export const Dropdown: FC<IDropdownProps> = ({
+export const Dropdown: FC<DropdownProps> = ({
     children,
     className,
     popupId,

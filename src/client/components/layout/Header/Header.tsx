@@ -94,7 +94,7 @@ export const HeaderLoggedOutView: FC = () => (
 /**
  * Props for the Header component.
  */
-export interface IHeaderProps {
+export interface HeaderProps {
     /** Is the user logged in? */
     isLoggedIn: boolean;
 }
@@ -107,7 +107,7 @@ export interface IHeaderProps {
  *
  * @returns The element to render.
  */
-export const Header: FC<IHeaderProps> = ({ isLoggedIn }) => (isLoggedIn ? (
+export const Header: FC<HeaderProps> = ({ isLoggedIn }) => (isLoggedIn ? (
     <HeaderLoggedInView />
 ) : (
     <HeaderLoggedOutView />

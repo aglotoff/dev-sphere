@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import React, { FC } from 'react';
 
 // UI Imports
-import { Dropdown, IInjectedDropdownButtonProps } from '../../common/Dropdown';
+import { Dropdown, InjectedDropdownButtonProps } from '../../common/Dropdown';
 import { Menu, MenuItem } from '../../common/Menu';
 import { Thumbnail } from '../../common/Thumbnail';
 
@@ -22,7 +22,7 @@ const POPUP_ID = 'user-menu';
 /**
  * Props for the User Menu Toggle component.
  */
-export type IUserMenuToggleProps = IInjectedDropdownButtonProps & {
+export type UserMenuToggleProps = InjectedDropdownButtonProps & {
     /** First name of the user. */
     firstName: string;
     /** User profile picture. */
@@ -35,7 +35,7 @@ export type IUserMenuToggleProps = IInjectedDropdownButtonProps & {
  * @param props The component props.
  * @returns The element to render.
  */
-export const UserMenuToggle: FC<IUserMenuToggleProps> = ({
+export const UserMenuToggle: FC<UserMenuToggleProps> = ({
     buttonRef,
     expanded,
     firstName,
@@ -71,7 +71,7 @@ export const UserMenuToggle: FC<IUserMenuToggleProps> = ({
 /**
  * Props for the User Menu component.
  */
-export interface IUserMenuProps {
+export interface UserMenuProps {
     /** Additional class name. */
     className?: string;
     /** The number of credits the user currently has. */
@@ -91,7 +91,7 @@ export interface IUserMenuProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const UserMenu: FC<IUserMenuProps> = ({
+export const UserMenu: FC<UserMenuProps> = ({
     className,
     credits,
     firstName,

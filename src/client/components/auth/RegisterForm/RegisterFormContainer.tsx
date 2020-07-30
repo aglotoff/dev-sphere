@@ -32,11 +32,7 @@ export const RegisterFormContainer: FC = () => {
     const dispatch = useDispatch();
 
     const handleSubmit = (creds: RegisterRequestParams) => {
-        dispatch(register({
-            fullName: creds.fullName,
-            email: creds.email,
-            password: creds.password,
-        }));
+        dispatch(register(creds));
     };
 
     const handleDismissError = () => {

@@ -14,7 +14,7 @@ import styles from './RichText.module.scss';
 /**
  * Props for the Rich Text component.
  */
-export interface IRichTextProps {
+export interface RichTextProps {
     /** Defines which types of nodes should be allowed (default: all). */
     allowedTypes?: ReactMarkdown.NodeType[];
     /** Additional class name. */
@@ -29,7 +29,7 @@ export interface IRichTextProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const RichText: FC<IRichTextProps> = ({
+export const RichText: FC<RichTextProps> = ({
     allowedTypes,
     children,
     className,

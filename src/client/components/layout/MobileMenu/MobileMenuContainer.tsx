@@ -17,7 +17,7 @@ import { getCurrentUser } from '../../../store/selectors/user';
 /**
  * Props for the Mobile Menu container component.
  */
-export interface IMobileMenuContainerProps {
+export interface MobileMenuContainerProps {
     /** Additional class name. */
     className?: string;
 }
@@ -28,7 +28,7 @@ export interface IMobileMenuContainerProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const MobileMenuContainer: FC<IMobileMenuContainerProps> = ({
+export const MobileMenuContainer: FC<MobileMenuContainerProps> = ({
     className,
 }) => {
     const dispatch = useDispatch();

@@ -20,7 +20,7 @@ import styles from './Page.module.scss';
 /**
  * Props for the Page component.
  */
-export interface IPageProps {
+export interface PageProps {
     /** Document title. */
     title?: string;
 }
@@ -34,7 +34,7 @@ export interface IPageProps {
  * @param param The component props.
  * @returns The element to render.
  */
-export const Page: FC<IPageProps> = ({
+export const Page: FC<PageProps> = ({
     title,
     children,
 }) => {

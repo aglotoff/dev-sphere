@@ -14,7 +14,7 @@ import styles from './Title.module.scss';
 /**
  * Props for the Title component.
  */
-export interface ITitleProps {
+export interface TitleProps {
     /** Center the title horizontally. */
     centered?: boolean;
     /** Additional class name. */
@@ -35,7 +35,7 @@ export interface ITitleProps {
  * @param props The component props.
  * @return The element to render.
  */
-export const Title: FC<ITitleProps> = ({
+export const Title: FC<TitleProps> = ({
     centered,
     children,
     className,

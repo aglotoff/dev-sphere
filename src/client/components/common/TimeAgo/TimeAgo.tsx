@@ -16,7 +16,7 @@ import { useTimestamp } from './hooks';
 /**
  * Props for the Time Ago component.
  */
-export interface ITimeAgoProps {
+export interface TimeAgoProps {
     /** Additional class name. */
     className?: string;
     /** The datetime to display. */
@@ -31,7 +31,7 @@ export interface ITimeAgoProps {
  * @param props The component props.
  * @return The element to render.
  */
-export const TimeAgo: FC<ITimeAgoProps> = ({
+export const TimeAgo: FC<TimeAgoProps> = ({
     datetime,
     className,
     updateInterval,

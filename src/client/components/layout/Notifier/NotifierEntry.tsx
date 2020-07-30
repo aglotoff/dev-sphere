@@ -16,7 +16,7 @@ import styles from './Notifier.module.scss';
 /**
  * Props for the Friend Request Notification component.
  */
-export interface INotifierEntryProps {
+export interface NotifierEntryProps {
     /** Text content of the anchor tag (for accessibility purposes). */
     linkText: string;
     /** Thumbnail picture. */
@@ -31,7 +31,7 @@ export interface INotifierEntryProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const NotifierEntry: FC<INotifierEntryProps> = ({
+export const NotifierEntry: FC<NotifierEntryProps> = ({
     children,
     linkText,
     picture,

@@ -14,7 +14,7 @@ import { getIsLoggedOut } from '../../../store/selectors/auth';
 /**
  * Props for the Logged In Route component.
  */
-export interface ILoggedInRouteProps {
+export interface LoggedInRouteProps {
     /** The component to render when the location matches. */
     component: React.ComponentType;
 }
@@ -28,7 +28,7 @@ export interface ILoggedInRouteProps {
  * @param props The component props.
  * @return The element to render.
  */
-export const LoggedInRoute: FC<ILoggedInRouteProps> = ({
+export const LoggedInRoute: FC<LoggedInRouteProps> = ({
     component: Component,
 }) => {
     const isLoggedOut = useSelector(getIsLoggedOut);

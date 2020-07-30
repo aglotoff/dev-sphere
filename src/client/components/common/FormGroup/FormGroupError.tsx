@@ -12,7 +12,7 @@ import styles from './FormGroup.module.scss';
 /**
  * Props for the Form Group Error component.
  */
-export interface IFormGroupErrorProps {
+export interface FormGroupErrorProps {
     /** ID of the error element. */
     id?: string;
 }
@@ -23,7 +23,7 @@ export interface IFormGroupErrorProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const FormGroupError: FC<IFormGroupErrorProps> = ({
+export const FormGroupError: FC<FormGroupErrorProps> = ({
     children,
     id,
 }) => (

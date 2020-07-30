@@ -17,7 +17,7 @@ import { getCurrentUser } from '../../../store/selectors/user';
 /**
  * Props for the User Menu container component.
  */
-interface IUserMenuContainerProps {
+interface UserMenuContainerProps {
     /** Additional class name. */
     className?: string;
 }
@@ -28,7 +28,7 @@ interface IUserMenuContainerProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const UserMenuContainer: FC<IUserMenuContainerProps> = ({
+export const UserMenuContainer: FC<UserMenuContainerProps> = ({
     className,
 }) => {
     const dispatch = useDispatch();

@@ -32,7 +32,7 @@ const items = [{
 /**
  * Props for the Footer Menu component.
  */
-export interface IFooterMenuProps {
+export interface FooterMenuProps {
     /** Additional class name. */
     className?: string;
 }
@@ -43,7 +43,7 @@ export interface IFooterMenuProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const FooterMenu: FC<IFooterMenuProps> = ({ className }) => {
+export const FooterMenu: FC<FooterMenuProps> = ({ className }) => {
     const footerClass = classNames(
         styles.menu,
         className,

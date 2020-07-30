@@ -48,7 +48,7 @@ const items = [{
 /**
  * Props for the Mobile Menu component.
  */
-export interface IMobileMenuProps {
+export interface MobileMenuProps {
     /** Additional class name. */
     className?: string;
     /** The name of the user. */
@@ -67,7 +67,7 @@ export interface IMobileMenuProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const MobileMenu: FC<IMobileMenuProps> = ({
+export const MobileMenu: FC<MobileMenuProps> = ({
     className,
     onLogout,
     userName,

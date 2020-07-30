@@ -17,7 +17,7 @@ import styles from './MiscNotifier.module.scss';
 /**
  * Props for the Miscellaneous Event Notifier Entry component.
  */
-export interface IMiscNotifierEntryProps {
+export interface MiscNotifierEntryProps {
     /** Related picture or profile avatar.  */
     picture?: string;
     /** Notification title. */
@@ -36,7 +36,7 @@ export interface IMiscNotifierEntryProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const MiscNotifierEntry: FC<IMiscNotifierEntryProps> = ({
+export const MiscNotifierEntry: FC<MiscNotifierEntryProps> = ({
     picture,
     title,
     description,
@@ -61,9 +61,9 @@ export const MiscNotifierEntry: FC<IMiscNotifierEntryProps> = ({
 /**
  * Props for the Miscellaneous Events Notifier component.
  */
-export interface IMiscNotifierProps {
+export interface MiscNotifierProps {
     /** The items to display inside the dropdown. */
-    items: Array<IMiscNotifierEntryProps & { id: string }>;
+    items: Array<MiscNotifierEntryProps & { id: string }>;
     /** Handle the clear all action. */
     onClearAll: () => void;
 }
@@ -76,7 +76,7 @@ export interface IMiscNotifierProps {
  * @param param The component props.
  * @returns The element to render.
  */
-export const MiscNotifier: FC<IMiscNotifierProps> = ({
+export const MiscNotifier: FC<MiscNotifierProps> = ({
     items,
     onClearAll,
 }) => (

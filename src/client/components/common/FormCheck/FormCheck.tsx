@@ -16,7 +16,7 @@ import styles from './FormCheck.module.scss';
 /**
  * Props for the Form Checkbox component.
  */
-export interface IFormCheckProps {
+export interface FormCheckProps {
     /** Additional class name. */
     className?: string;
     /** Optional error message. */
@@ -38,7 +38,7 @@ export interface IFormCheckProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const FormCheck: FC<IFormCheckProps> = ({
+export const FormCheck: FC<FormCheckProps> = ({
     checked,
     children,
     className,

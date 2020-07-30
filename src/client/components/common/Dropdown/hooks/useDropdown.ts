@@ -16,7 +16,7 @@ import {
 /**
  * State of the dropdown component.
  */
-export interface IDropdown {
+export interface Dropdown {
     /** Ref to be attached to the dropdown button. */
     buttonRef: Ref<HTMLButtonElement>;
     /** Ref to be attached to the dropdown container. */
@@ -35,7 +35,7 @@ export interface IDropdown {
  *
  * @returns The state of the Dropdown component.
  */
-export function useDropdown(): IDropdown {
+export function useDropdown(): Dropdown {
     const [ expanded, setExpanded ] = useState(false);
 
     const buttonRef = useRef<HTMLButtonElement>(null);

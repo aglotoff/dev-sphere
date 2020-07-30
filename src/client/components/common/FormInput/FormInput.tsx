@@ -13,7 +13,7 @@ import { Input } from '../Input';
 /**
  * Props for the Form Input component.
  */
-export interface IFormInputProps {
+export interface FormInputProps {
     /** Additional class name. */
     className?: string;
     /** Optional error message. */
@@ -43,7 +43,7 @@ export interface IFormInputProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const FormInput: FC<IFormInputProps> = ({
+export const FormInput: FC<FormInputProps> = ({
     className,
     error,
     hideLabel,

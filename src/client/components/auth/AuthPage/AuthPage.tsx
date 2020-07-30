@@ -23,7 +23,7 @@ import loginImage from '../../../assets/images/login.svg';
 /**
  * Props for the authentication page component
  */
-export interface IAuthPageProps {
+export interface AuthPageProps {
     /** Heading to display in the page header (not the document title). */
     heading: string;
     /** Document title. */
@@ -37,7 +37,7 @@ export interface IAuthPageProps {
  *
  * @param props The component props
  */
-export const AuthPage: FC<IAuthPageProps> = ({
+export const AuthPage: FC<AuthPageProps> = ({
     children,
     heading,
     title,

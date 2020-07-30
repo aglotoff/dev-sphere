@@ -16,7 +16,7 @@ import placeholder from '../../../assets/images/user-placeholder-small.png';
 /**
  * Props for the Thumbnail Component.
  */
-export interface IThumbnailProps {
+export interface ThumbnailProps {
     /** Alternative text description for the image. */
     alt?: string;
     /** Additional class name. */
@@ -33,7 +33,7 @@ export interface IThumbnailProps {
  * @param props The component props.
  * @return The element to render.
  */
-export const Thumbnail: FC<IThumbnailProps> = ({
+export const Thumbnail: FC<ThumbnailProps> = ({
     alt,
     className,
     src = placeholder,

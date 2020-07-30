@@ -20,7 +20,7 @@ import styles from './Notifier.module.scss';
 /**
  * Props for the Top Notifier component.
  */
-export interface INotifierProps {
+export interface NotifierProps {
     /** Additional class name. */
     className?: string;
     /** Text to display if there are no notifications. */
@@ -49,7 +49,7 @@ export interface INotifierProps {
  * @param props The component props.
  * @return The element to render.
  */
-export const NotifierMobile: FC<INotifierProps> = ({
+export const NotifierMobile: FC<NotifierProps> = ({
     icon,
     title,
     viewAllUrl,
@@ -68,7 +68,7 @@ export const NotifierMobile: FC<INotifierProps> = ({
  * @param props The component props.
  * @return The element to render.
  */
-export const NotifierDesktop: FC<INotifierProps> = ({
+export const NotifierDesktop: FC<NotifierProps> = ({
     children,
     emptyText = 'You have no unread notifications',
     icon,
@@ -146,7 +146,7 @@ export const NotifierDesktop: FC<INotifierProps> = ({
  * @param props The component props.
  * @return The element to render.
  */
-export const Notifier: FC<INotifierProps> = (props) => (
+export const Notifier: FC<NotifierProps> = (props) => (
     <Media query="(min-width: 60em)">
         {(matches) => (matches ? (
             <NotifierDesktop {...props} />

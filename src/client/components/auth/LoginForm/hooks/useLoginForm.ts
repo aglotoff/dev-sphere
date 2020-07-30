@@ -8,15 +8,8 @@ import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import * as Yup from 'yup';
 
-/**
- * Shape of login form fields.
- */
-export interface ILoginFormValues {
-    /** User email. */
-    email: string;
-    /** User password. */
-    password: string;
-}
+// App Imports
+import { LoginRequestParams } from '../../../../store/types/auth';
 
 // Validation schema
 const LoginSchema = Yup.object().shape({
@@ -28,7 +21,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 // Initial values
-const initialValues: ILoginFormValues = {
+const initialValues: LoginRequestParams = {
     email: '',
     password: '',
 };
@@ -45,7 +38,7 @@ export interface ILoginFormConfig {
      *
      * @param values Submitted values.
      */
-    onSubmit: (values: ILoginFormValues) => void;
+    onSubmit: (values: LoginRequestParams) => void;
 }
 
 /**
@@ -56,7 +49,7 @@ export interface ILoginFormConfig {
 export function useLoginForm(config: ILoginFormConfig) {
     const { isFetching, onSubmit } = config;
 
-    const formik = useFormik<ILoginFormValues>({
+    const formik = useFormik<LoginRequestParams>({
         initialValues,
         onSubmit,
         validationSchema: LoginSchema,

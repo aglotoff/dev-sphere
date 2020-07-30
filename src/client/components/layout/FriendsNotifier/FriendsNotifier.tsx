@@ -17,7 +17,7 @@ import styles from './FriendsNotifier.module.scss';
 /**
  * Props for the Friend Request Notification component.
  */
-export interface IFriendsNotifierEntry {
+export interface FriendsNotifierEntry {
     /** Handle clicking on the "Accept" button. */
     onAcceptClick?: MouseEventHandler;
     /** User profile picture. */
@@ -34,7 +34,7 @@ export interface IFriendsNotifierEntry {
  * @param props The component props.
  * @returns The element to render.
  */
-export const FriendsNotification: FC<IFriendsNotifierEntry> = ({
+export const FriendsNotification: FC<FriendsNotifierEntry> = ({
     onAcceptClick,
     picture,
     profileUrl,
@@ -64,9 +64,9 @@ export const FriendsNotification: FC<IFriendsNotifierEntry> = ({
 /**
  * Props for the Friend Requests Notifier component.
  */
-export interface IFriendsNotifierProps {
+export interface FriendsNotifierProps {
     /** The items to display inside the dropdown. */
-    items: Array<IFriendsNotifierEntry & { userId: string; }>;
+    items: Array<FriendsNotifierEntry & { userId: string; }>;
     /**
      * Handle the accept friend request action.
      *
@@ -85,7 +85,7 @@ export interface IFriendsNotifierProps {
  * @param param The component props.
  * @returns The element to render.
  */
-export const FriendsNotifier: FC<IFriendsNotifierProps> = ({
+export const FriendsNotifier: FC<FriendsNotifierProps> = ({
     onAccept,
     onClearAll,
     items,

@@ -32,7 +32,7 @@ const items = [{
 /**
  * Props for the Main Menu component.
  */
-export interface IMainMenuProps {
+export interface MainMenuProps {
     /** Additional class name. */
     className?: string;
 }
@@ -43,7 +43,7 @@ export interface IMainMenuProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const MainMenu: FC<IMainMenuProps> = ({ className }) => {
+export const MainMenu: FC<MainMenuProps> = ({ className }) => {
     const menuClass = classNames(
         styles.menu,
         className,

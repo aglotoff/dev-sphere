@@ -17,7 +17,7 @@ import logoImage from '../../../assets/images/logo.svg';
 /**
  * Props for the Logo component.
  */
-export interface ILogoProps {
+export interface LogoProps {
     /** Additional class name. */
     className?: string;
     /** Hide title on mobile screens. */
@@ -32,7 +32,7 @@ export interface ILogoProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const Logo: FC<ILogoProps> = ({
+export const Logo: FC<LogoProps> = ({
     className,
     responsive,
     showTitle,

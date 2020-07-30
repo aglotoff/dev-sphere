@@ -13,7 +13,7 @@ import styles from './Loader.module.scss';
 /**
  * Props for the Loader component.
  */
-export interface ILoaderProps {
+export interface LoaderProps {
     /** Additional class name. */
     className?: string;
 }
@@ -24,7 +24,7 @@ export interface ILoaderProps {
  * @param props The component props.
  * @returns The element to render.
  */
-export const Loader: FC<ILoaderProps> = ({
+export const Loader: FC<LoaderProps> = ({
     children,
     className,
 }) => (
